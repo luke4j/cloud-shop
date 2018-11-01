@@ -25,9 +25,11 @@ public class LoginDao implements ILoginDao {
 
     private Session getSession() throws Exception{
         Session session = null ;
-        session = this.sessionFactory.getCurrentSession() ;
-        if(session==null)
+        try{
+            session = this.sessionFactory.getCurrentSession() ;
+        }catch (Exception e){
             session = this.sessionFactory.openSession() ;
+        }
         return session ;
     }
 

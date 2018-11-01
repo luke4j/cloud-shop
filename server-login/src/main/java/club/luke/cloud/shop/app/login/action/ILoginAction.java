@@ -6,6 +6,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,8 +18,9 @@ import javax.servlet.http.HttpServletResponse;
 public interface ILoginAction {
 
 
-    @RequestMapping(path = "/getBlogger" ,method = RequestMethod.GET)
+    @RequestMapping(path = "/gotologin" ,method = RequestMethod.GET)
     @ApiOperation(value = "只是个测试")
+    @ResponseBody
     String gotoLogin(HttpServletRequest request, HttpServletResponse response, VOInLogin vo,BindingResult bindingResult) throws Exception ;
 
 

@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -20,6 +21,7 @@ public class LoginAction implements ILoginAction {
 
     private static final Logger log = LoggerFactory.getLogger(LoginAction.class) ;
 
+    @Resource
     private ILoginService loginService ;
 
 
@@ -27,6 +29,6 @@ public class LoginAction implements ILoginAction {
     public String gotoLogin(HttpServletRequest request, HttpServletResponse response, VOInLogin vo,BindingResult bindingResult) throws Exception {
         log.info("===============LoginAction.gotoLogin=================");
         VOOutUser voOutUser = this.loginService.getUserByLogin(vo) ;
-        return "blogger";
+        return "gotologin ";
     }
 }
