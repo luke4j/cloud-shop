@@ -1,7 +1,6 @@
 package club.luke.cloud.shop.app.login.vo;
 
 import club.luke.cloud.shop.app.web.Page;
-import club.luke.cloud.shop.app.web.vo.VOIn;
 import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -10,7 +9,7 @@ import javax.validation.constraints.NotNull;
 /**
  * Created by luke on 2018/11/1.
  */
-public class VOInLogin extends Page implements VOIn {
+public class VOInLogin extends Page  {
 
     @ApiModelProperty(value = "id",required = true)
     @NotNull(message = "id不能为空")

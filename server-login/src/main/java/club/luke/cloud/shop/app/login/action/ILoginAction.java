@@ -38,4 +38,9 @@ public interface ILoginAction {
                  VOInLogin vo,BindingResult bindingResult) throws Exception ;
 
 
+    @ApiOperation("welcome page")
+    @RequestMapping(path = "/",method = RequestMethod.GET)
+    String welcome() ;
+
+
 }

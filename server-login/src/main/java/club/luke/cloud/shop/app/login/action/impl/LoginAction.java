@@ -35,4 +35,9 @@ public class LoginAction implements ILoginAction {
         BeanUtils.copyProperties(vo,voOutUser);
         return voOutUser;
     }
+
+    @Override
+    public String welcome() {
+        return "index";
+    }
 }
