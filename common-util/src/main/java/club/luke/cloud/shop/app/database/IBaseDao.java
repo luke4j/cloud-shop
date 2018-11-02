@@ -1,4 +1,6 @@
-package club.luke.db;
+package club.luke.cloud.shop.app.database;
+
+import club.luke.cloud.shop.app.web.Page;
 
 import java.util.List;
 

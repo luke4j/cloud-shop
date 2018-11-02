@@ -1,4 +1,4 @@
-package club.luke.cloud.shop.util.log;
+package club.luke.cloud.shop.app.util.log;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;

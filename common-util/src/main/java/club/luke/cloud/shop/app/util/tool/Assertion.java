@@ -1,6 +1,6 @@
-package club.luke.cloud.shop.util.tool;
+package club.luke.cloud.shop.app.util.tool;
 
-import club.luke.cloud.shop.util.exception.AppRuntimeException;
+import club.luke.cloud.shop.app.util.exception.AppRuntimeException;
 
 /**
  * Created by luke on 2018/11/2.

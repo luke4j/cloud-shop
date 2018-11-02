@@ -1,4 +1,4 @@
-package club.luke.db;
+package club.luke.cloud.shop.app.database;
 
 import javax.persistence.*;
 import java.util.Date;

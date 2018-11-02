@@ -1,6 +1,6 @@
-package club.luke.cloud.shop.util.tool;
+package club.luke.cloud.shop.app.util.tool;
 
-import club.luke.cloud.shop.util.log.L;
+import club.luke.cloud.shop.app.util.log.L;
 import org.junit.Test;
 
 import java.util.ArrayList;

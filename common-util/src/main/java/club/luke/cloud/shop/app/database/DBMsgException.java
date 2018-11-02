@@ -1,4 +1,4 @@
-package club.luke.db;
+package club.luke.cloud.shop.app.database;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,6 +17,11 @@ public class DBMsgException extends Exception {
     public static DBMsgException create(String msg){
         log.error(msg);
         return new DBMsgException(msg) ;
+    }
+
+    public static DBMsgException create(Throwable e){
+        log.error(e.getMessage());
+        return new DBMsgException(e.getMessage()) ;
     }
 
     @Override

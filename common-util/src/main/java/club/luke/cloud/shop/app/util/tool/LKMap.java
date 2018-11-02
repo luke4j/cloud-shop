@@ -1,4 +1,4 @@
-package club.luke.cloud.shop.util.tool;
+package club.luke.cloud.shop.app.util.tool;
 
 import java.util.HashMap;
 import java.util.Map;

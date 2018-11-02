@@ -1,12 +1,18 @@
-package club.luke.db;
+package club.luke.cloud.shop.app.web;
+
+import club.luke.cloud.shop.app.web.vo.VOIn;
+import io.swagger.annotations.ApiModelProperty;
 
 /**
  * Created by luke on 2018/11/1.
  */
-public class Page {
+public class Page implements VOIn{
 
+    @ApiModelProperty(name = "数据总条数")
     private Long count ;
+    @ApiModelProperty(name = "每页第一条编号")
     private Integer start = 0;
+    @ApiModelProperty(name = "第页显示条数")
     private Integer limit = 10 ;
 
 
