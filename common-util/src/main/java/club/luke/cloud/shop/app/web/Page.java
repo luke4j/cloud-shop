@@ -6,7 +6,7 @@ import io.swagger.annotations.ApiModelProperty;
 /**
  * Created by luke on 2018/11/1.
  */
-public class Page implements VOIn{
+public class Page extends VOIn {
 
     @ApiModelProperty(name = "数据总条数")
     private Long count ;
