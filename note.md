@@ -619,7 +619,7 @@ public class LoginAction implements ILoginAction {
 
 ```
 
-参数 VOInLogin
+参数 VOInLogin （如果分页，可以继承Page）
 
 ``` java
 package club.luke.cloud.shop.app.login.vo;
