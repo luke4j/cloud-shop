@@ -1,13 +1,12 @@
 package club.luke.cloud.shop.app.login.vo;
 
-import io.swagger.annotations.ApiModel;
+import club.luke.cloud.shop.app.web.vo.VOOut;
 import io.swagger.annotations.ApiModelProperty;
 
 /**
  * Created by luke on 2018/11/1.
  */
-@ApiModel(description = "login接口返回对象")
-public class VOOutUser implements VOOut{
+public class VOOutUser implements VOOut {
 
     @ApiModelProperty(value = "out id")
     private Long id ;

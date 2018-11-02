@@ -1,31 +1,19 @@
 package club.luke.cloud.shop.app.model;
 
+import club.luke.cloud.shop.app.database.Model;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 
 /**
  * Created by luke on 2018/11/1.
  */
 
 @Entity
-public class TU_User {
+public class TU_User extends Model{
 
-    @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
-    private Long id ;
-    private String name ;
-    private String sex ;
-
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
+    @Column(length = 10)
+    String name ;
 
     public String getName() {
         return name;
@@ -33,13 +21,5 @@ public class TU_User {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getSex() {
-        return sex;
-    }
-
-    public void setSex(String sex) {
-        this.sex = sex;
     }
 }
