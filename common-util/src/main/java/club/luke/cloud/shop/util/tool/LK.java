@@ -1,11 +1,14 @@
 package club.luke.cloud.shop.util.tool;
 
 import club.luke.cloud.shop.util.exception.AppRuntimeException;
+import jdk.management.resource.internal.ApproverGroup;
 import net.sourceforge.pinyin4j.PinyinHelper;
 import net.sourceforge.pinyin4j.format.HanyuPinyinCaseType;
 import net.sourceforge.pinyin4j.format.HanyuPinyinOutputFormat;
 import net.sourceforge.pinyin4j.format.HanyuPinyinToneType;
 import net.sourceforge.pinyin4j.format.HanyuPinyinVCharType;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.lang.reflect.Field;
 import java.security.MessageDigest;
@@ -427,4 +430,32 @@ public class LK {
         calendar.add(Calendar.DATE,num);
         return calendar.getTime() ;
     }
+
+    /**
+     * 对象转json，可以去除对象中的属性
+     * @param obj
+     * @param removes
+     * @return
+     * @throws AppRuntimeException
+     */
+    public static String ObjToJsonStr(Object obj,String... removes) throws AppRuntimeException{
+        JSONObject jsonObject = new JSONObject(obj) ;
+        for (String remove : removes) {
+            jsonObject.remove(remove) ;
+        }
+        return jsonObject.toString() ;
+    }
+
+
+    public static String ArrayToJsonStr(List<Object> objs,String... removes) throws AppRuntimeException{
+        JSONArray jsonArray = new JSONArray(objs) ;
+        jsonArray.forEach(o -> {
+            JSONObject jo = (JSONObject)o ;
+            for (String remove : removes) {
+                jo.remove(remove) ;
+            }
+        });
+        return jsonArray.toString() ;
+    }
+
 }
