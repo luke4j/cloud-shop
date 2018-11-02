@@ -1,12 +1,14 @@
 package club.luke.cloud.shop.util.exception;
 
-import club.luke.cloud.shop.util.log.L;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Created by luke on 2018/11/2.
  */
 public class AppException extends Exception{
-    private static final L l = L.getl(AppException.class) ;
+
+    private static final Logger log = LoggerFactory.getLogger(AppException.class) ;
 
     private AppException(){
         super();
@@ -16,13 +18,13 @@ public class AppException extends Exception{
     }
 
     public static AppException create(String msg){
-        l.e("====== AppMsgException ====== >>\n" + msg);
+        log.error("====== AppException ====== >>\n" + msg);
         AppException appMsgException = new AppException(msg) ;
         return appMsgException ;
     }
 
     public static AppException create(Throwable e){
-        l.e("====== AppMsgException ====== >>\n" + e.getClass()+"\t"+ e.getMessage());
+        log.error("====== AppException ====== >>\n" + e.getClass() + "\t" + e.getMessage());
         AppException appMsgException = new AppException(e.getMessage()) ;
         return appMsgException ;
     }

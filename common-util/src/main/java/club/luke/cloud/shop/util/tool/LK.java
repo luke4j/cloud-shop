@@ -1,7 +1,6 @@
 package club.luke.cloud.shop.util.tool;
 
 import club.luke.cloud.shop.util.exception.AppRuntimeException;
-import jdk.management.resource.internal.ApproverGroup;
 import net.sourceforge.pinyin4j.PinyinHelper;
 import net.sourceforge.pinyin4j.format.HanyuPinyinCaseType;
 import net.sourceforge.pinyin4j.format.HanyuPinyinOutputFormat;
