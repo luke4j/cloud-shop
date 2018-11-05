@@ -7,5 +7,11 @@ import club.luke.cloud.shop.app.login.vo.VOOutUser;
  * Created by luke on 2018/11/1.
  */
 public interface ILoginService {
-    VOOutUser getUserByLogin(VOInLogin vo) throws Exception ;
+
+    /**
+     * 登录查询用户方法
+     * @param vo
+     * @return
+     */
+    VOOutUser findByloginNameAndPassword(VOInLogin vo) throws Exception;
 }

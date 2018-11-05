@@ -1,6 +1,7 @@
 package club.luke.cloud.shop.app.database;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -8,7 +9,7 @@ import java.util.Date;
  */
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @MappedSuperclass
-public class Model {
+public class Model implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

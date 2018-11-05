@@ -4,6 +4,7 @@ import club.luke.cloud.shop.app.login.action.ILoginAction;
 import club.luke.cloud.shop.app.login.service.ILoginService;
 import club.luke.cloud.shop.app.login.vo.VOInLogin;
 import club.luke.cloud.shop.app.login.vo.VOOutUser;
+import club.luke.cloud.shop.app.web.ActionResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.swing.*;
 import javax.validation.Valid;
 
 /**
@@ -27,13 +29,19 @@ public class LoginAction implements ILoginAction {
     @Resource
     private ILoginService loginService ;
 
+
+
     @Override
-    public VOOutUser login(HttpServletRequest request, HttpServletResponse response,
+    public ActionResult login(HttpServletRequest request, HttpServletResponse response,ActionResult actionResult,
                             @Valid @RequestBody
                            VOInLogin vo, BindingResult bindingResult) throws Exception {
-        VOOutUser voOutUser  = new VOOutUser() ;
-        BeanUtils.copyProperties(vo,voOutUser);
-        return voOutUser;
+        actionResult = new ActionResult() ;
+        actionResult.init(request,response) ;
+        VOOutUser outUser = loginService.findByloginNameAndPassword(vo) ;
+
+
+
+        return actionResult.OK("login",outUser);
     }
 
     @Override

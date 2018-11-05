@@ -11,39 +11,26 @@ import javax.validation.constraints.NotNull;
  */
 public class VOInLogin extends Page  {
 
-    @ApiModelProperty(value = "id",required = true)
-    @NotNull(message = "id不能为空")
-    private Long id ;
-
-    @ApiModelProperty(value = "姓名")
-    @NotEmpty(message = "姓名不能为空")
-    private String name ;
-
-    @ApiModelProperty(value = "性别")
-    private String sex ;
+    @ApiModelProperty(value = "登录名" ,required = true)
+    private String loginName ;
+    @ApiModelProperty(value = "登录密码",required = true)
+    private String password ;
 
 
-    public Long getId() {
-        return id;
+    public String getLoginName() {
+        return loginName;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setLoginName(String loginName) {
+        this.loginName = loginName;
     }
 
-    public String getName() {
-        return name;
+    public String getPassword() {
+        return password;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public String getSex() {
-        return sex;
-    }
-
-    public void setSex(String sex) {
-        this.sex = sex;
-    }
 }

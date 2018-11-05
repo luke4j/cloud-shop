@@ -2,6 +2,7 @@ package club.luke.cloud.shop.app.login.action;
 
 import club.luke.cloud.shop.app.login.vo.VOInLogin;
 import club.luke.cloud.shop.app.login.vo.VOOutUser;
+import club.luke.cloud.shop.app.web.ActionResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -33,7 +34,7 @@ public interface ILoginAction {
     @ApiOperation("用户登录")
     @ResponseBody
     @RequestMapping(path = "login.act",method = RequestMethod.POST)
-    VOOutUser login(HttpServletRequest request ,HttpServletResponse response ,
+    ActionResult login(HttpServletRequest request ,HttpServletResponse response ,ActionResult actionResult,
                     @ApiParam @RequestBody @Valid
                  VOInLogin vo,BindingResult bindingResult) throws Exception ;
 
