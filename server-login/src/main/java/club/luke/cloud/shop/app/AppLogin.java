@@ -5,12 +5,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 /**
  * Created by luke on 2018/11/1.
  */
 @SpringBootApplication
+@EnableEurekaClient
 public class AppLogin {
     private static final Logger log = LoggerFactory.getLogger(AppLogin.class) ;
     public static void main(String[] args) {

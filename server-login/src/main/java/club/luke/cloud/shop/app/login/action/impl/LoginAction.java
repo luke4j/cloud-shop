@@ -5,6 +5,8 @@ import club.luke.cloud.shop.app.login.service.ILoginService;
 import club.luke.cloud.shop.app.login.vo.VOInLogin;
 import club.luke.cloud.shop.app.login.vo.VOOutUser;
 import club.luke.cloud.shop.app.web.ActionResult;
+import club.luke.cloud.shop.app.web.vo.VOInEmputy;
+import io.swagger.annotations.ApiParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -45,7 +47,9 @@ public class LoginAction implements ILoginAction {
     }
 
     @Override
-    public String welcome() {
+    public String welcome(HttpServletRequest request ,HttpServletResponse response ,ActionResult actionResult,
+                          @ApiParam  @Valid
+                          VOInEmputy vo,BindingResult bindingResult)throws Exception {
         return "index";
     }
 }

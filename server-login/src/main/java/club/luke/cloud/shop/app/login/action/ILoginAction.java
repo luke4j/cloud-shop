@@ -3,6 +3,7 @@ package club.luke.cloud.shop.app.login.action;
 import club.luke.cloud.shop.app.login.vo.VOInLogin;
 import club.luke.cloud.shop.app.login.vo.VOOutUser;
 import club.luke.cloud.shop.app.web.ActionResult;
+import club.luke.cloud.shop.app.web.vo.VOInEmputy;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -41,7 +42,9 @@ public interface ILoginAction {
 
     @ApiOperation("welcome page")
     @RequestMapping(path = "/",method = RequestMethod.GET)
-    String welcome() ;
+    String welcome(HttpServletRequest request ,HttpServletResponse response ,ActionResult actionResult,
+                   @ApiParam @Valid
+                   VOInEmputy vo,BindingResult bindingResult) throws Exception ;
 
 
 }
