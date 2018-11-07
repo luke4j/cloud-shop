@@ -12,9 +12,9 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
  * Created by luke on 2018/11/6.
  */
 @SpringBootApplication
-@EnableAutoConfiguration
-@EnableDiscoveryClient
-@ServletComponentScan
+@EnableAutoConfiguration    //自动配置
+@EnableDiscoveryClient      //负载
+@ServletComponentScan       //扫描servlet filter listerner
 public class AppRibbon {
 
     private static final Logger log = LoggerFactory.getLogger(AppRibbon.class) ;

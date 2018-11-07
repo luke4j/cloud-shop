@@ -24,8 +24,11 @@ public class RibbonAction implements IRibbonAction {
 
     private static final Logger log = LoggerFactory.getLogger(RibbonAction.class) ;
 
+
+
     @Resource(name = "login-service-restTemplate")
     RestTemplate loginRestTemplate ;
+
 
     @Override
     public String test() throws Exception {

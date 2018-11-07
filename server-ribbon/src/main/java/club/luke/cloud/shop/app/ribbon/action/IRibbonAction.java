@@ -21,6 +21,8 @@ import javax.validation.Valid;
 @Api(value = "ribbon server api")
 public interface IRibbonAction {
 
+
+
     @RequestMapping(value = "/test.act",method = RequestMethod.POST)
     @ResponseBody
     String test() throws Exception ;
