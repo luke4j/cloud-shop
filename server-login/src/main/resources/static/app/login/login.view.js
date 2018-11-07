@@ -11,7 +11,12 @@ define(function(require, exports, module) {
         },
         render:function(){
             var login_html = J.htmlTemp("app/login/login.tmp.html") ;
+
             $("body").html(login_html) ;
+
+            $("#link_base").attr("href" ,_cp+"/"+$("#link_base").attr("href")  );
+            $("#link_style").attr("href" ,_cp+"/"+$("#link_style").attr("href")  );
+
             $("#_app_name").text(_app_name) ;
             $("#com").focus() ;
             /**添加公司选项*/
