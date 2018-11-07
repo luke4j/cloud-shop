@@ -1,15 +1,12 @@
-package club.luke.cloud.shop.app.login.vo;
+package club.luke.cloud.shop.app.web.vo.login;
 
-import club.luke.cloud.shop.app.web.Page;
+import club.luke.cloud.shop.app.web.vo.VOIn;
 import io.swagger.annotations.ApiModelProperty;
-import org.hibernate.validator.constraints.NotEmpty;
-
-import javax.validation.constraints.NotNull;
 
 /**
- * Created by luke on 2018/11/1.
+ * Created by luke on 2018/11/7.
  */
-public class VOInLogin extends Page  {
+public class VOInLogin extends VOIn {
 
     @ApiModelProperty(value = "登录名" ,required = true)
     private String loginName ;
@@ -32,5 +29,4 @@ public class VOInLogin extends Page  {
     public void setPassword(String password) {
         this.password = password;
     }
-
 }

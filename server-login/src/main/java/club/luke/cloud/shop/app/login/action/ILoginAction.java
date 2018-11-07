@@ -1,9 +1,8 @@
 package club.luke.cloud.shop.app.login.action;
 
-import club.luke.cloud.shop.app.login.vo.VOInLogin;
-import club.luke.cloud.shop.app.login.vo.VOOutUser;
 import club.luke.cloud.shop.app.web.ActionResult;
 import club.luke.cloud.shop.app.web.vo.VOInEmputy;
+import club.luke.cloud.shop.app.web.vo.login.VOInLogin;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -23,6 +22,18 @@ import javax.validation.Valid;
 @Api(value = "login server api")
 public interface ILoginAction {
 
+
+    @RequestMapping(value = "/test.act" ,method = RequestMethod.POST)
+    @ResponseBody
+    String test() throws Exception ;
+
+
+    @ApiOperation("welcome page")
+    @RequestMapping(path = "/",method = RequestMethod.GET)
+    String welcome(HttpServletRequest request ,HttpServletResponse response ,ActionResult actionResult,
+                   @ApiParam @Valid
+                   VOInEmputy vo,BindingResult bindingResult) throws Exception ;
+
     /**
      * 用户登录
      * @param request
@@ -34,17 +45,16 @@ public interface ILoginAction {
      */
     @ApiOperation("用户登录")
     @ResponseBody
-    @RequestMapping(path = "login.act",method = RequestMethod.POST)
+    @RequestMapping(path = "login/login.act",method = RequestMethod.POST)
     ActionResult login(HttpServletRequest request ,HttpServletResponse response ,ActionResult actionResult,
                     @ApiParam @RequestBody @Valid
-                 VOInLogin vo,BindingResult bindingResult) throws Exception ;
+                    VOInLogin vo,BindingResult bindingResult) throws Exception ;
 
 
-    @ApiOperation("welcome page")
-    @RequestMapping(path = "/",method = RequestMethod.GET)
-    String welcome(HttpServletRequest request ,HttpServletResponse response ,ActionResult actionResult,
-                   @ApiParam @Valid
-                   VOInEmputy vo,BindingResult bindingResult) throws Exception ;
+
+
+
+
 
 
 }

@@ -64,7 +64,7 @@ public class ActionResult {
         }
         this.doing = request.getRequestURL().toString() ;
         this.success = false ;
-        this.map.put1("ec",e) ;
+        this.map.put1("StackTrace",e) ;
         return this ;
     }
 
