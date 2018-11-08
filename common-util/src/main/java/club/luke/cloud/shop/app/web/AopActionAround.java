@@ -36,6 +36,7 @@ public class AopActionAround {
 
 //    @Around("point()")
     public Object around(ProceedingJoinPoint jp) throws Throwable{
+        log.debug(jp.getSignature().toShortString());
         ActionResult actionResult = null ;
         HttpServletRequest request = null ;
         HttpServletResponse response = null ;

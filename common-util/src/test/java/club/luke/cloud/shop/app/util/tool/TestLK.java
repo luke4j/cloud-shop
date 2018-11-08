@@ -24,4 +24,9 @@ public class TestLK {
     }
 
 
+    @Test
+    public  void vilidataCode (){
+        log.i(LK.vilidateCode(6)) ;
+    }
+
 }

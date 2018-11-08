@@ -26,6 +26,17 @@ public class LK {
         return uuid.replaceAll("-", "");
     }
 
+    public static String vilidateCode(int i){
+        StringBuffer sb = new StringBuffer() ;
+        String tmp = Math.random()*10 +"";
+        for (int j=2 ; j<tmp.length();j++){
+            if(Integer.parseInt(tmp.charAt(j)+"")>0){
+                return tmp.substring(j,j+i) ;
+            }
+        }
+        return vilidateCode(i) ;
+    }
+
     /**
      * 字符串是空
      * @param str
