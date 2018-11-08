@@ -10,6 +10,7 @@ import org.hibernate.transform.Transformers;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import javax.annotation.Resource;
@@ -23,6 +24,9 @@ import java.util.Map;
 public class BaseDao {
 
     private Logger log = LoggerFactory.getLogger(BaseDao.class) ;
+
+    @Resource
+    private RedisTemplate redisTemplate;
 
     @Resource
     private JdbcTemplate jdbcTemplate ;
@@ -41,6 +45,11 @@ public class BaseDao {
             return sessionFactory.openSession() ;
         }
     }
+
+    public RedisTemplate getRedisTemplate(){
+        return this.redisTemplate ;
+    }
+
 
 
     /**
