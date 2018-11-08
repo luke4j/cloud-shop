@@ -128,7 +128,7 @@
         <module>common-util</module>
         <module>server-main</module>
         <module>server-ribbon</module>
-        <module>server-login</module>
+        <module>server-shop</module>
 
     </modules>
 
