@@ -61,14 +61,6 @@ public class BaseDao {
     }
 
     /**
-     * @return
-     * @throws Exception
-     */
-    public RedisTemplate getRedisTemplate() throws Exception{
-        return this.redisTemplate ;
-    }
-
-    /**
      * 以key 从redis里取值
      * @param key
      * @param <T>

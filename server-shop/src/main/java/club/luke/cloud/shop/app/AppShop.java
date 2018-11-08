@@ -4,13 +4,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 
 /**
  * Created by luke on 2018/11/1.
  */
 @SpringBootApplication
-@EnableEurekaClient
+//@EnableEurekaClient  //单机开发，不用注册到中心主服务
 public class AppShop {
     private static final Logger log = LoggerFactory.getLogger(AppShop.class) ;
     public static void main(String[] args) {

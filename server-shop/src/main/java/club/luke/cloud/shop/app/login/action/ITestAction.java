@@ -19,7 +19,7 @@ import javax.validation.Valid;
 /**
  * Created by luke on 2018/11/8.
  */
-@Api(value = "login server api")
+@Api(value = "shop server test api")
 public interface ITestAction {
 
     @RequestMapping(value = "/test.act" ,method = RequestMethod.POST)
@@ -28,7 +28,7 @@ public interface ITestAction {
 
 
     @ApiOperation("welcome page")
-    @RequestMapping(path = "/",method = RequestMethod.GET)
+//    @RequestMapping(path = "/",method = RequestMethod.GET)
     String welcome(HttpServletRequest request ,HttpServletResponse response ,ActionResult actionResult,
                    @ApiParam @Valid
                    VOInEmputy vo,BindingResult bindingResult) throws Exception ;

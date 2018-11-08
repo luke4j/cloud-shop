@@ -2,8 +2,7 @@ package club.luke.cloud.shop.app.model;
 
 import club.luke.cloud.shop.app.database.Model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
+import javax.persistence.*;
 import java.util.Date;
 
 /**
@@ -41,6 +40,30 @@ public class TU_User extends Model{
     @Column(length = 4)
     private String sex ;
 
+
+    @OneToOne
+    @JoinColumn(name = "comId",foreignKey = @ForeignKey(name = "fk_user_com"))
+    TU_Com com ;
+
+    @OneToOne
+    @JoinColumn(name = "roleId",foreignKey = @ForeignKey(name = "fk_user_role"))
+    TU_Role role  ;
+
+    public TU_Com getCom() {
+        return com;
+    }
+
+    public void setCom(TU_Com com) {
+        this.com = com;
+    }
+
+    public TU_Role getRole() {
+        return role;
+    }
+
+    public void setRole(TU_Role role) {
+        this.role = role;
+    }
 
     public String getSex() {
         return sex;
