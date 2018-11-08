@@ -11,12 +11,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.serializer.RedisSerializer;
+import org.springframework.data.redis.serializer.StringRedisSerializer;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import javax.annotation.Resource;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by luke on 2018/11/1.
@@ -25,8 +28,19 @@ public class BaseDao {
 
     private Logger log = LoggerFactory.getLogger(BaseDao.class) ;
 
-    @Resource
+
     private RedisTemplate redisTemplate;
+
+    @Resource
+    public void setRedisTemplate(RedisTemplate redisTemplate) {
+        RedisSerializer stringSerializer = new StringRedisSerializer();
+        redisTemplate.setKeySerializer(stringSerializer);
+        redisTemplate.setValueSerializer(stringSerializer);
+        redisTemplate.setHashKeySerializer(stringSerializer);
+        redisTemplate.setHashValueSerializer(stringSerializer);
+        this.redisTemplate = redisTemplate;
+
+    }
 
     @Resource
     private JdbcTemplate jdbcTemplate ;
@@ -46,8 +60,51 @@ public class BaseDao {
         }
     }
 
-    public RedisTemplate getRedisTemplate(){
+    /**
+     * @return
+     * @throws Exception
+     */
+    public RedisTemplate getRedisTemplate() throws Exception{
         return this.redisTemplate ;
+    }
+
+    /**
+     * 以key 从redis里取值
+     * @param key
+     * @param <T>
+     * @return
+     * @throws Exception
+     */
+    public <T> T getRedisValue(String key) throws Exception{
+        return  (T)this.redisTemplate.opsForValue().get(key) ;
+    }
+
+    /**
+     *  保存 key  与 val 到redis
+     * @param key
+     * @param val
+     * @param <T>
+     * @return
+     * @throws Exception
+     */
+    public <T> T setRedisValue(String key,T val) throws Exception{
+        this.redisTemplate.opsForValue().set(key,val);
+        return val ;
+    }
+
+    /**
+     * 保存 key 与 val 到redis 并设置过期时间
+     * @param key
+     * @param val
+     * @param time
+     * @param <T>
+     * @return
+     * @throws Exception
+     */
+    public <T> T setRedisValueAndEX(String key ,T val ,Long time) throws Exception{
+        this.redisTemplate.opsForValue().set(key,val);
+        this.redisTemplate.expire(key, time, TimeUnit.MINUTES) ;
+        return val ;
     }
 
 
