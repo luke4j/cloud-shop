@@ -12,7 +12,17 @@ public class VOIn implements VO {
     @ApiModelProperty(name = "用户目标地址")
     private String srcUrl ;
     @ApiModelProperty(name = "合法用户标识")
-    private String userTuken ;
+    private String loginTuken ;
+    @ApiModelProperty(name = "登录站点ID")
+    private Long loginComId ;
+
+    public Long getLoginComId() {
+        return loginComId;
+    }
+
+    public void setLoginComId(Long loginComId) {
+        this.loginComId = loginComId;
+    }
 
     public String getSrcUrl() {
         return srcUrl;
@@ -22,11 +32,11 @@ public class VOIn implements VO {
         this.srcUrl = srcUrl;
     }
 
-    public String getUserTuken() {
-        return userTuken;
+    public String getLoginTuken() {
+        return loginTuken;
     }
 
-    public void setUserTuken(String userTuken) {
-        this.userTuken = userTuken;
+    public void setLoginTuken(String loginTuken) {
+        this.loginTuken = loginTuken;
     }
 }

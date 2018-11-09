@@ -18,6 +18,12 @@ public class TU_UserEx extends Model {
     @JoinColumn(name = "userId",foreignKey = @ForeignKey(name = "fk_user_ex"))
     TU_User user ;
 
+    /**
+     * 是否过期
+     */
+    private Boolean gq = false ;
+
+
     public TU_User getUser() {
         return user;
     }
@@ -25,4 +31,7 @@ public class TU_UserEx extends Model {
     public void setUser(TU_User user) {
         this.user = user;
     }
+
+
+
 }

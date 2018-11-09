@@ -85,7 +85,7 @@ public class BaseDao {
     }
 
     /**
-     * 保存 key 与 val 到redis 并设置过期时间
+     * 保存 key 与 val 到redis 并设置过期时间 时间为分钟
      * @param key
      * @param val
      * @param time

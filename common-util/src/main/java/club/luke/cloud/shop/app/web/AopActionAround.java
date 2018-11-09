@@ -4,9 +4,6 @@ import club.luke.cloud.shop.app.util.tool.Assertion;
 import club.luke.cloud.shop.app.util.tool.LK;
 import club.luke.cloud.shop.app.web.vo.VO;
 import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.Around;
-import org.aspectj.lang.annotation.Pointcut;
-import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.validation.BindingResult;
@@ -68,7 +65,8 @@ public class AopActionAround {
         }
         if(request!=null&&response!=null){
             actionResult.init(request,response) ;
-            String jsonParams = new JSONObject(vo).toString() ;
+            String jsonParams = LK.ObjToJsonStr(vo) ;
+
             actionResult.getMap()
                     .put1("url",request.getRequestURL())
                     .put1("json params ", jsonParams);

@@ -5,6 +5,8 @@ import club.luke.cloud.shop.app.login.dao.ILoginJpaDao;
 import club.luke.cloud.shop.app.login.service.ILoginService;
 import club.luke.cloud.shop.app.model.TU_Com;
 import club.luke.cloud.shop.app.model.TU_User;
+import club.luke.cloud.shop.app.util.tool.Assertion;
+import club.luke.cloud.shop.app.util.tool.LK;
 import club.luke.cloud.shop.app.web.vo.login.VOInLogin;
 import club.luke.cloud.shop.app.web.vo.login.VOOutUser;
 import club.luke.cloud.shop.app.web.vo.login.VOOutValText;
@@ -14,6 +16,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -61,5 +64,38 @@ public class LoginService implements ILoginService {
             lstRst.add(vout) ;
         });
         return lstRst ;
+    }
+
+    @Transactional
+    @Override
+    public VOOutUser findByLoginNameAndPassword(VOInLogin vo) throws Exception {
+        VOOutUser voOutUser = new VOOutUser() ;
+        if(LK.StrIsNotEmpty(vo.getLoginTuken())){
+            String json_outUser = this.loginDao.getRedisUserTuken(vo.getLoginTuken()) ;
+            VOOutUser redisVOOutUser = LK.StrJson2Obj(json_outUser,VOOutUser.class) ;
+            if(redisVOOutUser!=null){
+               if(vo.getLoginName().equals(redisVOOutUser.getLoginName())&&vo.getComId().equals(redisVOOutUser.getLoginComId()))
+                   return redisVOOutUser ;
+            }
+        }
+
+        TU_User tu_user = this.loginJpaDao.findByLoginNameAndPassword(vo.getLoginName(), vo.getPassword()) ;
+        Assertion.NotEmpty(tu_user, "登录失败");
+        BeanUtils.copyProperties(tu_user, voOutUser);
+
+        voOutUser.setName(LK.NameToPingYinLong(voOutUser.getName()));
+
+        TU_Com tu_com = this.loginDao.get(TU_Com.class,vo.getComId()) ;
+        Assertion.NotEmpty(tu_com,"站点信息异常");
+        voOutUser.setCom_name(tu_com.getName());
+        voOutUser.setLoginComId(tu_com.getId());
+
+        String loginTuken = "loginTuken-"+tu_user.getCom().getId()+"-"+tu_user.getId()+"-"+LK.uuid() ;
+        if(log.isDebugEnabled()){
+            log.debug("login-tuken is "+loginTuken);
+        }
+        this.loginDao.setRedisLoginTuken(loginTuken, LK.ObjToJsonStr(voOutUser)) ;
+        voOutUser.setLoginTuken(loginTuken);
+        return voOutUser;
     }
 }

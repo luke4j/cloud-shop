@@ -31,12 +31,22 @@ public class LoginDao extends BaseDao implements ILoginDao {
 
     @Override
     public String rootPageIdAndRdmVal(String pageId, String rdm_val) throws Exception{
-        this.setRedisValueAndEX(pageId, rdm_val, 300l) ;
+        this.setRedisValueAndEX(pageId, rdm_val, 5l) ;
         return pageId;
     }
 
     @Override
     public List<TU_Com> findAllCom() throws Exception {
         return this.find("From TU_Com") ;
+    }
+
+    @Override
+    public void setRedisLoginTuken(String loginTuken, String s) throws Exception {
+        this.setRedisValueAndEX(loginTuken,s,60*8l) ;
+    }
+
+    @Override
+    public String getRedisUserTuken(String loginTuken) throws Exception {
+        return this.getRedisValue(loginTuken);
     }
 }

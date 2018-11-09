@@ -4,7 +4,6 @@ package club.luke.cloud.shop.app.web;
 import club.luke.cloud.shop.app.util.tool.Assertion;
 import club.luke.cloud.shop.app.util.tool.LK;
 import club.luke.cloud.shop.app.util.tool.LKMap;
-import org.json.JSONObject;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -110,12 +109,12 @@ public class ActionResult {
     }
 
     public void write(){
-        JSONObject jsonObject = new JSONObject(this);
+
         this.response.setCharacterEncoding("UTF-8");
         this.response.setContentType("application/Json");
         try {
             PrintWriter pw = response.getWriter();
-            pw.print(jsonObject.toString());
+            pw.print(LK.ObjToJsonStr(this));
             pw.flush();
             pw.close();
         } catch (IOException e) {

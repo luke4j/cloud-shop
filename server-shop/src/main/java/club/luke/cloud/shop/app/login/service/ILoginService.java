@@ -28,9 +28,17 @@ public interface ILoginService {
     String rootPageIdAndRdmVal(String pageId, String rdm_val) throws Exception;
 
     /**
-     *
+     * 查询所有站点
      * @return
      * @throws Exception
      */
     List<VOOutValText> findAllCom()throws Exception;
+
+    /**
+     * 登录查询
+     * @param vo
+     * @return
+     * @throws Exception
+     */
+    VOOutUser findByLoginNameAndPassword(VOInLogin vo)throws Exception;
 }

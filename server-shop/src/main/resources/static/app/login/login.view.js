@@ -19,7 +19,7 @@ define(function(require, exports, module) {
 
             $("#_app_name").text(_app_name) ;
             $("#com").focus() ;
-            /**添加公司选项*/
+            /**添加公司站点选项*/
             this.render_com() ;
         },
         render_com:function(){
@@ -28,14 +28,14 @@ define(function(require, exports, module) {
              * 公司id is com
              */
             J.ajax({
-                url:'login/findCom.act',
+                url:'login/findAllCom.act',
                 success:function(result){
                     var $com = $("#com") ;
                     $com.html("") ;
                     $com.append($("<option>").text('').val('')) ;
-                    for(var i in result){
-                        $com.append($("<option>").text(result[i].name).val(result[i].id)) ;
-                    }
+                    $.each(result,function(i,ele){
+                        $com.append($("<option>").text(ele.text).val(ele.val)) ;
+                    }) ;
                 }
             }) ;
         },

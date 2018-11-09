@@ -1,13 +1,14 @@
 package club.luke.cloud.shop.app.util.tool;
 
 import club.luke.cloud.shop.app.util.exception.AppRuntimeException;
+import club.luke.cloud.shop.app.util.log.L;
+import net.sf.json.JSONObject;
+import net.sf.json.JsonConfig;
 import net.sourceforge.pinyin4j.PinyinHelper;
 import net.sourceforge.pinyin4j.format.HanyuPinyinCaseType;
 import net.sourceforge.pinyin4j.format.HanyuPinyinOutputFormat;
 import net.sourceforge.pinyin4j.format.HanyuPinyinToneType;
 import net.sourceforge.pinyin4j.format.HanyuPinyinVCharType;
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 import java.lang.reflect.Field;
 import java.security.MessageDigest;
@@ -21,6 +22,8 @@ import java.util.regex.Pattern;
  * Created by luke on 2018/11/2.
  */
 public class LK {
+    private static L l = L.getl(LK.class) ;
+
     public static String uuid(){
         String uuid = UUID.randomUUID().toString();
         return uuid.replaceAll("-", "");
@@ -115,7 +118,7 @@ public class LK {
      * @return
      */
     public static Date StrToDate_YMD(String str) {
-        if(StrIsDate(str,"yyyy-MM-dd")){
+        if(StrIsDate(str, "yyyy-MM-dd")){
             return StrToDate(str,"yyyy-MM-dd") ;
         }else{
             throw AppRuntimeException.create("请判断是字符串是否年--yyyy-MM-dd");
@@ -437,7 +440,7 @@ public class LK {
     public static Date AddDay(Date time,int num){
         Calendar calendar = Calendar.getInstance() ;
         calendar.setTime(time);
-        calendar.add(Calendar.DATE,num);
+        calendar.add(Calendar.DATE, num);
         return calendar.getTime() ;
     }
 
@@ -449,23 +452,25 @@ public class LK {
      * @throws AppRuntimeException
      */
     public static String ObjToJsonStr(Object obj,String... removes) throws AppRuntimeException{
-        JSONObject jsonObject = new JSONObject(obj) ;
-        for (String remove : removes) {
-            jsonObject.remove(remove) ;
-        }
-        return jsonObject.toString() ;
+        JsonConfig jc = new JsonConfig() ;
+        jc.setExcludes(removes);
+        JSONObject json = JSONObject.fromObject(obj,jc) ;
+        return json.toString() ;
+    }
+
+    /**
+     * json 字符串转对象
+     * @param strJson
+     * @param clazz
+     * @param <T>
+     * @return
+     * @throws AppRuntimeException
+     */
+    public static <T> T StrJson2Obj(String strJson,Class<T> clazz) throws AppRuntimeException{
+        JSONObject jsonObj = JSONObject.fromObject(strJson) ;
+        return (T)JSONObject.toBean(jsonObj,clazz) ;
     }
 
 
-    public static String ArrayToJsonStr(List<Object> objs,String... removes) throws AppRuntimeException{
-        JSONArray jsonArray = new JSONArray(objs) ;
-        jsonArray.forEach(o -> {
-            JSONObject jo = (JSONObject)o ;
-            for (String remove : removes) {
-                jo.remove(remove) ;
-            }
-        });
-        return jsonArray.toString() ;
-    }
 
 }

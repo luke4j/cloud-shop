@@ -10,6 +10,7 @@ import java.util.List;
 public interface IBaseDao {
 
     <T> T save(T obj) throws Exception ;
+
     <T> T get(Class<T> clss,Long id) throws Exception ;
 
     /**

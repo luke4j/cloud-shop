@@ -46,6 +46,7 @@ define(function(require, exports, module) {
         },
         /**同步获取用户权限，用户消息，系统时间*/
         page_login_getInfo_3:function(){
+            debugger ;
             J.ajax({
                 url:'login/getInfo.act',
                 async:false,

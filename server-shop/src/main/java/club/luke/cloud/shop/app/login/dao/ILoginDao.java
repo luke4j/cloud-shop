@@ -1,6 +1,7 @@
 package club.luke.cloud.shop.app.login.dao;
 
 
+import club.luke.cloud.shop.app.database.IBaseDao;
 import club.luke.cloud.shop.app.model.TU_Com;
 import club.luke.cloud.shop.app.web.vo.login.VOInLogin;
 import club.luke.cloud.shop.app.web.vo.login.VOOutUser;
@@ -11,7 +12,7 @@ import java.util.List;
  * Created by luke on 2018/11/1.
  */
 
-public interface ILoginDao {
+public interface ILoginDao extends IBaseDao {
 
     VOOutUser findByloginNameAndPassword(VOInLogin vo) throws Exception;
 
@@ -30,4 +31,14 @@ public interface ILoginDao {
      */
     List<TU_Com> findAllCom()throws Exception;
 
+    /**
+     * login tuken 缓存到redis 保存时间是60*60*8秒
+     * @param loginTuken
+     * @param s
+     * @throws Exception
+     */
+    void setRedisLoginTuken(String loginTuken, String s)throws Exception;
+
+
+    String getRedisUserTuken(String loginTuken)throws Exception;
 }

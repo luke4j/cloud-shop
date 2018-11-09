@@ -3,13 +3,15 @@ package club.luke.cloud.shop.app.login.action;
 import club.luke.cloud.shop.app.web.ActionResult;
 import club.luke.cloud.shop.app.web.vo.VOInEmputy;
 import club.luke.cloud.shop.app.web.vo.login.VOInLogin;
+import club.luke.cloud.shop.app.web.vo.login.VOInLoginInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -42,7 +44,7 @@ public interface ILoginAction {
 
     /**
      * 登录首页面，公司信息<br>
-     *     url: login/findAllCmpToCombo.act
+     *     url: login/findAllCom.act
      * @param request
      * @param response
      * @param actionResult
@@ -52,7 +54,8 @@ public interface ILoginAction {
      * @throws Exception
      */
     @ApiOperation("登录首页面，公司信息")
-    @RequestMapping(path = "login/findAllCmpToCombo.act",method = RequestMethod.POST)
+    @RequestMapping(path = "login/findAllCom.act",method = RequestMethod.POST)
+    @ResponseBody
     ActionResult findAllCom(HttpServletRequest request ,HttpServletResponse response ,ActionResult actionResult,
                             @ApiParam
                             VOInEmputy vo ,BindingResult bindingResult) throws Exception ;
@@ -60,6 +63,12 @@ public interface ILoginAction {
 
     /**
      *登录方法<br>
+     *     匹配登录名与密码
+     *          登录成功返回用户基本信息
+     *              生成登录tuken保存在redis,
+     *          登录失败返回失败信息
+     *
+     *     <br>
      *     url:login/login.act
      *     <br>
      *     {loginName:'',password:''}
@@ -72,12 +81,29 @@ public interface ILoginAction {
      * @throws Exception
      */
     @ApiOperation("登录方法")
-    @RequestMapping(path = "login/login.act")
+    @RequestMapping(path = "login/login.act",method = RequestMethod.POST)
+    @ResponseBody
     ActionResult login(HttpServletRequest request ,HttpServletResponse response ,ActionResult actionResult,
-                       @ApiParam @RequestParam @Valid
+                       @ApiParam @RequestBody @Valid
                        VOInLogin vo ,BindingResult bindingResult) throws Exception ;
 
 
+    /**
+     *登录后查询系统信息与个人信息
+     * @param request
+     * @param response
+     * @param actionResult
+     * @param vo
+     * @param bindingResult
+     * @return
+     * @throws Exception
+     */
+    @ApiOperation("登录后查询系统信息与个人信息")
+    @RequestMapping(path = "login/getInfo.act",method = RequestMethod.POST)
+    @ResponseBody
+    public ActionResult getInfo(HttpServletRequest request ,HttpServletResponse response ,ActionResult actionResult,
+                                @ApiParam @RequestBody @Valid
+                                VOInLoginInfo vo ,BindingResult bindingResult)throws Exception ;
 
 
 

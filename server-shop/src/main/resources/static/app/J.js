@@ -227,7 +227,12 @@ J.ajax = function(settings){
             }
         }
         /**处理参数*/
-        param.data =  JSON.stringify($.extend({_jsession:Math.random()},param.data)) ;
+        var ajaxLogin = {loginTuken:'',loginComId:''} ;
+        if(window.LukeApp&&window.LukeApp.tuken){
+            ajaxLogin.loginTuken = LukeApp.tuken.loginTuken ;
+            ajaxLogin.loginComId = LukeApp.tuken.loginComId ;
+        }
+        param.data =  JSON.stringify($.extend({_jsession:Math.random(),loginTuken:ajaxLogin.loginTuken,loginComId:ajaxLogin.loginComId},param.data)) ;
     }
     $.ajax(param) ;
 } ;
