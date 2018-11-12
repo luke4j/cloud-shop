@@ -2,12 +2,13 @@ package club.luke.cloud.shop.app.login.dao.impl;
 
 import club.luke.cloud.shop.app.database.BaseDao;
 import club.luke.cloud.shop.app.login.dao.ILoginDao;
+import club.luke.cloud.shop.app.model.TSYS_SetupCom;
 import club.luke.cloud.shop.app.model.TU_Com;
-import club.luke.cloud.shop.app.web.vo.login.VOInLogin;
-import club.luke.cloud.shop.app.web.vo.login.VOOutUser;
+import club.luke.cloud.shop.app.login.action.vo.VOInLogin;
+import club.luke.cloud.shop.app.login.action.vo.VOOutUser;
+import club.luke.cloud.shop.app.util.tool.LKMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -48,5 +49,10 @@ public class LoginDao extends BaseDao implements ILoginDao {
     @Override
     public String getRedisUserTuken(String loginTuken) throws Exception {
         return this.getRedisValue(loginTuken);
+    }
+
+    @Override
+    public List<TSYS_SetupCom> findSetupComById(Long id) throws Exception {
+        return this.find("From TSYS_SetupCom sys where sys.com.id=:comId",new LKMap<String,Object>().put1("comId",id)) ;
     }
 }

@@ -21,7 +21,7 @@ public class TU_Message extends Model {
         /**全公司消息*/
         allCom,
         /**全系统消息*/
-        all,
+        system,
     }
 
     @Column(length = 500,nullable = false)

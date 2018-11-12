@@ -3,13 +3,14 @@ package club.luke.cloud.shop.app.login.service.impl;
 import club.luke.cloud.shop.app.login.dao.ILoginDao;
 import club.luke.cloud.shop.app.login.dao.ILoginJpaDao;
 import club.luke.cloud.shop.app.login.service.ILoginService;
-import club.luke.cloud.shop.app.model.TU_Com;
-import club.luke.cloud.shop.app.model.TU_User;
+import club.luke.cloud.shop.app.model.*;
 import club.luke.cloud.shop.app.util.tool.Assertion;
 import club.luke.cloud.shop.app.util.tool.LK;
-import club.luke.cloud.shop.app.web.vo.login.VOInLogin;
-import club.luke.cloud.shop.app.web.vo.login.VOOutUser;
-import club.luke.cloud.shop.app.web.vo.login.VOOutValText;
+import club.luke.cloud.shop.app.login.action.vo.VOInLogin;
+import club.luke.cloud.shop.app.login.action.vo.VOOutUser;
+import club.luke.cloud.shop.app.login.action.vo.VOOutValText;
+import club.luke.cloud.shop.app.util.tool.LKMap;
+import club.luke.cloud.shop.app.web.vo.VORedisUser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -17,8 +18,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import javax.transaction.Transactional;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 
 /**
@@ -97,5 +97,40 @@ public class LoginService implements ILoginService {
         this.loginDao.setRedisLoginTuken(loginTuken, LK.ObjToJsonStr(voOutUser)) ;
         voOutUser.setLoginTuken(loginTuken);
         return voOutUser;
+    }
+
+    @Override
+    public Map<String, Object> getInfo(VORedisUser voRedisUser)  throws Exception {
+        Map<String,Object> result = new HashMap<String,Object>() ;
+
+        TU_User tu_user = this.loginJpaDao.findById(voRedisUser.getId()) ;
+        Assertion.NotEmpty(tu_user, "用户不存在");
+        /**查询用户消息*/
+        List<TU_Message> listMessage_gr = new ArrayList<>() ; //this.loginDao.findMessage_gr(tu_user) ;
+        List<TU_Message> listMessage_zd = new ArrayList<>()  ; //this.loginDao.findMessage_zd(tu_user) ;
+        List<TU_Message> listMessage_js = new ArrayList<>()  ; //this.loginDao.findMessage_js(tu_user) ;
+        List<TU_Message> listMessage_allCom = new ArrayList<>()  ; //this.loginDao.findMessage_allCom(tu_user) ;
+        List<TU_Message> listMessage_system = new ArrayList<>()  ; //this.loginDao.findMessage_system(tu_user) ;
+        result.put("msgs",new LKMap<String,Object>().put1("gr",listMessage_gr)
+                .put1("zd",listMessage_zd)
+                .put1("js",listMessage_js)
+                .put1("allCom",listMessage_allCom)
+                .put1("system",listMessage_system)) ;
+        /**查询用户权限*/
+        TU_Role tu_role = tu_user.getRole() ;
+        Assertion.NotEmpty(tu_role, "用户角色不能为空，请配置");
+        result.put("role",tu_role) ;
+        List<TU_Fun> lstFun = tu_user.getRole().getListFun();
+        Assertion.NotEmpty(lstFun, "您的角色没有配置权限");
+        result.put("funs",lstFun) ;
+        /**查询系统配置*/
+        List<TSYS_SetupCom> listSetupCom = this.loginDao.findSetupComById(tu_user.getCom().getId()) ;
+        result.put("listSetupCom", listSetupCom) ;
+        log.info("load time");
+        result.put("sysTime", new Date().getTime()) ;
+
+
+
+        return result ;
     }
 }

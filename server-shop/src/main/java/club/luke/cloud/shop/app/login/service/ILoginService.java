@@ -1,11 +1,13 @@
 package club.luke.cloud.shop.app.login.service;
 
 
-import club.luke.cloud.shop.app.web.vo.login.VOInLogin;
-import club.luke.cloud.shop.app.web.vo.login.VOOutUser;
-import club.luke.cloud.shop.app.web.vo.login.VOOutValText;
+import club.luke.cloud.shop.app.login.action.vo.VOInLogin;
+import club.luke.cloud.shop.app.login.action.vo.VOOutUser;
+import club.luke.cloud.shop.app.login.action.vo.VOOutValText;
+import club.luke.cloud.shop.app.web.vo.VORedisUser;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by luke on 2018/11/1.
@@ -41,4 +43,12 @@ public interface ILoginService {
      * @throws Exception
      */
     VOOutUser findByLoginNameAndPassword(VOInLogin vo)throws Exception;
+
+    /**
+     * 登录后查询系统信息与个人信息,系统时间，当前操作人权限 ，信息，配置
+     * @param voRedisUser
+     * @return
+     * @throws Exception
+     */
+    Map<String,Object> getInfo(VORedisUser voRedisUser)throws Exception;
 }

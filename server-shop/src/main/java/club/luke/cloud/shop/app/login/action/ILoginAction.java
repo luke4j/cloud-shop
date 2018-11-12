@@ -1,9 +1,10 @@
 package club.luke.cloud.shop.app.login.action;
 
+import club.luke.cloud.shop.app.login.action.vo.VOInEditPassword;
 import club.luke.cloud.shop.app.web.ActionResult;
 import club.luke.cloud.shop.app.web.vo.VOInEmputy;
-import club.luke.cloud.shop.app.web.vo.login.VOInLogin;
-import club.luke.cloud.shop.app.web.vo.login.VOInLoginInfo;
+import club.luke.cloud.shop.app.login.action.vo.VOInLogin;
+import club.luke.cloud.shop.app.login.action.vo.VOInLoginInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -89,7 +90,9 @@ public interface ILoginAction {
 
 
     /**
-     *登录后查询系统信息与个人信息
+     *登录后查询系统信息与个人信息,系统时间，当前操作人权限 ，信息，配置<br>
+     *     url:login/getInfo.act<br>
+     *         {loginTuken:''}
      * @param request
      * @param response
      * @param actionResult
@@ -105,6 +108,66 @@ public interface ILoginAction {
                                 @ApiParam @RequestBody @Valid
                                 VOInLoginInfo vo ,BindingResult bindingResult)throws Exception ;
 
+
+
+    /**
+     * 登出请求<br>
+     *     url:login/logout.act<br>
+     *         {loginTuken:''}
+     * @param request
+     * @param response
+     * @param vo
+     * @param bindingResult
+     * @param actionResult
+     * @return
+     * @throws Exception
+     */
+    @ApiOperation(value = "登出请求")
+    @RequestMapping(path = "login/logout.act",method= RequestMethod.POST)
+    @ResponseBody
+    ActionResult logout(HttpServletRequest request, HttpServletResponse response,
+                          @ApiParam(value = "登出请求", required = true)  @Valid @RequestBody
+                          VOInLoginInfo vo, BindingResult bindingResult, ActionResult actionResult)throws Exception ;
+
+
+    /**
+     * 用户修改密码<br>
+     *     url:login/editPassword.act<br>
+     *         {password:'未加密密码',loginTuken:''}
+     *
+     * @param request
+     * @param response
+     * @param vo
+     * @param bindingResult
+     * @param actionResult
+     * @return
+     * @throws Exception
+     */
+    @ApiOperation(value = "用户修改密码")
+    @RequestMapping(path = "login/editPassword.act",method= RequestMethod.POST)
+    @ResponseBody
+    ActionResult editPassword(HttpServletRequest request, HttpServletResponse response,
+                                @ApiParam(value = "用户修改密码", required = true)  @Valid @RequestBody
+                                VOInEditPassword vo, BindingResult bindingResult, ActionResult actionResult)throws Exception ;
+
+    /**
+     * 用户基本信息查看<br>
+     *     url:'login/getUserInfo.act'<br>
+     *         {loginTuken:''}
+     * @param request
+     * @param response
+     * @param vo
+     * @param bindingResult
+     * @param actionResult
+     * @return
+     * @throws Exception
+     */
+    @ApiOperation(value = "用户基本信息查看")
+    @RequestMapping(path = "login/getUserInfo.act",method= RequestMethod.POST)
+    @ResponseBody
+    ActionResult getUserInfo(HttpServletRequest request, HttpServletResponse response,
+                               @ApiParam(value = "用户基本信息查看", required = true)  @Valid
+                               VOInLoginInfo vo, BindingResult bindingResult, ActionResult actionResult)throws Exception ;
 
 
 

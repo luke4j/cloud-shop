@@ -1,12 +1,12 @@
-package club.luke.cloud.shop.app.web.vo.login;
+package club.luke.cloud.shop.app.web.vo;
 
-import club.luke.cloud.shop.app.web.vo.VOOut;
+
 import io.swagger.annotations.ApiModelProperty;
 
 /**
- * Created by luke on 2018/11/7.
+ * Created by luke on 2018/10/31.
  */
-public class VOOutUser implements VOOut {
+public class VORedisUser {
 
     @ApiModelProperty(value = "登录标志存在redis缓存，存在8*60*60秒")
     private String loginTuken ;
@@ -27,12 +27,12 @@ public class VOOutUser implements VOOut {
     private Long loginComId ;
 
 
-    public Long getLoginComId() {
-        return loginComId;
+    public String getLoginTuken() {
+        return loginTuken;
     }
 
-    public void setLoginComId(Long loginComId) {
-        this.loginComId = loginComId;
+    public void setLoginTuken(String loginTuken) {
+        this.loginTuken = loginTuken;
     }
 
     public Long getId() {
@@ -51,14 +51,6 @@ public class VOOutUser implements VOOut {
         this.name = name;
     }
 
-    public String getLoginTuken() {
-        return loginTuken;
-    }
-
-    public void setLoginTuken(String loginTuken) {
-        this.loginTuken = loginTuken;
-    }
-
     public String getLoginName() {
         return loginName;
     }
@@ -73,5 +65,13 @@ public class VOOutUser implements VOOut {
 
     public void setCom_name(String com_name) {
         this.com_name = com_name;
+    }
+
+    public Long getLoginComId() {
+        return loginComId;
+    }
+
+    public void setLoginComId(Long loginComId) {
+        this.loginComId = loginComId;
     }
 }

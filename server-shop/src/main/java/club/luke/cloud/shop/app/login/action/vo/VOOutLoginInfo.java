@@ -1,4 +1,4 @@
-package club.luke.cloud.shop.app.web.vo.login;
+package club.luke.cloud.shop.app.login.action.vo;
 
 /**
  * Created by luke on 2018/11/9.

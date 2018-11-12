@@ -211,18 +211,7 @@ J.ajax = function(settings){
                     }
                     settings.success(res.data,res) ;
                 }else{
-                    if(res.errorMsg.indexOf('请登录')>=0){
-                        J.alert({
-                            title:'登录提示',
-                            msg:res.errorMsg,
-                            btns:'YN',
-                            okFunction:function(e,alert){
-                                window.location.href = J.contextPath ;
-                            }
-                        }) ;
-                    }else{
-                        J.alert(res.doing+"</br>"+res.errorType+":</br>"+res.errorMsg) ; J.alert(res.doing+"</br>"+res.errorType+":</br>"+res.errorMsg) ;
-                    }
+                    J.alert(res.doing+"</br>"+res.errInfo+"<br><a  href= 'javascript:void(0)' onclick='location.reload()'>返回登录页面</a>") ;
                 }
             }
         }

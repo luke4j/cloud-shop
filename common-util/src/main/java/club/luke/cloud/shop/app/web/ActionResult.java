@@ -4,6 +4,7 @@ package club.luke.cloud.shop.app.web;
 import club.luke.cloud.shop.app.util.tool.Assertion;
 import club.luke.cloud.shop.app.util.tool.LK;
 import club.luke.cloud.shop.app.util.tool.LKMap;
+import club.luke.cloud.shop.app.web.vo.VORedisUser;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -33,9 +34,7 @@ public class ActionResult {
         this.response = response ;
         if(this.request==null||this.response==null)
             Assertion.Error("ActionResult:request and response must not null");
-        SessionUser sessionUser = (SessionUser)request.getSession().getAttribute(SessionUser.SessionUser) ;
-        this.map.put1(SessionUser.SessionUser,sessionUser)
-                .put1("url", request.getRequestURL().toString());
+        this.map.put1("url", request.getRequestURL().toString());
         this.map.put1("doStartTime", LK.DateToStr(new Date(), "yyyy-MM-dd:HH:mm:ss SSS")) ;
 
         return this ;
