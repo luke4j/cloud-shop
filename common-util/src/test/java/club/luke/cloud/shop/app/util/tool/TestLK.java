@@ -16,11 +16,24 @@ public class TestLK {
 
 
     @Test
-    public  void vilidataCode (){
+    public  void vilidataCode () throws Exception{
         log.i(LK.vilidateCode(6)) ;
     }
 
 
+
+    @Test
+    public void testEvalStrCode() throws Exception{
+        Boolean isBroken = true ;
+        String stream = "" ;
+        String code = "if(isBroken){stream=100}else{stream=200}" ;
+        Object tmp = LK.evalStrCode(code, new LKMap<>().put1("isBroken", isBroken).put1("stream", stream)) ;
+
+        log.i("stream is "+stream);
+        log.i("tmp is "+tmp.toString());
+
+
+    }
 
 
 }

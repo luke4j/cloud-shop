@@ -24,12 +24,18 @@ public class GlobaException  {
     @ResponseBody
     public ActionResult handlerException(HttpServletRequest request,HttpServletResponse response, Throwable e){
         e.printStackTrace();
-        ActionResult actionResult = new ActionResult().init(request,response) ;
-        String msg = e.getMessage() ;
-        if(LK.StrIsEmpty(msg))
-            msg = e.getClass().toString() ;
-        actionResult.Fial(e,msg) ;
-        return actionResult ;
+        ActionResult actionResult = new ActionResult() ;
+        try{
+            actionResult.init(request,response) ;
+            String msg = e.getMessage() ;
+            if(LK.StrIsEmpty(msg))
+                msg = e.getClass().toString() ;
+            actionResult.Fial(e,msg) ;
+        }catch (Exception exc){
+            exc.printStackTrace();
+        }finally {
+            return actionResult  ;
+        }
     }
 
 }

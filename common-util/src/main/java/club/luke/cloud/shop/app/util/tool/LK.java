@@ -9,6 +9,10 @@ import net.sourceforge.pinyin4j.format.HanyuPinyinCaseType;
 import net.sourceforge.pinyin4j.format.HanyuPinyinOutputFormat;
 import net.sourceforge.pinyin4j.format.HanyuPinyinToneType;
 import net.sourceforge.pinyin4j.format.HanyuPinyinVCharType;
+import org.apache.commons.jexl2.Expression;
+import org.apache.commons.jexl2.JexlContext;
+import org.apache.commons.jexl2.JexlEngine;
+import org.apache.commons.jexl2.MapContext;
 
 import java.lang.reflect.Field;
 import java.security.MessageDigest;
@@ -24,12 +28,12 @@ import java.util.regex.Pattern;
 public class LK {
     private static L l = L.getl(LK.class) ;
 
-    public static String uuid(){
+    public static String uuid() throws Exception{
         String uuid = UUID.randomUUID().toString();
         return uuid.replaceAll("-", "");
     }
 
-    public static String vilidateCode(int i){
+    public static String vilidateCode(int i) throws Exception{
         StringBuffer sb = new StringBuffer() ;
         String tmp = Math.random()*10 +"";
         for (int j=2 ; j<tmp.length();j++){
@@ -45,7 +49,7 @@ public class LK {
      * @param str
      * @return
      */
-    public static Boolean StrIsEmpty(String str){
+    public static Boolean StrIsEmpty(String str) throws Exception{
         return (str==null||str.trim().equals(""))?true:false ;
     }
 
@@ -54,7 +58,7 @@ public class LK {
      * @param str
      * @return
      */
-    public static Boolean StrIsNotEmpty(String str){
+    public static Boolean StrIsNotEmpty(String str) throws Exception{
         return !StrIsEmpty(str) ;
     }
 
@@ -64,7 +68,7 @@ public class LK {
      * @param def
      * @return
      */
-    public static String StrIsEmptyDo(String str,String def){
+    public static String StrIsEmptyDo(String str,String def) throws Exception{
         return StrIsEmpty(str)?def:str.trim() ;
     }
     /**
@@ -72,7 +76,7 @@ public class LK {
      * @param str
      * @return
      */
-    public static Boolean StrIsNum(String str){
+    public static Boolean StrIsNum(String str)throws Exception{
         if(StrIsEmpty(str)) return false ;
         str = str.trim() ;
         if(str.startsWith(".")) return false ;
@@ -87,7 +91,7 @@ public class LK {
      * @param format
      * @return
      */
-    public static Boolean StrIsDate(String str,String format){
+    public static Boolean StrIsDate(String str,String format)throws Exception{
         SimpleDateFormat sdf = new SimpleDateFormat(format);
         try {
             sdf.parse(str);
@@ -103,7 +107,7 @@ public class LK {
      * @param format
      * @return
      */
-    public static Date StrToDate(String str,String format) {
+    public static Date StrToDate(String str,String format) throws Exception{
         SimpleDateFormat sdf = new SimpleDateFormat(format);
         try {
             return sdf.parse(str);
@@ -117,7 +121,7 @@ public class LK {
      * @param str
      * @return
      */
-    public static Date StrToDate_YMD(String str) {
+    public static Date StrToDate_YMD(String str)throws Exception {
         if(StrIsDate(str, "yyyy-MM-dd")){
             return StrToDate(str,"yyyy-MM-dd") ;
         }else{
@@ -130,7 +134,7 @@ public class LK {
      * @param str
      * @return
      */
-    public static Date StrToDate_YMDHMS(String str) {
+    public static Date StrToDate_YMDHMS(String str)throws Exception {
         if(StrIsDate(str,"yyyy-MM-dd hh:mm:ss")){
             return StrToDate(str,"yyyy-MM-dd hh:mm:ss") ;
         }else{
@@ -148,7 +152,7 @@ public class LK {
      * @param format
      * @return
      */
-    public static String DateToStr(Date date ,String format){
+    public static String DateToStr(Date date ,String format)throws Exception{
         if(date == null)
             return null ;
         SimpleDateFormat sdf = new SimpleDateFormat(format);
@@ -160,7 +164,7 @@ public class LK {
      * @param date
      * @return
      */
-    public static String DateToStr_Y(Date date){
+    public static String DateToStr_Y(Date date)throws Exception{
         if(date == null)
             return null ;
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy");
@@ -172,7 +176,7 @@ public class LK {
      * @param date
      * @return
      */
-    public static String DateToStr_YM(Date date){
+    public static String DateToStr_YM(Date date)throws Exception{
         if(date == null)
             return null ;
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM");
@@ -184,7 +188,7 @@ public class LK {
      * @param date
      * @return
      */
-    public static String DateToStr_YMD(Date date){
+    public static String DateToStr_YMD(Date date)throws Exception{
         if(date == null)
             return null ;
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -198,7 +202,7 @@ public class LK {
      * @param str
      * @return
      */
-    public static String Lens(String str){
+    public static String Lens(String str)throws Exception{
         if(StrIsNum(str)){
             if(Float.parseFloat(str)==0)
                 return "0" ;
@@ -219,7 +223,7 @@ public class LK {
      * @param data
      * @return
      */
-    public static String toLensFormat(Float data){
+    public static String toLensFormat(Float data) throws Exception{
         String str = data+"" ;
         return Lens(str) ;
     }
@@ -231,7 +235,7 @@ public class LK {
      * @return String
      * @author llg
      */
-    public static String NameToPingYinLong(String name) {
+    public static String NameToPingYinLong(String name) throws Exception{
         if (name == null || name.trim().equals(""))
             return "";
         String rt = "";
@@ -262,7 +266,7 @@ public class LK {
      * @return String
      * @author llg
      */
-    public static String NameToPingYinShort(String name) {
+    public static String NameToPingYinShort(String name) throws Exception{
         if (name == null || name.trim().equals(""))
             return "";
         String rt = "";
@@ -289,7 +293,7 @@ public class LK {
      * @return String
      * @author llg
      */
-    public final static String MD5(String s) {
+    public final static String MD5(String s) throws Exception{
         char hexDigits[] = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
         try {
             byte[] btInput = s.getBytes();
@@ -321,7 +325,7 @@ public class LK {
      * @return int
      * @author llg
      */
-    public static int BirthdayToAge(Date borthDate) {
+    public static int BirthdayToAge(Date borthDate)throws Exception {
         String now = DateToStr_Y(new Date());
         String borth = DateToStr_Y(borthDate);
         int rt = Integer.parseInt(now) - Integer.parseInt(borth);
@@ -335,7 +339,7 @@ public class LK {
      * @return int
      * @author llg
      */
-    public static int DateToAge(String borthDate) {
+    public static int DateToAge(String borthDate) throws Exception{
         return BirthdayToAge(StrToDate_YMD(borthDate));
     }
 
@@ -345,11 +349,11 @@ public class LK {
      * @param obj
      * @return
      */
-    public static Boolean ObjIsNull(Object obj){
+    public static Boolean ObjIsNull(Object obj) throws Exception{
         return obj == null?true :false ;
     }
 
-    public static Object ObjIsNullDo(Object obj ,String def){
+    public static Object ObjIsNullDo(Object obj ,String def) throws Exception{
         if(obj==null)
             return def ;
         else
@@ -361,7 +365,7 @@ public class LK {
      * @param obj
      * @return
      */
-    public static boolean ObjIsNotNull(Object obj){
+    public static boolean ObjIsNotNull(Object obj) throws Exception{
         return !ObjIsNull(obj) ;
     }
 
@@ -371,7 +375,7 @@ public class LK {
      * @param discard       丢弃属性
      * @return
      */
-    public static List<Map<String,Object>> ListObjToListMap(List<?> list,Map<String,String> discard){
+    public static List<Map<String,Object>> ListObjToListMap(List<?> list,Map<String,String> discard) throws Exception{
         List<Map<String,Object>> listMap = new ArrayList<Map<String,Object>>(list.size()) ;
         Map<String,Object> map = null ;
         for(Object obj :list){
@@ -387,7 +391,7 @@ public class LK {
      * @param discard   丢弃属性
      * @return
      */
-    public static Map<String, Object> ObjToMap(Object obj,Map<String,String> discard ) {
+    public static Map<String, Object> ObjToMap(Object obj,Map<String,String> discard )throws Exception {
         Field[] fields = obj.getClass().getDeclaredFields();
         Map<String, Object> map = new HashMap<String, Object>(fields.length);
         boolean hasDiscard = discard!=null ;
@@ -407,7 +411,7 @@ public class LK {
         ObjSuperToMap(map,obj.getClass().getSuperclass(),obj,discard);
         return map;
     }
-    private static void ObjSuperToMap(Map<String,Object> map,Class clazz,Object obj,Map<String,String> discard){
+    private static void ObjSuperToMap(Map<String,Object> map,Class clazz,Object obj,Map<String,String> discard) throws Exception{
         if(clazz.equals(Object.class))
             return ;
         else{
@@ -437,7 +441,7 @@ public class LK {
      * @param num
      * @return
      */
-    public static Date AddDay(Date time,int num){
+    public static Date AddDay(Date time,int num) throws Exception{
         Calendar calendar = Calendar.getInstance() ;
         calendar.setTime(time);
         calendar.add(Calendar.DATE, num);
@@ -451,7 +455,7 @@ public class LK {
      * @return
      * @throws AppRuntimeException
      */
-    public static String ObjToJsonStr(Object obj,String... removes) throws AppRuntimeException{
+    public static String ObjToJsonStr(Object obj,String... removes) throws Exception{
         JsonConfig jc = new JsonConfig() ;
         jc.setExcludes(removes);
         JSONObject json = JSONObject.fromObject(obj,jc) ;
@@ -466,11 +470,30 @@ public class LK {
      * @return
      * @throws AppRuntimeException
      */
-    public static <T> T StrJson2Obj(String strJson,Class<T> clazz) throws AppRuntimeException{
+    public static <T> T StrJson2Obj(String strJson,Class<T> clazz) throws Exception{
         JSONObject jsonObj = JSONObject.fromObject(strJson) ;
         return (T)JSONObject.toBean(jsonObj,clazz) ;
     }
 
+
+    /**
+     *
+     * @param jexlExp 需要执行的代码
+     * @param map     执行代码所需要的环境(也就是代码中的变量)
+     * @return
+     */
+    public static Object evalStrCode(String jexlExp,Map<String,Object> map) throws Exception{
+        JexlEngine jexl=new JexlEngine();
+        Expression e = jexl.createExpression(jexlExp);
+        JexlContext jc = new MapContext();
+        for(String key:map.keySet()){
+            jc.set(key, map.get(key));
+        }
+        if(null==e.evaluate(jc)){
+            return "";
+        }
+        return e.evaluate(jc);
+    }
 
 
 }

@@ -29,7 +29,7 @@ public class ActionResult {
 
 
 
-    public ActionResult init( HttpServletRequest request , HttpServletResponse response ){
+    public ActionResult init( HttpServletRequest request , HttpServletResponse response ) throws Exception{
         this.request = request ;
         this.response = response ;
         if(this.request==null||this.response==null)
@@ -47,7 +47,7 @@ public class ActionResult {
      * @param map   返回扩展数据
      * @return
      */
-    public ActionResult OK(String doing , Object data,LKMap<String,Object> map ){
+    public ActionResult OK(String doing , Object data,LKMap<String,Object> map ) throws Exception{
         this.doing = doing ;
         this.data = data ;
         this.map.put1("doEndTime",LK.DateToStr(new Date(),"yyyy-MM-dd HH:mm:ss SSS")) ;
@@ -65,7 +65,7 @@ public class ActionResult {
      * @param data  返回数据
      * @return
      */
-    public ActionResult OK(String doing ,Object data ){
+    public ActionResult OK(String doing ,Object data ) throws Exception{
         return this.OK(doing,data,null) ;
     }
 
@@ -75,7 +75,7 @@ public class ActionResult {
      * @param errInfo       异常信息
      * @return
      */
-    public ActionResult Fial(Throwable e,String errInfo){
+    public ActionResult Fial(Throwable e,String errInfo) throws Exception{
         if(LK.StrIsNotEmpty(errInfo)){
             this.errInfo = errInfo ;
         }else if(e!=null&&LK.StrIsNotEmpty(e.getMessage())){
@@ -94,7 +94,7 @@ public class ActionResult {
      * @param e  失败出现的异常
      * @return
      */
-    public ActionResult Fial(Throwable e){
+    public ActionResult Fial(Throwable e) throws Exception{
         return this.Fial(e,null) ;
     }
 
@@ -103,11 +103,11 @@ public class ActionResult {
      * @param errInfo  异常信息
      * @return
      */
-    public ActionResult Fial(String errInfo){
+    public ActionResult Fial(String errInfo) throws Exception{
         return this.Fial(null,errInfo) ;
     }
 
-    public void write(){
+    public void write() throws Exception{
 
         this.response.setCharacterEncoding("UTF-8");
         this.response.setContentType("application/Json");
