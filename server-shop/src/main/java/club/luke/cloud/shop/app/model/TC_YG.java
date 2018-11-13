@@ -1,6 +1,7 @@
 package club.luke.cloud.shop.app.model;
 
 import club.luke.cloud.shop.app.database.Model;
+import club.luke.cloud.shop.app.util.V;
 
 import javax.persistence.*;
 import java.util.List;
@@ -10,21 +11,7 @@ import java.util.List;
  * 验光单
  */
 @Entity
-public class TC_YGD extends Model{
-
-    /**验光类型*/
-    public enum YGType{
-        /**电脑验光*/
-        dn_yg,
-        /**检影验光*/
-        jy_yg,
-        /**精调验光*/
-        jt_yg,
-        /**处方*/
-        cf,
-        /**销售单使用*/
-        xsd
-    }
+public class TC_YG extends Model{
 
 
     /**验光师，或销售员*/
@@ -42,10 +29,13 @@ public class TC_YGD extends Model{
 
     @Enumerated(EnumType.STRING)
     @Column(length = 10,nullable = false)
-    YGType ygType ;
+    V.YGType ygType ;
+
 
 
     @OneToMany
+    /**在tc_ygms表中增加ygdId列，做关联*/
+    @JoinColumn(name = "ygdId",foreignKey = @ForeignKey(name = "fk_ygmx_ygd"))
     List<TC_YGMX> ygmx ;
 
 
@@ -61,16 +51,13 @@ public class TC_YGD extends Model{
     private String zd5 ;
 
 
-
-
-    public YGType getYgType() {
+    public V.YGType getYgType() {
         return ygType;
     }
 
-    public void setYgType(YGType ygType) {
+    public void setYgType(V.YGType ygType) {
         this.ygType = ygType;
     }
-
 
     public TU_User getYgs() {
         return ygs;

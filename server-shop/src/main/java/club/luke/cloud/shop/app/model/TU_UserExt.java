@@ -12,7 +12,7 @@ import javax.persistence.OneToOne;
  * 用户扩展信息
  */
 @Entity
-public class TU_UserEx extends Model {
+public class TU_UserExt extends Model {
 
     @OneToOne
     @JoinColumn(name = "userId",foreignKey = @ForeignKey(name = "fk_user_ex"))

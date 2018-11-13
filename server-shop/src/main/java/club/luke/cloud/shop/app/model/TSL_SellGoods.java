@@ -13,9 +13,9 @@ import java.util.List;
 public class TSL_SellGoods extends Model{
 
 
-    @OneToMany
-    @JoinColumn(name = "goodsId",foreignKey = @ForeignKey(name = "fk_sellGoods_goods"))
-    List<TG_Goods> goods ;
+    @ManyToOne
+    @JoinColumn(name = "goodsId",foreignKey = @ForeignKey(name = "fk_SellGoods_goods"))
+    TG_Goods goods ;
 
     @ManyToOne
     @JoinColumn(name = "sellGoodsId",foreignKey = @ForeignKey(name = "fk_sellGroup_sellGoods"))
@@ -26,11 +26,11 @@ public class TSL_SellGoods extends Model{
     TK_KC kc ;
 
     /**原始销售价*/
-    Double srcPrice ;
+    Double priceOutSrc ;
     /**实际销售价格，打折自己算*/
-    Double outPrice ;
+    Double priceOutNow ;
     /**进货价*/
-    Double inPrice ;
+    Double printIn ;
 
     /**欠款*/
     Double qk = 0.0 ;
@@ -45,13 +45,7 @@ public class TSL_SellGoods extends Model{
         this.qk = qk;
     }
 
-    public List<TG_Goods> getGoods() {
-        return goods;
-    }
 
-    public void setGoods(List<TG_Goods> goods) {
-        this.goods = goods;
-    }
 
     public TSL_SellGroup getSellGroup() {
         return sellGroup;
@@ -61,28 +55,36 @@ public class TSL_SellGoods extends Model{
         this.sellGroup = sellGroup;
     }
 
-    public Double getSrcPrice() {
-        return srcPrice;
+    public TG_Goods getGoods() {
+        return goods;
     }
 
-    public void setSrcPrice(Double srcPrice) {
-        this.srcPrice = srcPrice;
+    public void setGoods(TG_Goods goods) {
+        this.goods = goods;
     }
 
-    public Double getOutPrice() {
-        return outPrice;
+    public Double getPriceOutSrc() {
+        return priceOutSrc;
     }
 
-    public void setOutPrice(Double outPrice) {
-        this.outPrice = outPrice;
+    public void setPriceOutSrc(Double priceOutSrc) {
+        this.priceOutSrc = priceOutSrc;
     }
 
-    public Double getInPrice() {
-        return inPrice;
+    public Double getPriceOutNow() {
+        return priceOutNow;
     }
 
-    public void setInPrice(Double inPrice) {
-        this.inPrice = inPrice;
+    public void setPriceOutNow(Double priceOutNow) {
+        this.priceOutNow = priceOutNow;
+    }
+
+    public Double getPrintIn() {
+        return printIn;
+    }
+
+    public void setPrintIn(Double printIn) {
+        this.printIn = printIn;
     }
 
     public TK_KC getKc() {

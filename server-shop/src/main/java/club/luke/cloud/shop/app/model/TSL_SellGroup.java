@@ -19,6 +19,24 @@ public class TSL_SellGroup extends Model{
     @Column(length = 10,nullable = false)
     V.GroupType groupType = V.GroupType.加工 ;
 
+    @ManyToOne
+    @JoinColumn(name = "sellId",foreignKey = @ForeignKey(name = "fk_group_sell"))
+    TSL_Sell sell ;
+
+    @ManyToOne
+    @JoinColumn(name = "ygId",foreignKey = @ForeignKey(name = "fk_group_yg"))
+    TC_YG yg ;
+
+    /**验光单照片路径*/
+    String ygd_photo ;
+    /**验光师编码*/
+    @Column(length = 20)
+    String ygs_bm ;
+    /**验光师姓名*/
+    @Column(length = 20)
+    String ygs_xm ;
+
+
     @OneToMany
     @JoinColumn(name = "sellGoodsId",foreignKey = @ForeignKey(name = "fk_sellGroup_sellGoods"))
     List<TSL_SellGoods> sellGoods ;
@@ -43,16 +61,45 @@ public class TSL_SellGroup extends Model{
     /**备注*/
     String bz ;
 
-    /**
-     *销售查询时所使用的验光数据
-     */
-    @OneToOne
-    @JoinColumn(name = "sell_yg_id",foreignKey = @ForeignKey(name = "fk_sellGroup_sellYG"))
-    TC_YGMX sell_yg ;
+    public TC_YG getYg() {
+        return yg;
+    }
 
+    public void setYg(TC_YG yg) {
+        this.yg = yg;
+    }
 
+    public String getYgd_photo() {
+        return ygd_photo;
+    }
 
+    public void setYgd_photo(String ygd_photo) {
+        this.ygd_photo = ygd_photo;
+    }
 
+    public String getYgs_bm() {
+        return ygs_bm;
+    }
+
+    public void setYgs_bm(String ygs_bm) {
+        this.ygs_bm = ygs_bm;
+    }
+
+    public String getYgs_xm() {
+        return ygs_xm;
+    }
+
+    public void setYgs_xm(String ygs_xm) {
+        this.ygs_xm = ygs_xm;
+    }
+
+    public TSL_Sell getSell() {
+        return sell;
+    }
+
+    public void setSell(TSL_Sell sell) {
+        this.sell = sell;
+    }
 
     public V.GroupType getGroupType() {
         return groupType;

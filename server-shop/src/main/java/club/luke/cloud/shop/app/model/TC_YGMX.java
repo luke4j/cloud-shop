@@ -12,15 +12,8 @@ import javax.persistence.*;
 @Entity
 public class TC_YGMX extends Model {
 
-
-
-
-
-
     @ManyToOne
-    /**在tc_ygms表中增加ygdId列，做关联*/
-    @JoinColumn(name = "ygdId",foreignKey = @ForeignKey(name = "fk_ygmx_ygd"))
-    TC_YGD ygd ;
+    TC_YG ygd ;
 
     @OneToOne
     TC_YGMX_Ext ygmx_ext ;
@@ -48,7 +41,7 @@ public class TC_YGMX extends Model {
     @Column(length = 16)
     String cyl ;
     @Column(length = 16)
-    String add ;
+    String c_add ;
     /**三棱镜*/
     @Column(length = 16)
     String slj ;
@@ -121,12 +114,12 @@ public class TC_YGMX extends Model {
         this.cyl = cyl;
     }
 
-    public String getAdd() {
-        return add;
+    public String getC_add() {
+        return c_add;
     }
 
-    public void setAdd(String add) {
-        this.add = add;
+    public void setC_add(String c_add) {
+        this.c_add = c_add;
     }
 
     public String getSlj() {
@@ -193,11 +186,11 @@ public class TC_YGMX extends Model {
         this.ztj = ztj;
     }
 
-    public TC_YGD getYgd() {
+    public TC_YG getYgd() {
         return ygd;
     }
 
-    public void setYgd(TC_YGD ygd) {
+    public void setYgd(TC_YG ygd) {
         this.ygd = ygd;
     }
 

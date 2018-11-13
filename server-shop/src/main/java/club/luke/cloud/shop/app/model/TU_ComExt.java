@@ -10,7 +10,7 @@ import javax.persistence.*;
  * 部门扩展信息
  */
 @Entity
-public class TU_ComEx  extends Model{
+public class TU_ComExt extends Model{
 
     @OneToOne
     @JoinColumn(name = "comId",foreignKey = @ForeignKey(name = "fk_comex_com"),nullable = false)

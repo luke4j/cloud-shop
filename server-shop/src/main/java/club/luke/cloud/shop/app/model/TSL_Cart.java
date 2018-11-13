@@ -23,7 +23,8 @@ public class TSL_Cart extends Model {
     String name ;
 
     @OneToMany
-            @JoinColumn(name = "cartId",foreignKey = @ForeignKey(name = "fk_cart_cartGoods"))
+    /**one2many 在后一个中建关系列*/
+    @JoinColumn(name = "cartId",foreignKey = @ForeignKey(name = "fk_cartGoods_cart"))
     List<TSL_CartGoods> cartGoodses ;
 
     public TU_User getUser() {

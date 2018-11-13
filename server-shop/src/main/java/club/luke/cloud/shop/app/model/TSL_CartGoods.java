@@ -23,7 +23,7 @@ public class TSL_CartGoods extends Model {
 
     /**购物车*/
     @ManyToOne
-    @JoinColumn(name = "cartId",foreignKey = @ForeignKey(name = "fk_cart_cartGoods"))
+
     TSL_Cart cart ;
 
     public TG_Goods getGoods() {

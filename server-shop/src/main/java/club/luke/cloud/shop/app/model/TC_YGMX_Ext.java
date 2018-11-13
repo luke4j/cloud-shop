@@ -17,7 +17,7 @@ public class TC_YGMX_Ext extends Model{
 
     @ManyToOne
     /**在 tc_ygmx_ext 中添加列ygmxId*/
-    @JoinColumn(name = "ygmxId",foreignKey = @ForeignKey(name = "fk_ygmx_ygd"))
+    @JoinColumn(name = "ygmxId",foreignKey = @ForeignKey(name = "fk_ygmx_ext_ygmx"))
     TC_YGMX ygmx ;
 
     /**

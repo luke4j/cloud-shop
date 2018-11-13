@@ -24,25 +24,25 @@ public class TSL_Sell extends Model {
 
     /**消费者*/
     @ManyToOne
-    @JoinColumn(name = "customer",foreignKey = @ForeignKey(name = "fk_sell_customer"))
+    @JoinColumn(name = "customerId",foreignKey = @ForeignKey(name = "fk_sell_customer"))
     TC_Customer customer ;
 
 
     /**销售站点*/
     @ManyToOne
-    @JoinColumn(name = "customer",foreignKey = @ForeignKey(name = "fk_sell_bugCom"))
+    @JoinColumn(name = "buy_storeId",foreignKey = @ForeignKey(name = "fk_sell_bugCom"))
     TU_Com buyCom;
 
     /**取货站点*/
     @ManyToOne
-    @JoinColumn(name = "customer",foreignKey = @ForeignKey(name = "fk_sell_bugCom"))
+    @JoinColumn(name = "pickupStoreId",foreignKey = @ForeignKey(name = "fk_sell_pickupCom"))
     TU_Com pickupCom;
 
     /**取货时间*/
     Date pickTime ;
 
     @OneToMany
-    @JoinColumn(name = "sellGroupId",foreignKey = @ForeignKey(name = "fk_sell_group"))
+    @JoinColumn(name = "sellId",foreignKey = @ForeignKey(name = "fk_group_sell"))
     List<TSL_SellGroup> sellGroup ;
 
 

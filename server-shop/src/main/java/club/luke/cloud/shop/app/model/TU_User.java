@@ -41,13 +41,25 @@ public class TU_User extends Model{
     private String sex ;
 
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "comId",foreignKey = @ForeignKey(name = "fk_user_com"))
     TU_Com com ;
 
-    @OneToOne
+    @ManyToOne
+    @JoinColumn(name = "storeId",foreignKey = @ForeignKey(name = "fk_user_store"))
+    TU_Com store ;
+
+    @ManyToOne
     @JoinColumn(name = "roleId",foreignKey = @ForeignKey(name = "fk_user_role"))
     TU_Role role  ;
+
+    public TU_Com getStore() {
+        return store;
+    }
+
+    public void setStore(TU_Com store) {
+        this.store = store;
+    }
 
     public TU_Com getCom() {
         return com;

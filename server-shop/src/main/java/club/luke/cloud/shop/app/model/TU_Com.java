@@ -1,6 +1,7 @@
 package club.luke.cloud.shop.app.model;
 
 import club.luke.cloud.shop.app.database.Model;
+import club.luke.cloud.shop.app.util.V;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,14 +16,7 @@ import javax.persistence.Enumerated;
 public class TU_Com extends Model {
 
 
-    public enum ComKind{
-        /**总公司*/
-        zgs,
-        /**分公司*/
-        fgs,
-        /**站点*/
-        zd
-    }
+
 
 
     @Column(length = 80,nullable = false)
@@ -33,7 +27,7 @@ public class TU_Com extends Model {
      */
     @Column(length = 20,nullable = false)
     @Enumerated(EnumType.STRING)
-    private ComKind kind = ComKind.zd;
+    private V.ComKind kind = V.ComKind.站点;
 
     /**
      * 是否加式中心
@@ -98,11 +92,11 @@ public class TU_Com extends Model {
         this.name = name;
     }
 
-    public ComKind getKind() {
+    public V.ComKind getKind() {
         return kind;
     }
 
-    public void setKind(ComKind kind) {
+    public void setKind(V.ComKind kind) {
         this.kind = kind;
     }
 

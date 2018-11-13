@@ -63,4 +63,30 @@ public class V {
         系统
     }
 
+    /**站点类型*/
+    public enum ComKind{
+        总公司,
+        分公司,
+        站点
+    }
+
+    /**页面元素*/
+    public enum HtmlType{
+        input,
+        select
+    }
+
+    /**付款方式*/
+    public enum PayType{
+        现金,
+        银行卡,
+        支付宝,
+        微信,
+        支票,
+        转帐,
+        代金券,
+        欠条
+    }
+
+
 }
