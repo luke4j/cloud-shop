@@ -1,6 +1,7 @@
 package club.luke.cloud.shop.app.model;
 
 import club.luke.cloud.shop.app.database.Model;
+import club.luke.cloud.shop.app.util.V;
 
 import javax.persistence.*;
 import java.util.List;
@@ -12,20 +13,11 @@ import java.util.List;
 @Entity
 public class TSL_SellGroup extends Model{
 
-    public enum GroupType{
-        /**加工*/
-        jg,
-        /**成品*/
-        cp,
-        /**效期*/
-        xq,
-        /**服务*/
-        fw
-    }
+
 
     @Enumerated(EnumType.STRING)
     @Column(length = 10,nullable = false)
-    GroupType groupType = GroupType.jg ;
+    V.GroupType groupType = V.GroupType.加工 ;
 
     @OneToMany
     @JoinColumn(name = "sellGoodsId",foreignKey = @ForeignKey(name = "fk_sellGroup_sellGoods"))
@@ -62,11 +54,11 @@ public class TSL_SellGroup extends Model{
 
 
 
-    public GroupType getGroupType() {
+    public V.GroupType getGroupType() {
         return groupType;
     }
 
-    public void setGroupType(GroupType groupType) {
+    public void setGroupType(V.GroupType groupType) {
         this.groupType = groupType;
     }
 

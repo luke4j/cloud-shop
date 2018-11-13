@@ -1,6 +1,7 @@
 package club.luke.cloud.shop.app.model;
 
 import club.luke.cloud.shop.app.database.Model;
+import club.luke.cloud.shop.app.util.V;
 
 import javax.persistence.*;
 
@@ -13,21 +14,6 @@ public class TC_YGMX extends Model {
 
 
 
-    /**左右眼标志*/
-    public enum EyeType{
-        /**右眼*/
-        od,
-        /**左眼*/
-        os
-    }
-
-    /**使用类型*/
-    public enum UseType{
-        /**近用*/
-        jy,
-        /**远用*/
-        yy
-    }
 
 
 
@@ -43,11 +29,11 @@ public class TC_YGMX extends Model {
 
     @Enumerated(EnumType.STRING)
     @Column(length = 10,nullable = false)
-    EyeType eyeType ;
+    V.EyeType eyeType ;
 
     @Enumerated(EnumType.STRING)
     @Column(length = 10,nullable = false)
-    UseType useType ;
+    V.UseType useType ;
 
 
 
@@ -93,19 +79,19 @@ public class TC_YGMX extends Model {
 
 
 
-    public EyeType getEyeType() {
+    public V.EyeType getEyeType() {
         return eyeType;
     }
 
-    public void setEyeType(EyeType eyeType) {
+    public void setEyeType(V.EyeType eyeType) {
         this.eyeType = eyeType;
     }
 
-    public UseType getUseType() {
+    public V.UseType getUseType() {
         return useType;
     }
 
-    public void setUseType(UseType useType) {
+    public void setUseType(V.UseType useType) {
         this.useType = useType;
     }
 

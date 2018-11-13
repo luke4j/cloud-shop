@@ -1,6 +1,7 @@
 package club.luke.cloud.shop.app.model;
 
 import club.luke.cloud.shop.app.database.Model;
+import club.luke.cloud.shop.app.util.V;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
@@ -11,18 +12,7 @@ import javax.persistence.*;
 @Entity
 public class TU_Message extends Model {
 
-    public enum MessageType{
-        /**个人消息*/
-        gr,
-        /**站点消息*/
-        zd,
-        /**角色消息*/
-        js,
-        /**全公司消息*/
-        allCom,
-        /**全系统消息*/
-        system,
-    }
+
 
     @Column(length = 500,nullable = false)
     private String msg ;
@@ -31,7 +21,7 @@ public class TU_Message extends Model {
 
     @Enumerated(EnumType.STRING)
     @Column(length = 12,nullable = false)
-    private MessageType messageType = MessageType.gr ;
+    private V.MessageType messageType = V.MessageType.个人 ;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "readerId",foreignKey = @ForeignKey(name = "fk_msg_user"))
@@ -53,13 +43,6 @@ public class TU_Message extends Model {
         this.title = title;
     }
 
-    public MessageType getMessageType() {
-        return messageType;
-    }
-
-    public void setMessageType(MessageType messageType) {
-        this.messageType = messageType;
-    }
 
     public TU_User getReader() {
         return reader;

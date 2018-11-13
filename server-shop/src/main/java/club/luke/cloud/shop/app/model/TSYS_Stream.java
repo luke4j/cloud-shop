@@ -1,5 +1,7 @@
 package club.luke.cloud.shop.app.model;
 
+import club.luke.cloud.shop.app.util.V;
+
 import javax.persistence.Column;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -9,21 +11,11 @@ import javax.persistence.Enumerated;
  */
 public class TSYS_Stream {
 
-    /**流程类型*/
-    public enum  Stype{
-        /**成品*/
-        cp,
-        /**定制*/
-        dz,
-        /**加工*/
-        jg,
-        /**定制加工*/
-        zdjg,
-    }
+
 
     @Enumerated(EnumType.STRING)
     @Column(length = 10,nullable = false)
-    Stype stype = Stype.jg ;
+    V.Streamtype stype = V.Streamtype.加工 ;
 
     @Column(length = 30,nullable = false)
     String name ;
@@ -32,11 +24,11 @@ public class TSYS_Stream {
     @Column(nullable = false)
     Boolean over ;
 
-    public Stype getStype() {
+    public V.Streamtype getStype() {
         return stype;
     }
 
-    public void setStype(Stype stype) {
+    public void setStype(V.Streamtype stype) {
         this.stype = stype;
     }
 
