@@ -1,11 +1,12 @@
 package club.luke.cloud.shop.app.login.dao.impl;
 
 import club.luke.cloud.shop.app.database.BaseDao;
+import club.luke.cloud.shop.app.login.action.vo.VOInLogin;
+import club.luke.cloud.shop.app.login.action.vo.VOOutUser;
 import club.luke.cloud.shop.app.login.dao.ILoginDao;
 import club.luke.cloud.shop.app.model.TSYS_SetupCom;
 import club.luke.cloud.shop.app.model.TU_Com;
-import club.luke.cloud.shop.app.login.action.vo.VOInLogin;
-import club.luke.cloud.shop.app.login.action.vo.VOOutUser;
+import club.luke.cloud.shop.app.model.TU_User;
 import club.luke.cloud.shop.app.util.tool.LKMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,7 +39,7 @@ public class LoginDao extends BaseDao implements ILoginDao {
 
     @Override
     public List<TU_Com> findAllCom() throws Exception {
-        return this.find("From TU_Com") ;
+        return this.find("From TU_Com",TU_Com.class) ;
     }
 
     @Override
@@ -53,6 +54,17 @@ public class LoginDao extends BaseDao implements ILoginDao {
 
     @Override
     public List<TSYS_SetupCom> findSetupComById(Long id) throws Exception {
-        return this.find("From TSYS_SetupCom sys where sys.com.id=:comId",new LKMap<String,Object>().put1("comId",id)) ;
+        return this.find("From TSYS_SetupCom sys where sys.com.id=:comId", new LKMap<String, Object>().put1("comId", id)) ;
+    }
+
+    @Override
+    public Boolean delRedisLoginUser(String loginTuken) throws Exception {
+        return this.delRedisValueByKey(loginTuken) ;
+    }
+
+    @Override
+    public Boolean editPassword(TU_User tu_user) throws Exception {
+        this.update(tu_user) ;
+        return true ;
     }
 }

@@ -3,10 +3,8 @@ package club.luke.cloud.shop.app.database;
 import club.luke.cloud.shop.app.util.tool.Assertion;
 import club.luke.cloud.shop.app.util.tool.LK;
 import club.luke.cloud.shop.app.web.Page;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.query.Query;
-import org.hibernate.transform.Transformers;
+import club.luke.cloud.shop.app.web.vo.VORedisUser;
+import net.sf.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -16,6 +14,9 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import javax.annotation.Resource;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -46,18 +47,30 @@ public class BaseDao {
     private JdbcTemplate jdbcTemplate ;
 
     @Resource
-    private SessionFactory sessionFactory ;
+    @PersistenceContext
+    private EntityManager entityManager;
 
-    public Session getSession()throws Exception{
-        Session session = null ;
-        try{
-            session = this.sessionFactory.getCurrentSession() ;
-            log.debug("current session");
-            return session ;
-        }catch (Exception e){
-            log.debug("open session");
-            return sessionFactory.openSession() ;
+    EntityManager getSession(){
+        return this.entityManager ;
+    }
+
+    Query setParams(final Query query ,Object obj)throws Exception{
+        if(obj==null) return query ;
+        Map<String,Object> params = null ;
+        if(!(obj instanceof Map)){
+            params = LK.ObjToMap(obj,null) ;
         }
+        if(obj instanceof Map){
+            params = (Map<String,Object>)obj ;
+        }
+        final Map<String,Object> lmdParams = params ;
+        lmdParams.keySet().forEach(key->{
+            if(lmdParams.get(key)!=null){
+                query.setParameter(key,lmdParams.get(key)) ;
+            }
+
+        });
+        return query ;
     }
 
     /**
@@ -68,6 +81,7 @@ public class BaseDao {
      * @throws Exception
      */
     public <T> T getRedisValue(String key) throws Exception{
+        if(!this.redisTemplate.hasKey(key)) Assertion.Error("redis不存在"+key+"数据");
         return  (T)this.redisTemplate.opsForValue().get(key) ;
     }
 
@@ -80,8 +94,24 @@ public class BaseDao {
      * @throws Exception
      */
     public <T> T setRedisValue(String key,T val) throws Exception{
+        if(this.redisTemplate.hasKey(key)) Assertion.Error("redis中存在"+key+"数据");
         this.redisTemplate.opsForValue().set(key,val);
         return val ;
+    }
+
+    /**
+     * 删除指定 key
+     * @param key
+     * @return
+     * @throws Exception
+     */
+    public Boolean delRedisValueByKey(String key) throws Exception{
+        if(this.redisTemplate.hasKey(key)){
+            this.redisTemplate.delete(key);
+            return true ;
+        }else{
+            return true ;
+        }
     }
 
     /**
@@ -114,7 +144,7 @@ public class BaseDao {
             m.setB_isDel(false);
             m.setB_wtime(new Date());
         }
-        this.getSession().save(obj) ;
+        this.getSession().persist(obj);
         return obj ;
     }
 
@@ -128,12 +158,9 @@ public class BaseDao {
      */
     public boolean delete_hql(String ql,Object param) throws Exception{
         if(LK.StrIsEmpty(ql) ) Assertion.Error("delete_ql语句为空");
-        if(param instanceof Map){
-            Map<String,Object> p = (Map<String,Object>) param ;
-            this.getSession().createQuery(ql).setProperties(p).executeUpdate() ;
-        }else{
-            this.getSession().createQuery(ql).setProperties(param).executeUpdate() ;
-        }
+        Query query = this.getSession().createQuery(ql) ;
+        this.setParams(query, param).executeUpdate() ;
+//        this.getSession().createQuery(ql).setProperties(param).executeUpdate() ;
         return true ;
     }
 
@@ -146,7 +173,7 @@ public class BaseDao {
      */
     public boolean delete_jdbc(String sql,Object... params) throws Exception{
         if(LK.StrIsEmpty(sql) ) Assertion.Error("delete_sql语句为空");
-        log.info("jdbcTemplate sql is =>"+sql);
+        log.info("jdbcTemplate sql is =>" + sql);
         this.jdbcTemplate.update(sql, params) ;
         return true ;
     }
@@ -160,12 +187,8 @@ public class BaseDao {
      */
     public boolean update_ql(String ql,Object param) throws Exception{
         if(LK.StrIsEmpty(ql) ) Assertion.Error("dupdate_ql语句为空");
-        if(param instanceof Map){
-            Map<String,Object> p = (Map<String,Object>) param ;
-            this.getSession().createQuery(ql).setProperties(p).executeUpdate() ;
-        }else{
-            this.getSession().createQuery(ql).setProperties(param).executeUpdate() ;
-        }
+        Query query = this.getSession().createQuery(ql) ;
+        this.setParams(query, param).executeUpdate() ;
         return true ;
     }
 
@@ -182,9 +205,9 @@ public class BaseDao {
     public <T> T updateObj(T obj) throws Exception{
         if(obj instanceof Model){
             Model m = (Model) obj ;
-            this.getSession().update(obj);
+            this.getSession().merge(obj);
         }else{
-            throw DBMsgException.create("删除对象不是映射对象");
+            throw DBMsgException.create("对象不是映射对象");
         }
         return obj ;
     }
@@ -200,9 +223,9 @@ public class BaseDao {
      * @throws Exception
      */
     public <T,C> T updateObj(Class<T> clss ,Long id,C val) throws Exception{
-        T obj = this.getSession().get(clss,id) ;
+        T obj = this.getSession().find(clss, id) ;
         BeanUtils.copyProperties(val, obj);
-        this.getSession().update(obj);
+        this.getSession().merge(obj);
         return obj ;
     }
 
@@ -242,12 +265,8 @@ public class BaseDao {
      */
     public <T> T getUnique(String ql ,Object param) throws Exception{
         if(LK.StrIsEmpty(ql)) Assertion.Error("getUnique查询语句为空");
-        if(param instanceof Map){
-            Map<String,Object> p = (Map<String,Object>) param ;
-            return (T)this.getSession().createQuery(ql).setProperties(p).uniqueResult() ;
-        }else{
-            return (T)this.getSession().createQuery(ql).setProperties(param).uniqueResult() ;
-        }
+        Query query = this.getSession().createQuery(ql) ;
+        return (T) this.setParams(query, param).getSingleResult() ;
     }
 
     /**
@@ -260,12 +279,10 @@ public class BaseDao {
      */
     public <T> T getUnique(String ql ,Object param,Class<T> toBean) throws Exception{
         if(LK.StrIsEmpty(ql)) Assertion.Error("getUnique查询语句为空");
-        if(param instanceof Map){
-            Map<String,Object> p = (Map<String,Object>) param ;
-            return (T)this.getSession().createQuery(ql).setResultTransformer(Transformers.aliasToBean(toBean)).setProperties(param).uniqueResult() ;
-        }else{
-            return (T)this.getSession().createQuery(ql).setResultTransformer(Transformers.aliasToBean(toBean)).setProperties(param).uniqueResult() ;
-        }
+        Query query = this.getSession().createQuery(ql, toBean) ;
+        return (T)this.setParams(query,param).getSingleResult() ;
+//      return (T)this.getSession().createQuery(ql).setResultTransformer(Transformers.aliasToBean(toBean)).setProperties(param).uniqueResult() ;
+
     }
     /**
      * hibernate session ql查询 <br>  注意，toBean与changeMap都为空时，查询出映射类的列表 toBean与changeMap不能同时使用
@@ -283,27 +300,16 @@ public class BaseDao {
         Query query = null ;
         if(LK.ObjIsNull(toBean)){
             query = this.getSession().createQuery(ql) ;
+        }else{
+            query = this.getSession().createQuery(ql,toBean) ;
         }
-        if(LK.ObjIsNotNull(toBean)){
-            query.setResultTransformer(Transformers.aliasToBean(toBean)) ;
-        }
-        if(LK.ObjIsNotNull(changeMap)&&changeMap){
-            query.setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP) ;
-        }
-        if(LK.ObjIsNotNull(param)){
-            if(param instanceof Map){
-                Map<String,Object> p = (Map<String,Object>) param ;
-                query.setProperties(p) ;
-            }else{
-                query.setProperties(param) ;
-            }
 
-        }
+        query = this.setParams(query,param) ;
         if(LK.ObjIsNotNull(page)){
             query.setMaxResults(page.getLimit()) ;
             query.setFirstResult(page.getStart()) ;
         }
-        return query.list() ;
+        return query.getResultList() ;
     }
 
     /**
@@ -317,6 +323,17 @@ public class BaseDao {
         return this.find(ql, null, null, null, null) ;
     }
 
+    /**
+     * 查询数据
+     * @param ql
+     * @param toBean
+     * @param <T>
+     * @return
+     * @throws Exception
+     */
+    public <T> List<T> find(String ql ,Class toBean ) throws Exception{
+        return this.find(ql, null, null, toBean, null) ;
+    }
     /**
      * hibernate session ql查询   <br>  注意 这是直接查询出映射类的列表
      * @param ql
@@ -339,7 +356,7 @@ public class BaseDao {
      * @throws Exception
      */
     public <T> List<T> find(String ql ,Object param ,Page page) throws Exception{
-        return this.find(ql,param,page,null,null) ;
+        return this.find(ql, param, page, null, null) ;
     }
 
     /**
@@ -350,8 +367,8 @@ public class BaseDao {
      * @return
      * @throws Exception
      */
-    public <T> T get(Class<T> clss,Long id) throws Exception {
-        return this.getSession().get(clss, id) ;
+    public <T> T get(Class<T> clss, Long id) throws Exception {
+        return this.getSession().find(clss, id) ;
     }
 
     public<T> T update(T obj) throws Exception {
@@ -366,9 +383,9 @@ public class BaseDao {
      */
     public <T> T delObj(T obj) throws Exception{
         if(obj instanceof Model){
-            Model m = (Model) obj ;
+            Model m = (Model) obj;
             m.setB_isDel(true);
-            this.getSession().update(obj);
+            this.getSession().merge(obj);
         }else{
             throw DBMsgException.create("删除对象不是映射对象");
         }
@@ -382,7 +399,7 @@ public class BaseDao {
      * @throws Exception
      */
     public <T> T delObject(T obj) throws Exception{
-        this.getSession().delete(obj);
+        this.getSession().remove(obj);
         return obj ;
     }
 
@@ -397,6 +414,12 @@ public class BaseDao {
         };
         this.jdbcTemplate.update(sql,objs) ;
         return "success" ;
+    }
+
+    public VORedisUser getRedisUser(String key) throws Exception{
+        String strRedisUser = this.getRedisValue(key) ;
+        VORedisUser voRedisUser = (VORedisUser) JSONObject.toBean(JSONObject.fromObject(strRedisUser), VORedisUser.class);
+        return voRedisUser ;
     }
 
 }

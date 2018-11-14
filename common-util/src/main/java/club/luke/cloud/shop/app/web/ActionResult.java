@@ -50,7 +50,7 @@ public class ActionResult {
     public ActionResult OK(String doing , Object data,LKMap<String,Object> map ) throws Exception{
         this.doing = doing ;
         this.data = data ;
-        this.map.put1("doEndTime",LK.DateToStr(new Date(),"yyyy-MM-dd HH:mm:ss SSS")) ;
+        this.map.put1("doEndTime",LK.DateToStr(new Date(), "yyyy-MM-dd HH:mm:ss SSS")) ;
         if(map!=null){
             this.map.put2(map) ;
         }
@@ -67,6 +67,16 @@ public class ActionResult {
      */
     public ActionResult OK(String doing ,Object data ) throws Exception{
         return this.OK(doing,data,null) ;
+    }
+
+    /**
+     * /**
+     * Action 成功
+     * @param doing 操作目地
+     * @return
+     */
+    public ActionResult OK(String doing ) throws Exception{
+        return this.OK(doing,null,null) ;
     }
 
     /**

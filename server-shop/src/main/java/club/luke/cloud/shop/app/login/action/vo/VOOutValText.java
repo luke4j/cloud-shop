@@ -6,7 +6,7 @@ import io.swagger.annotations.ApiModelProperty;
 /**
  * Created by luke on 2018/11/8.
  */
-public class VOOutValText implements VOOut {
+public class VOOutValText extends VOOut {
     @ApiModelProperty("select option value")
     String val ;
     @ApiModelProperty("select option text")

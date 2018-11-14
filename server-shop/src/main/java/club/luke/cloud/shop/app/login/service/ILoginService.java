@@ -1,9 +1,8 @@
 package club.luke.cloud.shop.app.login.service;
 
 
-import club.luke.cloud.shop.app.login.action.vo.VOInLogin;
-import club.luke.cloud.shop.app.login.action.vo.VOOutUser;
-import club.luke.cloud.shop.app.login.action.vo.VOOutValText;
+import club.luke.cloud.shop.app.login.action.vo.*;
+import club.luke.cloud.shop.app.web.vo.VOOut;
 import club.luke.cloud.shop.app.web.vo.VORedisUser;
 
 import java.util.List;
@@ -51,4 +50,27 @@ public interface ILoginService {
      * @throws Exception
      */
     Map<String,Object> getInfo(VORedisUser voRedisUser)throws Exception;
+
+    /**
+     * 登出
+     * @param vo
+     * @return
+     * @throws Exception
+     */
+    VOOut delRedisLoginUser(VOInLoginInfo vo)throws Exception;
+
+    /**
+     * 查询用户基本信息tu_user信息
+     * @param vo
+     * @return
+     * @throws Exception
+     */
+    VOOutUserInfo getUserInfo(VOInLoginInfo vo)throws Exception;
+
+    /**
+     * 修改登录密码
+     * @param vo
+     * @throws Exception
+     */
+    Boolean editPassword(VOInEditPassword vo)throws Exception;
 }

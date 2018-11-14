@@ -152,7 +152,8 @@ J.copyJson= function(src,target,isAll){
                         window.LukeApp = {} ;
                         LukeApp.User = a ;
                         J.changeView(me,"app/login/main.view") ;
-                    }
+                    },
+                    ajaxOkMsg:'Boolean类型，在没有定义ssuccess方法时，这个参数可以默认使用弹出操作成功提示'
                 }) ;
  * @param settings
  */
@@ -174,10 +175,8 @@ J.ajax = function(settings){
         },
         success: function(res, status, xhr) {
             if(!res.errorMsg){
-                if(param.ajaxOk){
-                    if(param.ajaxDebugger){
-                        console.dir(res) ;
-                    }
+                if(param.ajaxOkMsg){
+                    console.dir(res) ;
                     J.alertOk() ;
                 }
             }else{
@@ -308,6 +307,11 @@ J.jsDateToStr = function(data,format){
     }
     return rt ;
 } ;
+/**long型时间转为字符串*/
+J.LongToStrTime = function(lng){
+    var date = new Date(lng) ;
+    return J.jsDateToStr(date,"yyyy-MM-dd") ;
+},
 /**后台时间返回长整形，所以这里再换成时间就要新new 一个*/
 J.JavaTimeToJsTime = function(obj){
     obj = parseInt(obj) ;

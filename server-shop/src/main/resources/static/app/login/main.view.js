@@ -133,6 +133,7 @@ define(function(require, exports, module) {
             J.ajax({
                 url:'login/getUserInfo.act',
                 success:function(d){
+                    d.brithday = J.LongToStrTime(d.brithday) ;
                     for(var n in d){
                         /**定义的页面元素名与返回数据后台类的属性名有规则对应关系*/
                         $("#user_"+n).html(d[n]) ;
@@ -169,7 +170,7 @@ define(function(require, exports, module) {
                     if(isValid){
                         formData.password = J.md5(formData.password) ;
                         formData.password2 = J.md5(formData.password2) ;
-                        J.ajax({url:'login/editPassword',isMsg:true,data:formData}) ;
+                        J.ajax({url:'login/editPassword',ajaxOkMsg:true,data:formData}) ;
                     }
                 }
             }) ;
@@ -184,6 +185,7 @@ define(function(require, exports, module) {
                 url:'login/logout',
                 success:function(data){
                     J.alert(data) ;
+                    window.LukeApp = {} ;
                     J.changeView(me,'app/login/login.view') ;
                     if(me.msgInterval){
                         clearInterval(me.msgInterval) ;

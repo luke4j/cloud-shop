@@ -6,7 +6,7 @@ import io.swagger.annotations.ApiModelProperty;
 /**
  * Created by luke on 2018/10/31.
  */
-public class VORedisUser {
+public class VORedisUser extends VOOut {
 
     @ApiModelProperty(value = "登录标志存在redis缓存，存在8*60*60秒")
     private String loginTuken ;

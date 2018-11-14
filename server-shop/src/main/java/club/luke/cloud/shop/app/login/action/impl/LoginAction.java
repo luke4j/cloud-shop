@@ -9,6 +9,7 @@ import club.luke.cloud.shop.app.util.tool.LK;
 import club.luke.cloud.shop.app.web.ActionResult;
 import club.luke.cloud.shop.app.web.action.BaseAction;
 import club.luke.cloud.shop.app.web.vo.VOInEmputy;
+import club.luke.cloud.shop.app.web.vo.VOOut;
 import club.luke.cloud.shop.app.web.vo.VORedisUser;
 import io.swagger.annotations.ApiParam;
 import org.slf4j.Logger;
@@ -79,16 +80,25 @@ public class LoginAction extends BaseAction implements ILoginAction {
     public ActionResult logout(HttpServletRequest request, HttpServletResponse response,
                                @ApiParam(value = "登出请求", required = true) @Valid @RequestBody
                                VOInLoginInfo vo, BindingResult bindingResult, ActionResult actionResult) throws Exception {
-        return null;
+        this.loginService.delRedisLoginUser(vo) ;
+        VOOut voOut = new VOOut() ;
+        voOut.setSrcUrl("/");
+        return actionResult.OK("登出成功",voOut);
     }
 
     @Override
-    public ActionResult editPassword(HttpServletRequest request, HttpServletResponse response, @ApiParam(value = "用户修改密码", required = true) @Valid @RequestBody VOInEditPassword vo, BindingResult bindingResult, ActionResult actionResult) throws Exception {
-        return null;
+    public ActionResult editPassword(HttpServletRequest request, HttpServletResponse response,
+                                     @ApiParam(value = "用户修改密码", required = true) @Valid @RequestBody
+                                     VOInEditPassword vo, BindingResult bindingResult, ActionResult actionResult) throws Exception {
+        this.loginService.editPassword(vo) ;
+        return actionResult.OK("用户修改密码");
     }
 
     @Override
-    public ActionResult getUserInfo(HttpServletRequest request, HttpServletResponse response, @ApiParam(value = "用户基本信息查看", required = true) @Valid VOInLoginInfo vo, BindingResult bindingResult, ActionResult actionResult) throws Exception {
-        return null;
+    public ActionResult getUserInfo(HttpServletRequest request, HttpServletResponse response,
+                                    @ApiParam(value = "用户基本信息查看", required = true) @Valid @RequestBody
+                                    VOInLoginInfo vo, BindingResult bindingResult, ActionResult actionResult) throws Exception {
+        VOOutUserInfo voOutUserInfo = this.loginService.getUserInfo(vo) ;
+        return actionResult.OK("用户基本信息查看",voOutUserInfo);
     }
 }

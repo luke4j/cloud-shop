@@ -39,7 +39,7 @@ define(function(require, exports, module) {
                         $("#main_menu").remove() ;
                         var viewPath = $(e.currentTarget).attr('viewPath') ;
                         J.changeView($me,viewPath) ;
-                        $("#lmt_name").html("").append($("<span/>").addClass("glyphicon glyphicon-cloud")).append($(e.currentTarget).attr('viewName')) ;
+                        $("#lmt_name").html("").append($("<span/>").addClass("glyphicon glyphicon-cloud")).append("当前功能："+$(e.currentTarget).attr('viewName')) ;
                     }) ;
                 }) ;
                 if(fun.iconPath){

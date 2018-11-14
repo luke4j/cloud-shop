@@ -39,7 +39,6 @@ public class TG_Goods extends Model{
     /**销售价，做为商品录入时录入的公司统一销售价，不会在页面显示 ，只做写入库存时销售价格标准，有此站点对某些商品会做其它价格处理*/
     Double priceOut ;
 
-
     public Double getPriceIn() {
         return priceIn;
     }

@@ -1,15 +1,14 @@
 package club.luke.cloud.shop.app.login.service.impl;
 
+import club.luke.cloud.shop.app.login.action.vo.*;
 import club.luke.cloud.shop.app.login.dao.ILoginDao;
 import club.luke.cloud.shop.app.login.dao.ILoginJpaDao;
 import club.luke.cloud.shop.app.login.service.ILoginService;
 import club.luke.cloud.shop.app.model.*;
 import club.luke.cloud.shop.app.util.tool.Assertion;
 import club.luke.cloud.shop.app.util.tool.LK;
-import club.luke.cloud.shop.app.login.action.vo.VOInLogin;
-import club.luke.cloud.shop.app.login.action.vo.VOOutUser;
-import club.luke.cloud.shop.app.login.action.vo.VOOutValText;
 import club.luke.cloud.shop.app.util.tool.LKMap;
+import club.luke.cloud.shop.app.web.vo.VOOut;
 import club.luke.cloud.shop.app.web.vo.VORedisUser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,6 +16,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import javax.persistence.Transient;
 import javax.transaction.Transactional;
 import java.util.*;
 
@@ -129,8 +129,31 @@ public class LoginService implements ILoginService {
         log.info("load time");
         result.put("sysTime", new Date().getTime()) ;
 
-
-
         return result ;
+    }
+
+    @Override
+    public VOOut delRedisLoginUser(VOInLoginInfo vo) throws Exception {
+        this.loginDao.delRedisLoginUser(vo.getLoginTuken()) ;
+        return null;
+    }
+
+    @Override
+    public VOOutUserInfo getUserInfo(VOInLoginInfo vo)  throws Exception {
+        VORedisUser redisUser = this.loginDao.getRedisUser(vo.getLoginTuken()) ;
+        TU_User tu_user = this.loginDao.get(TU_User.class, redisUser.getId()) ;
+        VOOutUserInfo voOutUserInfo = new VOOutUserInfo() ;
+        BeanUtils.copyProperties(tu_user,voOutUserInfo);
+        return voOutUserInfo;
+    }
+
+    @Override
+    @Transactional
+    public Boolean editPassword(VOInEditPassword vo) throws Exception {
+        VORedisUser redisUser = this.loginDao.getRedisUser(vo.getLoginTuken()) ;
+        TU_User tu_user = this.loginDao.get(TU_User.class, redisUser.getId()) ;
+        tu_user.setPassword(vo.getPassword());
+        this.loginDao.editPassword(tu_user) ;
+        return true;
     }
 }

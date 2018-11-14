@@ -1,6 +1,7 @@
 package club.luke.cloud.shop.app.database;
 
 import club.luke.cloud.shop.app.web.Page;
+import club.luke.cloud.shop.app.web.vo.VORedisUser;
 
 import java.util.List;
 
@@ -75,4 +76,7 @@ public interface IBaseDao {
      * @throws Exception
      */
     <T> List<T> find(String ql ,Object param ,Page page) throws Exception ;
+
+
+    VORedisUser getRedisUser(String key) throws Exception ;
 }
