@@ -84,7 +84,7 @@ public class AopActionAround {
 
         log.debug("==========>:start time "+ LK.DateToStr(new Date(),"yyyy-MM-dd HH:mm:ss SSS"));
         Object obj = jp.proceed(jp.getArgs()) ;
-        log.debug("==========>:end time "+ LK.DateToStr(new Date(),"yyyy-MM-dd HH:mm:ss SSS"));
+        log.debug("==========>:end time "+ LK.DateToStr(new Date(),"yyyy-MM-dd HH:mm:ss SSS")+"\n\n\r\r");
 
         return obj ;
     }
