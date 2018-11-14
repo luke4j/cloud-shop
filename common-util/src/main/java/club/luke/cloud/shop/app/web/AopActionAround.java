@@ -33,7 +33,7 @@ public class AopActionAround {
 
 //    @Around("point()")
     public Object around(ProceedingJoinPoint jp) throws Throwable{
-        log.debug(jp.getSignature().toShortString());
+        log.debug("====>"+jp.getSignature().toShortString());
         ActionResult actionResult = null ;
         HttpServletRequest request = null ;
         HttpServletResponse response = null ;
@@ -63,6 +63,9 @@ public class AopActionAround {
         if(actionResult==null){
             actionResult = new ActionResult() ;
         }
+        if(request!=null){
+            log.debug("==========>:url is " + request.getRequestURL());
+        }
         if(request!=null&&response!=null){
             actionResult.init(request,response) ;
             String jsonParams = LK.ObjToJsonStr(vo) ;
@@ -73,18 +76,15 @@ public class AopActionAround {
             log.debug("==========>:json params " + jsonParams);
         }
 
-        if(bindingResult!=null&&bindingResult.hasErrors()){
+        if (bindingResult != null && bindingResult.hasErrors()){
             Assertion.Error(bindingResult.getAllErrors().get(0).getDefaultMessage());
         }
-
-        if(request!=null){
-            log.debug("==========>:url is " + request.getRequestURL());
-        }
-
-
-        log.debug("==========>:start time "+ LK.DateToStr(new Date(),"yyyy-MM-dd HH:mm:ss SSS"));
+        Date start = new Date() ;
+        log.debug("==========>:start time "+ LK.DateToStr(start,"yyyy-MM-dd HH:mm:ss SSS"));
         Object obj = jp.proceed(jp.getArgs()) ;
-        log.debug("==========>:end time "+ LK.DateToStr(new Date(),"yyyy-MM-dd HH:mm:ss SSS")+"\n\n\r\r");
+        Date end = new Date() ;
+        log.debug("==========>:end time "+ LK.DateToStr(end,"yyyy-MM-dd HH:mm:ss SSS"));
+        log.debug("==========>:time is "+(end.getTime()-start.getTime())+"\n\r");
 
         return obj ;
     }
