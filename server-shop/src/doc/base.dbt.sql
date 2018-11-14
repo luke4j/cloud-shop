@@ -1,3 +1,9 @@
+/**
+drop database if exists cloud_shop ;
+create database cloud_shop charset utf8 ;
+use cloud_shop ;
+*/
+
 create table tc_customer (id bigint not null auto_increment, b_is_del Boolean default false not null, b_wtime datetime(6) not null, birthday datetime(6), name varchar(20), primary key (id)) ;
 create table tc_yg (id bigint not null auto_increment, b_is_del Boolean default false not null, b_wtime datetime(6) not null, yg_type varchar(10) not null, zd1 varchar(255), zd2 varchar(255), zd3 varchar(255), zd4 varchar(255), zd5 varchar(255), customer_id bigint, ygs_id bigint, primary key (id)) ;
 create table tc_ygmx (id bigint not null auto_increment, b_is_del Boolean default false not null, b_wtime datetime(6) not null, c_add varchar(16), cyl varchar(16), eye_type varchar(10) not null, jd varchar(16), js varchar(16), slj varchar(16), sph varchar(16), sz varchar(16), tg varchar(16), tj varchar(16), use_type varchar(10) not null, xt bit, ztj varchar(16), zw varchar(16), zy bit, yg_id bigint, ygmx_ext_id bigint, primary key (id)) ;
