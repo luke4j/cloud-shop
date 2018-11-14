@@ -34,8 +34,8 @@ public class TC_YG extends Model{
 
 
     @OneToMany
-    /**在tc_ygms表中增加ygdId列，做关联*/
-    @JoinColumn(name = "ygdId",foreignKey = @ForeignKey(name = "fk_ygmx_ygd"))
+    /**在tc_ygms表中增加ygId列，做关联,*/
+    @JoinColumn(name = "ygId",foreignKey = @ForeignKey(name = "fk_ygmx_ygd"))
     List<TC_YGMX> ygmx ;
 
 

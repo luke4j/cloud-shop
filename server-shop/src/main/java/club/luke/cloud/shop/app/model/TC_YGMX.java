@@ -13,6 +13,7 @@ import javax.persistence.*;
 public class TC_YGMX extends Model {
 
     @ManyToOne
+    @JoinColumn(name = "ygId",foreignKey = @ForeignKey(name = "fk_ygmx_ygd"))
     TC_YG ygd ;
 
     @OneToOne

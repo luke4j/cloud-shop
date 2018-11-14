@@ -2,10 +2,7 @@ package club.luke.cloud.shop.app.model;
 
 import club.luke.cloud.shop.app.database.Model;
 
-import javax.persistence.Entity;
-import javax.persistence.ForeignKey;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 
 /**
  * Created by luke on 2018/11/13.
@@ -18,21 +15,37 @@ public class TG_Goods_Ext extends Model {
     @JoinColumn(name = "goodsId",foreignKey = @ForeignKey(name = "fk_goodsExt_goods"))
     TG_Goods goods ;
 
+    @Column(length = 40)
     String attr1 ;
+    @Column(length = 40)
     String attr2 ;
+    @Column(length = 40)
     String attr3 ;
+    @Column(length = 40)
     String attr4 ;
+    @Column(length = 40)
     String attr5 ;
+    @Column(length = 40)
     String attr6 ;
+    @Column(length = 40)
     String attr7 ;
+    @Column(length = 40)
     String attr8 ;
+    @Column(length = 40)
     String attr9 ;
+    @Column(length = 40)
     String attr10 ;
+    @Column(length = 40)
     String attr11 ;
+    @Column(length = 40)
     String attr12 ;
+    @Column(length = 40)
     String attr13 ;
+    @Column(length = 40)
     String attr14 ;
+    @Column(length = 40)
     String attr15 ;
+
 
     public TG_Goods getGoods() {
         return goods;

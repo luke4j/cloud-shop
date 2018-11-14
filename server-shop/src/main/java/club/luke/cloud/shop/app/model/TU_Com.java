@@ -57,11 +57,14 @@ public class TU_Com extends Model {
     /**com地址*/
     private String addr ;
     /**com 电话*/
+    @Column(length = 20)
     private String tel ;
 
     /**com 管理员姓名*/
+    @Column(length = 20)
     private String adminName ;
     /**com 管理员电话*/
+    @Column(length = 20)
     private String adminTel ;
 
     public Boolean getJg_Center() {
