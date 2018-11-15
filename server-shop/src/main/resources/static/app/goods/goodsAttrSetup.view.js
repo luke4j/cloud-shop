@@ -73,7 +73,7 @@ define(function(require, exports, module) {
                             editable:true
                         }
                     ]
-                }
+                } ;
                 J.bpTable("tbl_kindAttrSetup",tblCfg) ;
 
             },this) ;

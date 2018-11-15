@@ -15,6 +15,9 @@ public class TU_Role extends Model {
     @Column(length = 40)
     private String name ;
 
+    @Column(length = 80)
+    private String bz ;
+
     @ManyToMany(cascade = {CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH},fetch = FetchType.EAGER)
     @JoinTable(name="TU_Role_Fun",
             joinColumns = {@JoinColumn(name="roleId",foreignKey = @ForeignKey(name = "fk_role_fun"))},
@@ -26,6 +29,15 @@ public class TU_Role extends Model {
     @JoinColumn(name = "comId",foreignKey = @ForeignKey(name = "fk_role_com"))
     @JsonIgnore
     private TU_Com com ;
+
+
+    public String getBz() {
+        return bz;
+    }
+
+    public void setBz(String bz) {
+        this.bz = bz;
+    }
 
     public String getName() {
         return name;

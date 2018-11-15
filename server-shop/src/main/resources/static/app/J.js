@@ -448,13 +448,31 @@ J.bpTable = function(tableId,bootstrapTableSetup){
                 }
             }
     } ;
+    if(bootstrapTableSetup.queryParams){
+        var ajaxLogin = {loginTuken:'',loginComId:''} ;
+        if(window.LukeApp&&window.LukeApp.tuken){
+            ajaxLogin.loginTuken = LukeApp.tuken.loginTuken ;
+            ajaxLogin.loginComId = LukeApp.tuken.loginComId ;
+        }
+        if(bootstrapTableSetup.queryParams){
+            var queryParams = bootstrapTableSetup.queryParams() ;
+            bootstrapTableSetup.queryParams = function(){
+                return $.extend({},queryParams,ajaxLogin) ;
+            }
+        }else{
+            bootstrapTableSetup.queryParams = function(){
+                return $.extend({},ajaxLogin) ;
+            }
+        }
+    }
 
     var setup = $.extend({},defaults,bootstrapTableSetup) ;
     if(!setup.url){
-        J.alert("请填写URL参数") ;
-        return false ;
+        //J.alert("请填写URL参数") ;
+        //return false ;
+    }else{
+        setup.url = J.contextPath+setup.url ;
     }
-    setup.url = J.contextPath+setup.url ;
     require(['bootstrap-table','js/bootstrap/plugins/bootstrap-table/locale/bootstrap-table-zh-CN'],function(){
         $("#"+tableId).bootstrapTable(setup) ;
     }) ;
@@ -584,7 +602,7 @@ J.formElement = function(ele){
     var elementRowCss = "col-xs-7 col-sm-7 col-md-7 col-lg-7 row" ;
     var inputCss = "col-xs-11 col-sm-11 col-md-11 col-lg-11" ;
     var $formGroup  = $("<div class='form-group col-xs-12 col-sm-6 col-md-4 col-lg-4 row '>") ;
-    var $lable = $("<label  control-label'>").addClass(labelRowCss).attr("for",ele.id).text(ele.text) ;
+    var $lable = $("<label  class='control-label'>").addClass(labelRowCss).attr("for",ele.id).text(ele.text) ;
     var $divElement = $("<div >").addClass(elementRowCss) ;
     $formGroup.append($lable).append($divElement) ;
 
@@ -602,7 +620,7 @@ J.formElement = function(ele){
         }
         $divElement.append($select) ;
     }else if(ele.type=='btn'){
-        $formGroup = $("<button >").addClass(inputCss).addClass("btn btn-default").addClass(ele.cls).attr('id',ele.id).text(ele.text) ;
+        $formGroup = $("<a href='#' >").addClass("btn btn-default").addClass(ele.cls).attr('id',ele.id).text(ele.text) ;
     }else if(ele.type=='hidden'){
         $formGroup = $("<input type='hidden'>").attr('autocomplete','off').attr("name",ele.name).attr("id",ele.id).attr("value",ele.value).addClass(S.keypress) ;
     }else if(ele.type=='time'){
@@ -823,12 +841,12 @@ J.filterRecord = function(record){
     return d ;
 } ;
 /**
- *
- * @param render
- * @param view
  * *.view.js 的render统一调用方法
+ * <br>清空工作区，添加自适应div,
+ * @param renderCallBake(view,$div) 回调参数为当前view，和添加的自适应div
+ * @param view
  */
-J.render = function(functionRender,view){
+J.render = function(renderCallBake,view){
     /**当前工作视图*/
     J._CurrentWorkSpaceView = view ;
     var $me =$("#wm_workspace") ;
@@ -842,7 +860,7 @@ J.render = function(functionRender,view){
      * view  当前的功能视图
      * $div_row  页面的内容显示div
      * */
-    functionRender(view,$div_Row) ;
+    renderCallBake(view,$div_Row) ;
 } ;
 
 J.studyView = function(fun){
