@@ -19,7 +19,7 @@ define(function(require, exports, module) {
         },
         fun_table:function($me,$div){
             var $toolbar = $("<div id='div_tbr_dev_fun'>") ;
-            $toolbar.append($("<a id='btn_tbr_add'  class='btn'>").text("添加新功能")) ;
+            $toolbar.append($("<a id='btn_tbr_add'  class='btn btn-default'>").text("添加新功能")) ;
             var $table = $("<table id='tbl_fun'>") ;
             $div.append($table) ;
             var tblCfg = {
