@@ -1,7 +1,10 @@
 package club.luke.cloud.shop.app.user.action;
 
+import club.luke.cloud.shop.app.user.action.vo.VOInRole;
+import club.luke.cloud.shop.app.user.action.vo.VOInRoleFun;
 import club.luke.cloud.shop.app.web.ActionResult;
 import club.luke.cloud.shop.app.web.vo.VOIn;
+import club.luke.cloud.shop.app.web.vo.VOInId;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -39,6 +42,62 @@ public interface IRoleAction {
     ActionResult findAllRole(HttpServletRequest request,HttpServletResponse response ,ActionResult actionResult ,
                              @ApiParam(name = "公司限制") @RequestBody @Valid
                              VOIn vo ,BindingResult bindingResult) throws Exception ;
+
+
+    /**
+     * 查询所有功能，并查询角色对应的权限
+     * <br>
+     *     url:'role/findAllFunByRoleId.act'
+     * @param request
+     * @param response
+     * @param actionResult
+     * @param vo {id:Long-roleId}
+     * @param bindingResult
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(path = "findAllFunByRoleId.act",method = RequestMethod.POST)
+    @ApiOperation("查询所有功能，并查询角色对应的权限")
+    ActionResult findAllFunByRoleId(HttpServletRequest request,HttpServletResponse response ,ActionResult actionResult ,
+                             @ApiParam(name = "查询所有功能，并查询角色对应的权限") @RequestBody @Valid
+                             VOInId vo ,BindingResult bindingResult) throws Exception ;
+
+    /**
+     * 保存角色
+     * <br>role/saveRole.act
+     * @param request
+     * @param response
+     * @param actionResult
+     * @param vo
+     * @param bindingResult
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(path = "saveRole.act",method = RequestMethod.POST)
+    @ApiOperation("保存角色）")
+    ActionResult saveRole(HttpServletRequest request,HttpServletResponse response ,ActionResult actionResult ,
+                             @ApiParam(name = "保存角色") @RequestBody @Valid
+                             VOInRole vo ,BindingResult bindingResult) throws Exception ;
+
+    /**
+     *保存角色权限
+     * <br>
+     *     url:role/saveRoleFun.act
+     * @param request
+     * @param response
+     * @param actionResult
+     * @param vo                    {roleId:Long,funIds:list<Long>}
+     * @param bindingResult
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(path = "saveRoleFun.act",method = RequestMethod.POST)
+    @ApiOperation("保存角色权限）")
+    ActionResult saveRoleFun(HttpServletRequest request,HttpServletResponse response ,ActionResult actionResult ,
+                             @ApiParam(name = "保存角色权限") @RequestBody @Valid
+                             VOInRoleFun vo ,BindingResult bindingResult) throws Exception ;
+
+
 
 
 }

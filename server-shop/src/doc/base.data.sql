@@ -7,7 +7,7 @@ INSERT INTO tu_com (id, b_isdel, b_wtime, addr, adminname, admintel, cp_kc, fid,
 ('3', '0', '2018-01-01', '北京', 'luke', '18613806246', 1, 2, 1, 1, '站点', 'luke-1-club-shp', '18613806246', 1);
 
 /**角色*/
-INSERT INTO tu_role (id, b_isdel, b_wtime, name, comid) VALUES ('1', '0', '2018-01-01', 'dev', '1');
+INSERT INTO tu_role (id, b_isdel, b_wtime, name,bz, comid) VALUES ('1', '0', '2018-01-01', 'dev','dev', '1');
 /**功能*/
 INSERT INTO tu_fun VALUES (1,0,'2018-06-14 17:00:47.000000','Root',0,NULL,NULL,'公司',NULL,''),(2,0,'2018-06-14 17:00:47.000000','Root',1,NULL,NULL,'公司业务',NULL,'app/user/com.view.js'),(3,0,'2018-06-14 17:00:47.000000','Root',1,NULL,NULL,'程序功能',NULL,'app/user/fun.view.js'),(4,0,'2018-06-14 17:00:47.000000','user',0,NULL,NULL,'用户管理',NULL,''),(5,0,'2018-06-14 17:00:47.000000','user',4,NULL,NULL,'用户',NULL,'app/user/user.view.js'),(6,0,'2018-06-14 17:00:47.000000','user',4,NULL,NULL,'角色',NULL,'app/user/role.view.js'),(7,0,'2018-06-14 17:00:47.000000','user',4,NULL,NULL,'站点',NULL,'app/user/store.view.js'),(8,0,'2018-06-14 17:00:47.000000','goods',0,NULL,NULL,'商品信息',NULL,''),(9,0,'2018-06-14 17:00:47.000000','goods',8,NULL,NULL,'商品属性',NULL,'app/goods/goodsTree.view.js'),(10,0,'2018-06-14 17:00:47.000000','goods',8,NULL,NULL,'商品库存',NULL,'app/kc/goods.kc.view.js'),(11,0,'2018-06-14 17:00:47.000000','goods',8,NULL,NULL,'商品价格',NULL,'app/goods/goodsPrice.view.js'),(12,0,'2018-06-14 17:00:47.000000','goods',8,NULL,NULL,'站点价格',NULL,'app/goods/goodsStorePrice.view.js');
 /** 角色与权限关系*/

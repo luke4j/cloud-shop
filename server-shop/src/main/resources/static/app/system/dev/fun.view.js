@@ -30,7 +30,7 @@ define(function(require, exports, module) {
                 /**编辑完后保存事件*/
                 onEditableSave:function(columnFild,record,columnText,edit){
                     var param = record ;
-                    if(param.c_group&&param.name&&param.fid){
+                    if((param.c_group!=null)&&(param.name!=null)&&(param.fid!=null)){
                         J.ajax({
                             url:'dev/editFun.act',
                             ajaxOk:true,

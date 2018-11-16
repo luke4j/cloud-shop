@@ -174,14 +174,14 @@ J.ajax = function(settings){
             }
         },
         success: function(res, status, xhr) {
-            if(!res.errorMsg){
-                if(param.ajaxOkMsg){
+            if(!res.errInfo){
+                if(param.ajaxOk){
                     console.dir(res) ;
                     J.alertOk() ;
                 }
             }else{
                 console.dir(res) ;
-                J.alert(res.errorMsg) ;
+                J.alert(res.errInfo) ;
             }
 
         }
@@ -215,15 +215,20 @@ J.ajax = function(settings){
             }
         }
         /**处理参数*/
-        var ajaxLogin = {loginTuken:'',loginComId:''} ;
-        if(window.LukeApp&&window.LukeApp.tuken){
-            ajaxLogin.loginTuken = LukeApp.tuken.loginTuken ;
-            ajaxLogin.loginComId = LukeApp.tuken.loginComId ;
-        }
+        var ajaxLogin = J.ajaxLogin() ;
         param.data =  JSON.stringify($.extend({_jsession:Math.random(),loginTuken:ajaxLogin.loginTuken,loginComId:ajaxLogin.loginComId},param.data)) ;
     }
     $.ajax(param) ;
 } ;
+
+J.ajaxLogin = function(){
+    var ajaxLogin = {loginTuken:'',loginComId:''} ;
+    if(window.LukeApp&&window.LukeApp.tuken){
+        ajaxLogin.loginTuken = LukeApp.tuken.loginTuken ;
+        ajaxLogin.loginComId = LukeApp.tuken.loginComId ;
+    }
+    return ajaxLogin ;
+},
 
 /**
  * 加载html模板
@@ -405,6 +410,7 @@ J.bpTable = function(tableId,bootstrapTableSetup){
                 J.alert("bootstrap-table 未找到请求地址->"+bootstrapTableSetup.url) ;
         },
         showSelectTitle:true,       //show the title of column with 'radio' or 'singleSelect' 'checkbox' option.
+        ajaxOptions: J.ajaxLogin(),
             striped:true,               //设置为条文行
             maintainSelected:true,      //保存当前页面页码
             search:true,                //显示页面查询
@@ -436,7 +442,7 @@ J.bpTable = function(tableId,bootstrapTableSetup){
                 }else{
                     J.alert({
                         title:'异常问题',
-                        msg: res.errorMsg,
+                        msg: res.errInfo,
                         btns:'YN',
                         okFunction:function(e,$alert1){
                             if(res.errorMsg.indexOf('请登录')>=0){
@@ -448,23 +454,6 @@ J.bpTable = function(tableId,bootstrapTableSetup){
                 }
             }
     } ;
-    if(bootstrapTableSetup.queryParams){
-        var ajaxLogin = {loginTuken:'',loginComId:''} ;
-        if(window.LukeApp&&window.LukeApp.tuken){
-            ajaxLogin.loginTuken = LukeApp.tuken.loginTuken ;
-            ajaxLogin.loginComId = LukeApp.tuken.loginComId ;
-        }
-        if(bootstrapTableSetup.queryParams){
-            var queryParams = bootstrapTableSetup.queryParams() ;
-            bootstrapTableSetup.queryParams = function(){
-                return $.extend({},queryParams,ajaxLogin) ;
-            }
-        }else{
-            bootstrapTableSetup.queryParams = function(){
-                return $.extend({},ajaxLogin) ;
-            }
-        }
-    }
 
     var setup = $.extend({},defaults,bootstrapTableSetup) ;
     if(!setup.url){

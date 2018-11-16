@@ -2,6 +2,7 @@ package club.luke.cloud.shop.app.database;
 
 import club.luke.cloud.shop.app.util.tool.Assertion;
 import club.luke.cloud.shop.app.util.tool.LK;
+import club.luke.cloud.shop.app.util.tool.LKMap;
 import club.luke.cloud.shop.app.web.Page;
 import club.luke.cloud.shop.app.web.vo.VORedisUser;
 import net.sf.json.JSONObject;
@@ -58,7 +59,7 @@ public class BaseDao {
         if(obj==null) return query ;
         Map<String,Object> params = null ;
         if(!(obj instanceof Map)){
-            params = LK.ObjToMap(obj,null) ;
+            params = LK.ObjToMap(obj,new LKMap<>().put1("srcUrl","srcUrl").put1("loginTuken","loginTuken").put1("loginComId","loginComId")) ;
         }
         if(obj instanceof Map){
             params = (Map<String,Object>)obj ;
