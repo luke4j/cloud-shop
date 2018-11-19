@@ -1,9 +1,9 @@
 package club.luke.cloud.shop.app.model;
 
 import club.luke.cloud.shop.app.database.Model;
+import club.luke.cloud.shop.app.util.V;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
+import javax.persistence.*;
 
 /**
  * Created by luke on 2018/11/13.
@@ -28,11 +28,39 @@ public class TG_Kind extends Model {
     /**是否实物（检查不是实惠）*/
     Boolean sw ;
 
-    /***/
+    /**级别，1级为品类，2级为品牌，3级为型号，4级为颜色，5级为商品*/
+    @Enumerated(EnumType.STRING)
+    @Column(length = 10)
+    V.KindLvl kindLvl = V.KindLvl.商品;
+
     String attr1 ;
     String attr2 ;
     String attr3 ;
     String attr4 ;
+
+
+
+
+    @ManyToOne
+    @JoinColumn(name = "comId",foreignKey = @ForeignKey(name = "fk_kind_com"))
+    TU_Com com ;
+
+
+    public V.KindLvl getKindLvl() {
+        return kindLvl;
+    }
+
+    public void setKindLvl(V.KindLvl kindLvl) {
+        this.kindLvl = kindLvl;
+    }
+
+    public TU_Com getCom() {
+        return com;
+    }
+
+    public void setCom(TU_Com com) {
+        this.com = com;
+    }
 
     public Long getFid() {
         return fid;

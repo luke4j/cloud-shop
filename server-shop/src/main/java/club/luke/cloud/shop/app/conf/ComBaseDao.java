@@ -15,7 +15,7 @@ public class ComBaseDao  extends BaseDao {
      * @return
      * @throws Exception
      */
-        protected TU_Com getGS(VOIn vo) throws Exception{
+        public TU_Com getGS(VOIn vo) throws Exception{
             /**查询登录站点*/
             TU_Com store = this.get(TU_Com.class,vo.getLoginComId()) ;
             /**判断登录站点是否总公司*/

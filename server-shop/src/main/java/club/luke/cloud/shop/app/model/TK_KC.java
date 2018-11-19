@@ -33,9 +33,15 @@ public class TK_KC extends Model {
     /**业务中使用的销售价格*/
     Double priceOut ;
 
+    /**残品库存 */
     Long can_kc ;
+    /**次品库存 */
     Long ci_kc ;
+    /**赠品库存 */
     Long zp_kc ;
+    /**正品库存 */
+    Long z_kc ;
+    /**需要库存 */
     Long xy_kc ;
 
     Float sph ;
@@ -127,5 +133,13 @@ public class TK_KC extends Model {
 
     public void setCyl(Float cyl) {
         this.cyl = cyl;
+    }
+
+    public Long getZ_kc() {
+        return z_kc;
+    }
+
+    public void setZ_kc(Long z_kc) {
+        this.z_kc = z_kc;
     }
 }
