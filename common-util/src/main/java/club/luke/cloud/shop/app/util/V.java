@@ -88,5 +88,34 @@ public class V {
         欠条
     }
 
+    /**
+     * 单据状态
+     * <br>
+     *     制单，确认，执行，完成
+     */
+    public enum BillState{
+        制单,
+        确认,
+        执行
+    }
+
+    /**
+     * 商品状态
+     * <br>
+     *     正，残，次
+     */
+    public enum GoodsState{
+        正,
+        残,
+        次
+    }
+
+    public enum KindLvl{
+        品类,
+        品牌,
+        型号,
+        颜色,
+        商品
+    }
 
 }
