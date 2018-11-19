@@ -31,29 +31,28 @@ public class GoodsService implements IGoodsService {
     public List<VOOutNode> findGoodsNode(VOInNode vo) throws Exception {
         List<VOOutNode> lstVOutNodes = new ArrayList<VOOutNode>(100) ;
         VOOutNode voOutNode = null ;
-        if(!V.KindLvl.商品.name().equals(vo.getKindLvl())){
-            TU_Com com = this.goodsDao.getGS(vo) ;
-            List<TG_Kind>lstKinds = this.goodsDao.find("From TG_Kind k where k.com.id =:comId and k.fid=:fid",
-                    new LKMap<String,Object>().put1("comId",com.getId()).put1("fid",vo.getFid())) ;
 
-            for (TG_Kind kind : lstKinds) {
-                voOutNode = new VOOutNode() ;
-                BeanUtils.copyProperties(kind, voOutNode);
-                Long count = 0l ;
-                /**颜色的子数据在TG_Goods中*/
-                if(V.KindLvl.颜色.name().equals(vo.getKindLvl())){
-                    count = this.goodsDao.getUnique("select count(g.id) from TG_Goods g where g.color.id=:colorId",
-                            new LKMap<String,Object>().put1("colorId",kind.getId())) ;
-                }else{
-                    count = this.goodsDao.getUnique("select count(k.id) From TG_Kind k where k.fid=:fid",
-                            new LKMap<String,Object>().put1("fid",kind.getId())) ;
-                }
-                voOutNode.setCount(count);
-                lstVOutNodes.add(voOutNode) ;
+        TU_Com com = this.goodsDao.getGS(vo) ;
+        List<TG_Kind>lstKinds = this.goodsDao.find("From TG_Kind k where k.com.id =:comId and k.fid=:fid",
+                new LKMap<String,Object>().put1("comId",com.getId()).put1("fid", vo.getFid())) ;
 
+        for (TG_Kind kind : lstKinds) {
+            voOutNode = new VOOutNode() ;
+            BeanUtils.copyProperties(kind, voOutNode);
+            Long count = 0l ;
+            /**颜色的子数据在TG_Goods中*/
+            if(V.KindLvl.颜色.name().equals(kind.getKindLvl())){
+                count = this.goodsDao.getUnique("select count(g.id) from TG_Goods g where g.color.id=:colorId",
+                        new LKMap<String,Object>().put1("colorId",kind.getId())) ;
+            }else{
+                count = this.goodsDao.getUnique("select count(k.id) From TG_Kind k where k.fid=:fid",
+                        new LKMap<String,Object>().put1("fid",kind.getId())) ;
             }
-
-        }else{
+            voOutNode.setCount(count);
+            lstVOutNodes.add(voOutNode) ;
+        }
+        /**点击颜色时，lstKinds.size==0,点击没有下一级数据的也会走这里，但是仍然查询不出数据*/
+        if(lstKinds.size()==0){
             List<TG_Goods>lstGoods = this.goodsDao.find("From TG_Goods g where g.color.id=:colorId",
                     new LKMap<String, Object>().put1("colorId", vo.getFid())) ;
             for (TG_Goods goods : lstGoods) {
@@ -65,10 +64,11 @@ public class GoodsService implements IGoodsService {
                 voOutNode.setIsParent(false);
                 voOutNode.setPriceIn(goods.getPriceIn());
                 voOutNode.setPriceOut(goods.getPriceOut());
+                voOutNode.setKindLvl(V.KindLvl.商品);
                 lstVOutNodes.add(voOutNode) ;
             }
-            
         }
+
         return lstVOutNodes ;
     }
 }

@@ -903,19 +903,30 @@ J.MapToArray = function(map){
 
 /**
  * ztree接口
- * @param conf ztree 配置
+ * @param conf ztree 配置{asyncUrl:节点展开时用到的url,会自动传屏开结点的id做为参数,asyncParam:ajax参数 类型为函数 asyncParam(treeId,treeNode)}
  * @param id   ztree使用的ul元素ID
  * @param rd   ztree初始数据
  */
 J.ztree = function(conf,id,rd){
     var defAjax = {
-        enable: true,
-        type: 'POST',
-        dataType:'json',
-        contentType: 'application/json', //很重要
-        traditional: true
+        async : {
+            enable: true,
+            type: 'POST',
+            dataType:'json',
+            contentType: 'application/json', //很重要
+            traditional: true,
+            url:conf.asyncUrl,
+            otherParam:function(treeId,treeNode){
+                var data = conf.asyncParam(treeId,treeNode)
+                return $.extend(J.ajaxLogin(),data) ;
+            },
+            dataFilter:function(treeId, parentNode, responseData){
+                return responseData.data ;
+            }
+        }
     } ;
-    $.fn.zTree.init($("#"+id), conf,rd);
+    var cf = $.extend({},defAjax,conf) ;
+    $.fn.zTree.init($("#"+id), cf,rd);
 }
 
 

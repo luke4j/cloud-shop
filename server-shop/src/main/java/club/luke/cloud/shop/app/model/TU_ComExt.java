@@ -1,7 +1,6 @@
 package club.luke.cloud.shop.app.model;
 
 import club.luke.cloud.shop.app.database.Model;
-import sun.security.util.Length;
 
 import javax.persistence.*;
 

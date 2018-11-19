@@ -1,5 +1,6 @@
 package club.luke.cloud.shop.app.goods.action.vo;
 
+import club.luke.cloud.shop.app.util.V;
 import club.luke.cloud.shop.app.web.vo.VOOut;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -36,7 +37,18 @@ public class VOOutNode extends VOOut {
     Double priceIn ;
     Double priceOut ;
 
+    V.KindLvl kindLvl ;
+
     List<VOOutNode> children = new ArrayList<VOOutNode>(100);
+
+
+    public V.KindLvl getKindLvl() {
+        return kindLvl;
+    }
+
+    public void setKindLvl(V.KindLvl kindLvl) {
+        this.kindLvl = kindLvl;
+    }
 
     public Double getPriceIn() {
         return priceIn;

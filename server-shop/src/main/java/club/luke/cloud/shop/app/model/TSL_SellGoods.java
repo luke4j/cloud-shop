@@ -2,8 +2,10 @@ package club.luke.cloud.shop.app.model;
 
 import club.luke.cloud.shop.app.database.Model;
 
-import javax.persistence.*;
-import java.util.List;
+import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 /**
  * Created by luke on 2018/11/12.

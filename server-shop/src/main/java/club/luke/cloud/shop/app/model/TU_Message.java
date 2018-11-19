@@ -2,7 +2,6 @@ package club.luke.cloud.shop.app.model;
 
 import club.luke.cloud.shop.app.database.Model;
 import club.luke.cloud.shop.app.util.V;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 
