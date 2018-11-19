@@ -901,4 +901,21 @@ J.MapToArray = function(map){
     return list ;
 }
 
+/**
+ * ztree接口
+ * @param conf ztree 配置
+ * @param id   ztree使用的ul元素ID
+ * @param rd   ztree初始数据
+ */
+J.ztree = function(conf,id,rd){
+    var defAjax = {
+        enable: true,
+        type: 'POST',
+        dataType:'json',
+        contentType: 'application/json', //很重要
+        traditional: true
+    } ;
+    $.fn.zTree.init($("#"+id), conf,rd);
+}
+
 

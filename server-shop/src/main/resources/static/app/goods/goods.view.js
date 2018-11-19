@@ -21,7 +21,7 @@ define(function(require, exports, module) {
         /**商品树*/
         goods_tree:function($me,$div){
             var me = this;
-            var $btn_add_kind = $("<a id='btn_add_kind'>").addClass("btn").addClass(S.btn_add_tag_css).text("添加品类") ;
+            var $btn_add_kind = $("<a id='btn_add_kind'>").addClass("btn btn-default").addClass(S.btn_add_tag_css).text("添加品类") ;
             $div.append($btn_add_kind) ;
             /**添加商品树*/
             $div.append("<ul id='zt_goodsTree' class='ztree'></ul>");
