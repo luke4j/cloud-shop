@@ -84,8 +84,5 @@ define(function(require, exports, module) {
             J.changeView(me,me._args[3]) ;
         }
     }) ;
-
-
-
     return View ;
 }) ;

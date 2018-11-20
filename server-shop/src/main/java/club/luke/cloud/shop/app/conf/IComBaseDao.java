@@ -20,4 +20,10 @@ public interface IComBaseDao {
 
 
     <T> T getUnique(String ql ,Object param,Class<T> toBean) throws Exception ;
+
+    <T> T save(T obj) throws Exception ;
+
+    <T> T get(Class<T> clss, Long id) throws Exception ;
+
+    <T> T update(T obj) throws Exception ;
 }

@@ -58,13 +58,6 @@ define(function(require, exports, module) {
                         $("#tbl_role_fun").bootstrapTable("checkBy",{field:'id',values:[d.id]}) ;
                     }) ;
                 },
-                onCheck:function(row){
-                    $("#tbl_role_fun").bootstrapTable("checkBy",{field:'fid',values:[row.id]}) ;
-                },
-                onUncheck:function(row){
-                    $("#tbl_role_fun").bootstrapTable("uncheckBy",{field:'fid',values:[row.id]}) ;
-                },
-                //url:'role/findAllFunByRoleId.act',
                 columns : [
                     {
                         checkbox:true,

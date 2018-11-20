@@ -442,13 +442,7 @@ J.bpTable = function(tableId,bootstrapTableSetup){
                 }else{
                     J.alert({
                         title:'异常问题',
-                        msg: res.errInfo,
-                        btns:'YN',
-                        okFunction:function(e,$alert1){
-                            if(res.errorMsg.indexOf('请登录')>=0){
-                                window.location.href = J.contextPath ;
-                            }
-                        }
+                        msg: res.errInfo
                     }) ;
                     return res ;
                 }
@@ -527,10 +521,10 @@ J.tableCfg = function(id,tableCfg,columns,columnCfg){
             }else{
                 J.alert({
                     title:'异常问题',
-                    msg: res.errorMsg,
+                    msg: res.errInfo,
                     btns:'YN',
                     okFunction:function(e,$alert1){
-                        if(res.errorMsg.indexOf('请登录')>=0){
+                        if(res.errInfo.indexOf('请登录')>=0){
                             window.location.href = J.contextPath ;
                         }
                     }
@@ -547,14 +541,14 @@ J.tableCfg = function(id,tableCfg,columns,columnCfg){
 /**
  * select Option 固定类型
  * @param type str  {'是否','性别','库存级别'}
- * @returns {*[]}
+ * @returns [{val:'',text:''}]
  * @constructor
  */
 J.SelectOptions = function(type){
     if(type=='空'){
         return [{val:'',text:''}] ;
     }
-    if(type=='商品属性分组'){
+    if(type=='商品级别'){
         return [{val:'',text:''},{val:'品类',text:'品类'},{val:"品牌",text:'品牌'},{val:"型号",text:'型号'},{val:"颜色",text:'颜色'}] ;
     }
     if(type=='是否'){
@@ -923,7 +917,15 @@ J.ztree = function(conf,id,rd){
             dataFilter:function(treeId, parentNode, responseData){
                 return responseData.data ;
             }
-        }
+        },
+        check: {
+            enable: false
+        },
+        data: {
+            simpleData: {
+                enable: false
+            }
+        },
     } ;
     var cf = $.extend({},defAjax,conf) ;
     $.fn.zTree.init($("#"+id), cf,rd);

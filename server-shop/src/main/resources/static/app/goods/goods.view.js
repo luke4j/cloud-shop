@@ -5,11 +5,12 @@ define(function(require, exports, module) {
     require("backbone");
     require("bootstrap");
     require("ztree") ;
+    require("app/goods/goods.help") ;
     var View = Backbone.View.extend({
         el: $("body"),
         events: {
             "click #btn_add_kind":"btn_add_kind_handler"
-            /**因传递参数问题，ztree中的添加修改作废事件都在定义时添加*/
+
         },
         initialize: function () {
             this.render();
@@ -38,19 +39,20 @@ define(function(require, exports, module) {
             var setting = {
                 asyncUrl:'goods/findGoodsNode.act',
                 asyncParam:function(treeId,treeNode){
-                    return {fid:treeNode.id} ;
-                },
-                check: {
-                    enable: false
-                },
-                data: {
-                    simpleData: {
-                        enable: false
+                    if(treeNode){
+                        return {fid:treeNode.id} ;
+                    }else{
+                        return {fid:0} ;
                     }
+
                 },
                 callback: {
+                    /**
+                     * 用于捕获父节点展开之前的事件回调函数，并且根据返回值确定是否允许展开操作
+                     * 返回值是 true / false
+                     *  如果返回 false，zTree 将不会展开节点，也无法触发 onExpand 事件回调函数
+                     * */
                     beforeExpand: function(treeId, treeNode){
-                        console.dir(treeNode) ;
                         if(treeNode.kindLvl=='商品'){
                             J.alert("商品没有下一级") ;
                             return false ;
@@ -74,17 +76,17 @@ define(function(require, exports, module) {
                         if(treeNode.count!=null)
                             aObj.append("<span class='badge'>"+treeNode.count+"</span>") ;
 
-                        var $btn_del = $("<a>").addClass("ztree_btn_del btn btn-default float_right a_btn").text("作废") ;
+                        var $btn_del = $("<a style='margin-right:5px;'>").addClass("ztree_btn_del btn btn-default float_right a_btn").text("作废") ;
                         aObj.append($btn_del) ;
                         $btn_del.on("click",function(e){$me.ztree_btn_del_click_handler(e,treeNode) ;}) ;
 
 
-                        var $btn_edit = $("<a>").addClass('ztree_btn_edit btn btn-default float_right a_btn').text("修改") ;
+                        var $btn_edit = $("<a style='margin-right:5px;'>").addClass('ztree_btn_edit btn btn-default float_right a_btn').text("修改") ;
                         aObj.append($btn_edit) ;
                         $btn_edit.on("click",function(e){$me.ztree_btn_edit_click_handler(e,treeNode)}) ;
 
                         if(treeNode.kindLvl!='商品'){
-                            var $btn_add = $("<a>").addClass("ztree_btn_add btn btn-default float_right a_btn").text("新增下一级") ;
+                            var $btn_add = $("<a style='margin-right:5px;'>").addClass("ztree_btn_add btn btn-default float_right a_btn ").text("新增下一级") ;
                             aObj.append($btn_add) ;
                             $btn_add.on('click',function(e){$me.ztree_btn_add_click_handler(e,treeNode)}) ;
                         }
@@ -97,9 +99,14 @@ define(function(require, exports, module) {
         //-------------------------------------页面公用方法区-------------------------------------
         /**弹出 商品 属性窗口*/
         showAlert:function (title,data,okCallBack){
-            var $jFrom = goodsTree_view_help.fm_goodsBaseInfo() ;
+            var $jFrom = null ;
+            if(data.kindLvl=='商品'){
+                goods_help.fm_goods() ;
+            }else{
+                goods_help.fm_kind() ;
+            }
             J.alert({
-                title:title+data.name,
+                title:title,
                 btns:'YN',
                 msg:$jFrom.form,
                 okFunction:function(e,alt){
@@ -109,18 +116,20 @@ define(function(require, exports, module) {
                     }
                 }
             }) ;
-            var $f_goodstree = $("#f_goodstree") ;
-            $f_goodstree[0].reset() ;
-            $("#ajaxdo",$f_goodstree).val("add") ;
-
-            $("#c_group",$f_goodstree).addClass("disabled").attr("disabled","disabled") ;
-            $("#fname",$f_goodstree).addClass("disabled").attr("disabled","disabled") ;
-
-            $("#a1,#a2,#a3",$f_goodstree).parent().parent().fadeOut("fast") ;
-            $("#fid",$f_goodstree).val(data.id) ;
-            return $f_goodstree ;
+            $("#kindLvl",$jFrom.form).val(data.kindLvl).attr('disabled',"disabled")  ;
+            J.setFormValue($jFrom.form,data) ;
+            if(data.kindLvl!='品类'){
+                $("#lens",$jFrom.form).parent().parent().hide() ;
+                $("#sw",$jFrom.form).parent().parent().hide() ;
+                $("#xq",$jFrom.form).parent().parent().hide() ;
+            }
         }  ,
         // ------------------------------------事件代码区-----------------------------------------
+        /**添加品类*/
+        btn_add_kind_handler:function(e){
+            var $me = this ;
+            $me.ztree_btn_add_click_handler(e) ;
+        },
         /** ztree树中作废按钮事件*/
         ztree_btn_del_click_handler:function(e,treeNode){
 
@@ -131,11 +140,40 @@ define(function(require, exports, module) {
         },
         /** ztree树中新增下一级按钮事件*/
         ztree_btn_add_click_handler:function(e,treeNode){
-
+            var $me = this ,data = {},idx = "";
+            /**因为是添加下一级，所以当前treeNode.kindLvl=品类  的要设置为 品牌 以此类推*/
+            if(!treeNode){
+                data.kindLvl = "品类" ;
+            }else if(treeNode.kindLvl=='品类'){
+                data.kindLvl = "品牌" ;
+                idx = "品类:"+treeNode.name+"下品牌" ;
+            }else if(treeNode.kindLvl=='品牌'){
+                data.kindLvl = "型号" ;
+                idx = "品类:"+treeNode.getParentNode().name+"->品牌："+treeNode.name+"下型号" ;
+            }else if(treeNode.kindLvl=='型号'){
+                data.kindLvl = "颜色" ;
+                idx = "品类:"+treeNode.getParentNode().getParentNode().name+"->品牌:"+treeNode.getParentNode().name+"->型号："+treeNode.name+"下颜色" ;
+            }else if(treeNode.kindLvl=='颜色'){
+                data.kindLvl = "商品" ;
+                idx = "品类:"+treeNode.getParentNode().getParentNode().getParentNode().name+"->品牌:"+treeNode.getParentNode().getParentNode().name+"->型号:"+treeNode.name+"下商品" ;
+            }
+            data.fid = treeNode.id ;
+            $me.showAlert("添加"+data.kindLvl+":"+idx,data,function($f,alt){
+                var val = J.formValues($f) ;
+                J.ajax({
+                    url:'goods/addKindAndGoods.act',
+                    data:val,
+                    success:function(data,res){
+                        if(res.success){
+                            J.alertOk() ;
+                            var treeObj = $.fn.zTree.getZTreeObj("zt_goodsTree");
+                            treeObj.reAsyncChildNodes(null, "refresh");
+                        }
+                    }
+                }) ;
+            }) ;
         },
     }) ;
-
-
 
     return View ;
 }) ;
