@@ -85,7 +85,7 @@ define(function(require, exports, module) {
                         aObj.append($btn_edit) ;
                         $btn_edit.on("click",function(e){$me.ztree_btn_edit_click_handler(e,treeNode)}) ;
 
-                        if(treeNode.kindLvl!='商品'){
+                        if(treeNode.kindLvl&&treeNode.kindLvl!='商品'){
                             var $btn_add = $("<a style='margin-right:5px;'>").addClass("ztree_btn_add btn btn-default float_right a_btn ").text("新增下一级") ;
                             aObj.append($btn_add) ;
                             $btn_add.on('click',function(e){$me.ztree_btn_add_click_handler(e,treeNode)}) ;

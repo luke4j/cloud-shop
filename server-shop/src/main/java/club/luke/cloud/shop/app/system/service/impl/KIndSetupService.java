@@ -43,6 +43,7 @@ public class KIndSetupService implements IKindSetupService {
 
     @Override
     public void editKindSetupConfigById(VOInKindSetup vo) throws Exception {
+        vo.setDefVal(vo.getDefVal().replace("；",";"));
         TG_Kind_Setup kindSetup = this.kindSetupDao.get(TG_Kind_Setup.class,vo.getId()) ;
         BeanUtils.copyProperties(vo,kindSetup);
         this.kindSetupDao.update(kindSetup) ;

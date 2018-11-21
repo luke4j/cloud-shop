@@ -26,15 +26,23 @@ define(function(require, exports, module) {
                     height:650,
                     toolbar:$tbar,
                     pagination:false,
+                    url:'sys/kindSetup/findKindSetupConfig.act',
+                    queryParams:function(params){
+                        var kindId = {id:$("#kindId").val()||0} ;
+                        var data = $.extend({},params,kindId) ;
+                        if(kindId.id){
+                            return data ;
+                        }else{
+                            return false ;
+                        }
+                    },
                     /**编辑完后保存事件*/
                     onEditableSave:function(columnFild,record,columnText,edit){
-                        var param = record ;
-                        var kindId = record.kind.id ;
                         J.ajax({
                             url:'sys/kindSetup/editKindSetupConfigById.act',
                             data:param,
                             success:function(data){
-                                $("#tbl_kindAttrSetup").bootstrapTable('sys/kindSetup/findKindSetupConfig.act',{url:'',query:{id:kindId}}) ;
+                                $("#tbl_kindAttrSetup").bootstrapTable("refresh",{query:{id:record.kind.id}}) ;
                             }
                         }) ;
                     },
