@@ -48,8 +48,9 @@ values
 (0,now(),'耗材','品类',		0,1,0,0,1,1,0),
 (0,now(),'验光','品类',		0,0,0,0,0,1,0)
  ;
-
 /**系统配置*/
+
+/**公司系统配置*/
 insert into TSYS_SetupCom (b_isDel,b_wtime,name,note,val,comId)
 values
 (0,now(),'writeGoodsAddPriceOut','添加商品时添加商品销售价格',true,1),

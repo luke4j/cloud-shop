@@ -3,11 +3,16 @@ package club.luke.cloud.shop.app.model;
 import club.luke.cloud.shop.app.database.Model;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 
 /**
  * Created by luke on 2018/11/12.
+ *  * <br>
+ *  * 添加公司时，以这个表的数据初始化 TSYS_SetupCom
+ *  * <br>
+ *  *     开发时，直接写入 TSYS_SetupCom 这个表的数据
  */
-
+@Entity
 public class TSYS_Setup extends Model {
 
     @Column(length = 30,nullable = false)

@@ -1,17 +1,19 @@
 package club.luke.cloud.shop.app.model;
 
+import club.luke.cloud.shop.app.database.Model;
 import club.luke.cloud.shop.app.util.V;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 
 /**
  * Created by luke on 2018/11/12.
+
  */
-public class TSYS_Stream {
-
-
+@Entity
+public class TSYS_Stream  extends Model {
 
     @Enumerated(EnumType.STRING)
     @Column(length = 10,nullable = false)
