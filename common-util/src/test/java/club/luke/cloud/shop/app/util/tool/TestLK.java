@@ -3,9 +3,6 @@ package club.luke.cloud.shop.app.util.tool;
 import club.luke.cloud.shop.app.util.log.L;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Created by luke on 2018/11/2.
  */

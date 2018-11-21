@@ -1,8 +1,8 @@
-package club.luke.cloud.shop.app.dev.dao.impl;
+package club.luke.cloud.shop.app.system.dao.impl;
 
 import club.luke.cloud.shop.app.database.BaseDao;
-import club.luke.cloud.shop.app.dev.dao.IDevDao;
 import club.luke.cloud.shop.app.model.TU_Fun;
+import club.luke.cloud.shop.app.system.dao.IDevDao;
 import org.springframework.stereotype.Component;
 
 /**

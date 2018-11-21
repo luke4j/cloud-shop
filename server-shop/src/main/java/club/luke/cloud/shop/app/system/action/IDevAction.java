@@ -1,6 +1,6 @@
-package club.luke.cloud.shop.app.dev.action;
+package club.luke.cloud.shop.app.system.action;
 
-import club.luke.cloud.shop.app.dev.action.vo.VOInFun;
+import club.luke.cloud.shop.app.system.action.vo.VOInFun;
 import club.luke.cloud.shop.app.web.ActionResult;
 import club.luke.cloud.shop.app.web.vo.VOInEmputy;
 import io.swagger.annotations.Api;
@@ -19,7 +19,7 @@ import javax.validation.Valid;
  * Created by luke on 2018/11/15.
  */
 @Api(value = "shop server dev api")
-@RequestMapping(path = "dev")
+@RequestMapping(path = "sys/dev")
 public interface IDevAction {
 
     /**

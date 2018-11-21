@@ -26,17 +26,17 @@ define(function(require, exports, module) {
                 height:650,
                 toolbar:$toolbar,
                 pagination:false,
-                url:'dev/findAllFun.act',
+                url:'sys/dev/findAllFun.act',
                 /**编辑完后保存事件*/
                 onEditableSave:function(columnFild,record,columnText,edit){
                     var param = record ;
                     if((param.c_group!=null)&&(param.name!=null)&&(param.fid!=null)){
                         J.ajax({
-                            url:'dev/editFun.act',
+                            url:'sys/dev/editFun.act',
                             ajaxOk:true,
                             data:param,
                             success:function(data){
-                                $("#tbl_fun").bootstrapTable('refresh',{url:'dev/findAllFun.act'}) ;
+                                $("#tbl_fun").bootstrapTable('refresh',{url:'sys/dev/findAllFun.act'}) ;
                             }
                         }) ;
                     }

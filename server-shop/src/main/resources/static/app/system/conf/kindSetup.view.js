@@ -31,10 +31,10 @@ define(function(require, exports, module) {
                         var param = record ;
                         var kindId = record.kind.id ;
                         J.ajax({
-                            url:'goods/editKindSetupConfigById.act',
+                            url:'sys/kindSetup/editKindSetupConfigById.act',
                             data:param,
                             success:function(data){
-                                $("#tbl_kindAttrSetup").bootstrapTable('goods/findKindSetupConfig.act',{url:'',query:{id:kindId}}) ;
+                                $("#tbl_kindAttrSetup").bootstrapTable('sys/kindSetup/findKindSetupConfig.act',{url:'',query:{id:kindId}}) ;
                             }
                         }) ;
                     },
@@ -72,7 +72,7 @@ define(function(require, exports, module) {
                 J.bpTable("tbl_goodsAttrs",tblCfg) ;
                 /**加载所有品类*/
                 J.ajax({
-                    url: 'goods/findGoodsNode.act',
+                    url: 'sys/kindSetup/findGoodsNode.act',
                     data:{fid:0,kindLvl:'品类'},
                     success: function (data, res) {
                         $("#kindId").empty() ;
@@ -90,7 +90,7 @@ define(function(require, exports, module) {
         slt_kindId_chnage_handler:function(e){
             var kindId = $(e.target).val() ;
             if(kindId){
-                $("#tbl_goodsAttrs").bootstrapTable('refresh',{url:'goods/findKindSetupConfig.act',query:{"id":kindId}}) ;
+                $("#tbl_goodsAttrs").bootstrapTable('refresh',{url:'sys/kindSetup/findKindSetupConfig.act',query:{"id":kindId}}) ;
             }else{
                 J.alert("品类不能为空") ;
                 return false ;

@@ -4,7 +4,6 @@ package club.luke.cloud.shop.app.web;
 import club.luke.cloud.shop.app.util.tool.Assertion;
 import club.luke.cloud.shop.app.util.tool.LK;
 import club.luke.cloud.shop.app.util.tool.LKMap;
-import club.luke.cloud.shop.app.web.vo.VORedisUser;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

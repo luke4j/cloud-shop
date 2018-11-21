@@ -1,4 +1,4 @@
-package club.luke.cloud.shop.app.dev.dao;
+package club.luke.cloud.shop.app.system.dao;
 
 import club.luke.cloud.shop.app.database.IBaseDao;
 import club.luke.cloud.shop.app.model.TU_Fun;

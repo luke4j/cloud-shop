@@ -2,13 +2,10 @@ package club.luke.cloud.shop.app.goods.action.impl;
 
 import club.luke.cloud.shop.app.goods.action.IGoodsAction;
 import club.luke.cloud.shop.app.goods.action.vo.VOInKindAndGoods;
-import club.luke.cloud.shop.app.goods.action.vo.VOInKindSetup;
 import club.luke.cloud.shop.app.goods.action.vo.VOInNode;
 import club.luke.cloud.shop.app.goods.action.vo.VOOutNode;
 import club.luke.cloud.shop.app.goods.service.IGoodsService;
-import club.luke.cloud.shop.app.model.TG_Kind_Setup;
 import club.luke.cloud.shop.app.web.ActionResult;
-import club.luke.cloud.shop.app.web.vo.VOInId;
 import io.swagger.annotations.ApiParam;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -44,19 +41,5 @@ public class GoodsAction implements IGoodsAction {
         return actionResult.OK("添加品类品牌型号颜色商品");
     }
 
-    @Override
-    public ActionResult findKindSetupConfig(HttpServletRequest request, HttpServletResponse response, ActionResult actionResult,
-                                            @ApiParam @RequestBody @Valid
-                                            VOInId vo, BindingResult bindingResult) throws Exception {
-        List<TG_Kind_Setup> lstKindSetup = this.goodsService.findKindSetupConfig(vo) ;
-        return actionResult.OK("查询品类对应的商品扩展属性",lstKindSetup);
-    }
 
-    @Override
-    public ActionResult editKindSetupConfigById(HttpServletRequest request, HttpServletResponse response, ActionResult actionResult,
-                                                @ApiParam @RequestBody @Valid
-                                                VOInKindSetup vo, BindingResult bindingResult) throws Exception {
-        this.goodsService.editKindSetupConfigById(vo) ;
-        return actionResult.OK("修改商品品类配置属性");
-    }
 }

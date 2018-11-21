@@ -1,10 +1,8 @@
 package club.luke.cloud.shop.app.goods.action;
 
 import club.luke.cloud.shop.app.goods.action.vo.VOInKindAndGoods;
-import club.luke.cloud.shop.app.goods.action.vo.VOInKindSetup;
 import club.luke.cloud.shop.app.goods.action.vo.VOInNode;
 import club.luke.cloud.shop.app.web.ActionResult;
-import club.luke.cloud.shop.app.web.vo.VOInId;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -62,40 +60,6 @@ public interface IGoodsAction {
                          @ApiParam @RequestBody @Valid
                                  VOInKindAndGoods vo , BindingResult bindingResult) throws Exception ;
 
-    /**
-     * 查询品类对应的商品扩展属性
-     * <br>
-     *     goods/findKindSetupConfig.act
-     *     <br>
-     *         以品类Id查询
-     * @param request
-     * @param response
-     * @param actionResult
-     * @param vo
-     * @param bindingResult
-     * @return
-     * @throws Exception
-     */
-    @ApiOperation("查询品类对应的商品扩展属性")
-    @RequestMapping(path = "findKindSetupConfig.act",method = RequestMethod.POST)
-    ActionResult findKindSetupConfig(HttpServletRequest request , HttpServletResponse response , ActionResult actionResult,
-                                     @ApiParam @RequestBody @Valid
-                                             VOInId vo , BindingResult bindingResult) throws Exception ;
 
-    /**
-     * 修改商品品类配置属性
-     * @param request
-     * @param response
-     * @param actionResult
-     * @param vo
-     * @param bindingResult
-     * @return
-     * @throws Exception
-     */
-    @ApiOperation("修改商品品类配置属性")
-    @RequestMapping(path = "editKindSetupConfigById.act",method = RequestMethod.POST)
-    ActionResult editKindSetupConfigById(HttpServletRequest request , HttpServletResponse response , ActionResult actionResult,
-                                     @ApiParam @RequestBody @Valid
-                                             VOInKindSetup vo , BindingResult bindingResult) throws Exception ;
 
 }
