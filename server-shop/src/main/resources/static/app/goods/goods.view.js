@@ -101,9 +101,9 @@ define(function(require, exports, module) {
         showAlert:function (title,data,okCallBack){
             var $jFrom = null ;
             if(data.kindLvl=='商品'){
-                goods_help.fm_goods() ;
+                $jFrom = goods_help.fm_goods() ;
             }else{
-                goods_help.fm_kind() ;
+                $jFrom = goods_help.fm_kind() ;
             }
             J.alert({
                 title:title,

@@ -40,7 +40,7 @@ define(function(require, exports, module) {
                     onEditableSave:function(columnFild,record,columnText,edit){
                         J.ajax({
                             url:'sys/kindSetup/editKindSetupConfigById.act',
-                            data:param,
+                            data:record,
                             success:function(data){
                                 $("#tbl_kindAttrSetup").bootstrapTable("refresh",{query:{id:record.kind.id}}) ;
                             }
