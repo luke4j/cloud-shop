@@ -69,7 +69,6 @@ define(function(require, exports, module) {
                 view: {
                     expandSpeed: "",
                     addDiyDom: function(treeId, treeNode){
-                        console.dir(treeNode) ;
                         var zTree = $.fn.zTree.getZTreeObj(treeId);
                         var aObj = $("#" + treeNode.tId + "_a");
                         aObj.addClass("treeNode_50") ;
@@ -97,13 +96,29 @@ define(function(require, exports, module) {
             J.ztree(setting,"zt_goodsTree",rootData) ;
         },
         //-------------------------------------页面公用方法区-------------------------------------
-        /**弹出 商品 属性窗口*/
+        /**
+         * 弹出 商品 类型 属性窗口
+         * @param title  窗口标题
+         * @param data   使用参数 商品类型{fid:Long,kindLvl:类型级别}  商品{fid:就是colorId,_kindId:商品品类Id}
+         * @param okCallBack  窗口点击OK按钮调用事件 okCallBack($f,alt) $f 窗口中的form表单jquery对象，alt为弹出窗的jquery对象
+         */
         showAlert:function (title,data,okCallBack){
             var $jFrom = null ;
             if(data.kindLvl=='商品'){
-                $jFrom = goods_help.fm_goods() ;
+                $jFrom = goods_help.fm_goods(data) ;
             }else{
                 $jFrom = goods_help.fm_kind() ;
+                $("#kindLvl",$jFrom.form).val(data.kindLvl).attr('disabled',"disabled")  ;
+                /**设置默认值*/
+                J.setFormValue($jFrom.form,data) ;
+                /**调整页面元素*/
+                if(data.kindLvl!='品类'){
+                    $("#lens",$jFrom.form).parent().parent().hide() ;
+                    $("#sw",$jFrom.form).parent().parent().hide() ;
+                    $("#xq",$jFrom.form).parent().parent().hide() ;
+                    $("#jg_center_cf",$jFrom.form).parent().parent().hide() ;
+                    $("#xs_zd_cf",$jFrom.form).parent().parent().hide() ;
+                }
             }
             J.alert({
                 title:title,
@@ -116,13 +131,7 @@ define(function(require, exports, module) {
                     }
                 }
             }) ;
-            $("#kindLvl",$jFrom.form).val(data.kindLvl).attr('disabled',"disabled")  ;
-            J.setFormValue($jFrom.form,data) ;
-            if(data.kindLvl!='品类'){
-                $("#lens",$jFrom.form).parent().parent().hide() ;
-                $("#sw",$jFrom.form).parent().parent().hide() ;
-                $("#xq",$jFrom.form).parent().parent().hide() ;
-            }
+
         }  ,
         // ------------------------------------事件代码区-----------------------------------------
         /**添加品类*/
@@ -155,9 +164,12 @@ define(function(require, exports, module) {
                 idx = "品类:"+treeNode.getParentNode().getParentNode().name+"->品牌:"+treeNode.getParentNode().name+"->型号："+treeNode.name+"下颜色" ;
             }else if(treeNode.kindLvl=='颜色'){
                 data.kindLvl = "商品" ;
-                idx = "品类:"+treeNode.getParentNode().getParentNode().getParentNode().name+"->品牌:"+treeNode.getParentNode().getParentNode().name+"->型号:"+treeNode.name+"下商品" ;
+                idx = "品类:"+treeNode.getParentNode().getParentNode().getParentNode().name+"->品牌:"+treeNode.getParentNode().getParentNode().name+"->型号:"+treeNode.getParentNode().name+"->颜色:"+treeNode.name+"下商品" ;
+                data._kindId = treeNode.getParentNode().getParentNode().getParentNode().id ;
+                data._colorId = treeNode.id ;
+                data._lens = treeNode.getParentNode().getParentNode().getParentNode().lens ;
             }
-            data.fid = treeNode.id ;
+            data.fid = treeNode?treeNode.id:0 ;
             $me.showAlert("添加"+data.kindLvl+":"+idx,data,function($f,alt){
                 var val = J.formValues($f) ;
                 J.ajax({
@@ -167,7 +179,7 @@ define(function(require, exports, module) {
                         if(res.success){
                             J.alertOk() ;
                             var treeObj = $.fn.zTree.getZTreeObj("zt_goodsTree");
-                            treeObj.reAsyncChildNodes(null, "refresh");
+                            treeObj.reAsyncChildNodes(treeNode, "refresh");
                         }
                     }
                 }) ;

@@ -145,6 +145,7 @@ J.copyJson= function(src,target,isAll){
  * 统一ajax方法
  * J.ajax({
                     url:'login/login',
+                    async:false,//false同步请求，true为异步请求
                     ajaxDebugger:true,   请求成功打印console.dir(res) ;
                     ajaxOk:true,显示操作成功
                     data:fv,

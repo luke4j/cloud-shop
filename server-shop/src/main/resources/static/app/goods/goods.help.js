@@ -10,6 +10,8 @@ var goods_help = {
             .append(J.formElement({id:'lens',name:'lens',text:'是否度数',type:'select',options: J.SelectOptions("是否")}))
             .append(J.formElement({id:'sw',name:'sw',text:'是否实物',type:'select',options: J.SelectOptions("是否")}))
             .append(J.formElement({id:'xq',name:'xq',text:'是否效期',type:'select',options: J.SelectOptions("是否")}))
+            .append(J.formElement({id:'jg_center_cf',name:'jg_center_cf',text:'中心存放',type:'select',options: J.SelectOptions("是否")}))
+            .append(J.formElement({id:'xs_zd_cf',name:'xs_zd_cf',text:'站点存放',type:'select',options: J.SelectOptions("是否")}));
         return $jForm ;
     },
 
@@ -43,7 +45,7 @@ var goods_help = {
             }
         }
         /**是否度数*/
-        if(ext.kind.a1==='true'){
+        if(ext.kind.lens==='true'){
             /**度数商品显示度数配置*/
             var btnSetLens = J.formElement({id:'btn_set_lens',name:'btn_set_lens',text:'配置度数',type:'btn'}) ;
             /**显示配置度数弹出窗*/
@@ -89,10 +91,68 @@ var goods_help = {
         }
         return jFrom ;
     },
+    kind_setup : {} ,
+    /**
+     *
+     * 商品表单，会使用到goods_help.kind_setup这个变量
+     * @param param{_kindId:Long ;_colorId:Long}   _kindId用于确定使用哪些扩展属性，_colorId是goods的必须属性
+     * @param use
+     * @returns {{form: (*|jQuery), fieldset: (*|jQuery|HTMLElement)}}
+     */
 
-    fm_goods:function(use){
+    fm_goods:function(param,use){
+        var $me = this ;
+        if(!param._kindId) J.error("没有品类ID") ;
         use = use||null ;
-        var $jForm = J.createForm("fm_kind",'form-horizontal',use) ;
+        var $jForm = J.createForm("fm_goods",'form-horizontal',use) ;
+        $jForm.fieldset
+            .append(J.formElement({id:'id',name:'id',text:'ID',type:'hidden'}))
+            .append(J.formElement({id:'name',name:'name',text:'商品名'}))
+            .append(J.formElement({id:'colorId',name:'colorId',text:'颜色ID',type:'hidden',value:param._colorId}))
+            .append(J.formElement({id:'kcjb',name:'kcjb',text:'库存级别',type:'select',options: J.SelectOptions("库存级别")}))
+            .append(J.formElement({id:'c_code',name:'c_code',text:'商品编码'})) ;
+        var aryGoodsAttr = [] ;
+        if(this.kind_setup[param._kindId]){
+            aryGoodsAttr = this.kind_setup[param._kindId] ;
+        }else{
+            J.ajax({
+                url:'goods/findKindSetupByKindId.act',
+                data:{id:param._kindId},
+                async:false,
+                success:function(data,res){
+                    aryGoodsAttr = $me.kind_setup[param._kindId] = data ;
+                }
+            }) ;
+        }
+        /**添加商品配置的扩展属性*/
+        for(var i in aryGoodsAttr){
+            var el = aryGoodsAttr[i] ;//需要生成的元素
+            /**现在这里只有两种类型，一种是下拉列表，一种是文本*/
+            if(el.htmlType=='select'&&el.defVal){
+                var option = [{val:'',text:''}];
+                var def = el.defVal.split(";") ;
+                for(var i in def){
+                    option.push({val:def[i],text:def[i]}) ;
+                }
+                $jForm.fieldset.append(J.formElement({id:el.name,name:el.name,text:el.msg,type:'select',options:option})) ;
+            }else{
+                $jForm.fieldset.append(J.formElement({id:el.name,name:el.name,text:el.msg})) ;
+            }
+        }
+        /**系统配置销售价与进货价*/
+        $.each(LukeApp.info.listSetupCom,function(i,d){
+            if(d.name=='writeGoodsAddPriceOut'&&d.val==="1"){
+                $jForm.fieldset.append(J.formElement({id:'priceOut',name:'priceOut',text:"销售价"})) ;
+            }
+            if(d.name=='writeGoodsAddPriceIn'&&d.val==="1"){
+                $jForm.fieldset.append(J.formElement({id:'priceIn',name:'priceIn',text:"进货价"})) ;
+            }
+        }) ;
+        /**如果是度数商品显示配置度数功能*/
+        if(param._lens){
+            $jForm.fieldset.append(J.formElement({id:'btn_Lens',name:'btn_Lens',text:"配置度数",type:'btn'})) ;
+        }
+        return $jForm ;
     }
 
 

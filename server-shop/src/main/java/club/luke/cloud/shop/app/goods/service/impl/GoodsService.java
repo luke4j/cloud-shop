@@ -7,9 +7,12 @@ import club.luke.cloud.shop.app.goods.dao.IGoodsDao;
 import club.luke.cloud.shop.app.goods.service.IGoodsService;
 import club.luke.cloud.shop.app.model.TG_Goods;
 import club.luke.cloud.shop.app.model.TG_Kind;
+import club.luke.cloud.shop.app.model.TG_Kind_Setup;
 import club.luke.cloud.shop.app.model.TU_Com;
 import club.luke.cloud.shop.app.util.V;
+import club.luke.cloud.shop.app.util.tool.Assertion;
 import club.luke.cloud.shop.app.util.tool.LKMap;
+import club.luke.cloud.shop.app.web.vo.VOInId;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
@@ -83,6 +86,7 @@ public class GoodsService implements IGoodsService {
     }
 
     private void addKind(VOInKindAndGoods vo)throws Exception{
+        Assertion.NotEmpty(vo.getKindLvl(),"级别不能为空");
         TU_Com com = this.goodsDao.getGS(vo) ;
         TG_Kind kind = new TG_Kind() ;
         BeanUtils.copyProperties(vo,kind);
@@ -101,4 +105,10 @@ public class GoodsService implements IGoodsService {
     }
 
 
+    @Override
+    public List<TG_Kind_Setup> findKindSetupByKindId(VOInId vo) throws Exception {
+        List<TG_Kind_Setup> lst = this.goodsDao.find("From TG_Kind_Setup fs where fs.kind.id=:kindId and fs.msg<>''",
+                new LKMap<String,Object>().put1("kindId",vo.getId())) ;
+        return lst;
+    }
 }

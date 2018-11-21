@@ -1,4 +1,5 @@
 /**库存商品视图*/
+drop table v_kc_goods;
 create or replace view V_KC_Goods
 as
 select

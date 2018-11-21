@@ -3,6 +3,7 @@ package club.luke.cloud.shop.app.goods.action;
 import club.luke.cloud.shop.app.goods.action.vo.VOInKindAndGoods;
 import club.luke.cloud.shop.app.goods.action.vo.VOInNode;
 import club.luke.cloud.shop.app.web.ActionResult;
+import club.luke.cloud.shop.app.web.vo.VOInId;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -60,6 +61,24 @@ public interface IGoodsAction {
                          @ApiParam @RequestBody @Valid
                                  VOInKindAndGoods vo , BindingResult bindingResult) throws Exception ;
 
+
+    /**
+     * 以品类id查询出所需要的商品扩展属性配置
+     * <br>
+     *     url:goods/findKindSetupByKindId.act
+     * @param request
+     * @param response
+     * @param actionResult
+     * @param vo
+     * @param bindingResult
+     * @return
+     * @throws Exception
+     */
+    @ApiOperation("以品类id查询出所需要的商品扩展属性配置")
+    @RequestMapping(path = "findKindSetupByKindId.act",method = RequestMethod.POST)
+    ActionResult findKindSetupByKindId(HttpServletRequest request , HttpServletResponse response , ActionResult actionResult,
+                                       @ApiParam @RequestBody @Valid
+                                               VOInId vo , BindingResult bindingResult) throws Exception ;
 
 
 }

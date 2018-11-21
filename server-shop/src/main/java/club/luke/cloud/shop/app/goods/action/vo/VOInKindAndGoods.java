@@ -4,6 +4,8 @@ import club.luke.cloud.shop.app.util.V;
 import club.luke.cloud.shop.app.web.vo.VOIn;
 import org.hibernate.validator.constraints.NotEmpty;
 
+import javax.validation.constraints.NotNull;
+
 public class VOInKindAndGoods extends VOIn {
 
     /**父ID*/
@@ -21,8 +23,8 @@ public class VOInKindAndGoods extends VOIn {
     Boolean sw ;
 
     /**级别，1级为品类，2级为品牌，3级为型号，4级为颜色，5级为商品*/
-    @NotEmpty(message = "级别不能为空")
-    V.KindLvl kindLvl = V.KindLvl.商品;
+    @NotNull(message = "级别不能为空")
+    V.KindLvl kindLvl;
 
     V.KcJbType kcjb ;
 
@@ -30,6 +32,11 @@ public class VOInKindAndGoods extends VOIn {
     Double priceIn ;
     /**销售价，做为商品录入时录入的公司统一销售价，不会在页面显示 ，只做写入库存时销售价格标准，有此站点对某些商品会做其它价格处理*/
     Double priceOut ;
+
+    /**存放位置 - 加工中心是否存放*/
+    Boolean jg_center_cf ;
+    /**存放位置 - 销售站点是否存放*/
+    Boolean xs_zd_cf ;
 
     String attr1 ;
     String attr2 ;
@@ -46,6 +53,23 @@ public class VOInKindAndGoods extends VOIn {
     String attr13 ;
     String attr14 ;
     String attr15 ;
+
+
+    public Boolean getJg_center_cf() {
+        return jg_center_cf;
+    }
+
+    public void setJg_center_cf(Boolean jg_center_cf) {
+        this.jg_center_cf = jg_center_cf;
+    }
+
+    public Boolean getXs_zd_cf() {
+        return xs_zd_cf;
+    }
+
+    public void setXs_zd_cf(Boolean xs_zd_cf) {
+        this.xs_zd_cf = xs_zd_cf;
+    }
 
     public Long getFid() {
         return fid;

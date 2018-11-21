@@ -35,9 +35,10 @@ public class TU_Com extends Model {
     private Boolean jg_Center = false ;
 
     /**
-     * 是否有镜片库存
+     * 是否销售站点
      */
-    private Boolean jp_kc = false ;
+    private Boolean xs_zd = false ;
+
 
     /**
      * 是否直营
@@ -71,8 +72,12 @@ public class TU_Com extends Model {
         return jg_Center;
     }
 
-    public Boolean getJp_kc() {
-        return jp_kc;
+    public Boolean getXs_zd() {
+        return xs_zd;
+    }
+
+    public void setXs_zd(Boolean xs_zd) {
+        this.xs_zd = xs_zd;
     }
 
     public Boolean getZy() {
@@ -109,14 +114,6 @@ public class TU_Com extends Model {
 
     public void setJg_Center(Boolean jg_Center) {
         this.jg_Center = jg_Center;
-    }
-
-    public Boolean isJp_kc() {
-        return jp_kc;
-    }
-
-    public void setJp_kc(Boolean jp_kc) {
-        this.jp_kc = jp_kc;
     }
 
     public Boolean isCp_kc() {

@@ -3,6 +3,8 @@ package club.luke.cloud.shop.app.goods.service;
 import club.luke.cloud.shop.app.goods.action.vo.VOInKindAndGoods;
 import club.luke.cloud.shop.app.goods.action.vo.VOInNode;
 import club.luke.cloud.shop.app.goods.action.vo.VOOutNode;
+import club.luke.cloud.shop.app.model.TG_Kind_Setup;
+import club.luke.cloud.shop.app.web.vo.VOInId;
 
 import java.util.List;
 
@@ -30,4 +32,10 @@ public interface IGoodsService {
     void addKindAndGoods(VOInKindAndGoods vo)throws Exception;
 
 
+    /**
+     * 以品类id查询出所需要的商品扩展属性配置
+     * @param vo
+     * @return
+     */
+    List<TG_Kind_Setup> findKindSetupByKindId(VOInId vo)throws Exception;
 }

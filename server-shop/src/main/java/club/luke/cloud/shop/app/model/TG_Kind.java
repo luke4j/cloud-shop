@@ -38,13 +38,32 @@ public class TG_Kind extends Model {
     String attr3 ;
     String attr4 ;
 
-
+    /**存放位置 - 加工中心是否存放*/
+    Boolean jg_center_cf ;
+    /**存放位置 - 销售站点是否存放*/
+    Boolean xs_zd_cf ;
 
 
     @ManyToOne
     @JoinColumn(name = "comId",foreignKey = @ForeignKey(name = "fk_kind_com"))
     TU_Com com ;
 
+
+    public Boolean getJg_center_cf() {
+        return jg_center_cf;
+    }
+
+    public void setJg_center_cf(Boolean jg_center_cf) {
+        this.jg_center_cf = jg_center_cf;
+    }
+
+    public Boolean getXs_zd_cf() {
+        return xs_zd_cf;
+    }
+
+    public void setXs_zd_cf(Boolean xs_zd_cf) {
+        this.xs_zd_cf = xs_zd_cf;
+    }
 
     public V.KindLvl getKindLvl() {
         return kindLvl;
