@@ -5,10 +5,7 @@ import club.luke.cloud.shop.app.goods.action.vo.VOInNode;
 import club.luke.cloud.shop.app.goods.action.vo.VOOutNode;
 import club.luke.cloud.shop.app.goods.dao.IGoodsDao;
 import club.luke.cloud.shop.app.goods.service.IGoodsService;
-import club.luke.cloud.shop.app.model.TG_Goods;
-import club.luke.cloud.shop.app.model.TG_Kind;
-import club.luke.cloud.shop.app.model.TG_Kind_Setup;
-import club.luke.cloud.shop.app.model.TU_Com;
+import club.luke.cloud.shop.app.model.*;
 import club.luke.cloud.shop.app.util.V;
 import club.luke.cloud.shop.app.util.tool.Assertion;
 import club.luke.cloud.shop.app.util.tool.LKMap;
@@ -88,11 +85,16 @@ public class GoodsService implements IGoodsService {
     private void addKind(VOInKindAndGoods vo)throws Exception{
         Assertion.NotEmpty(vo.getKindLvl(),"级别不能为空");
         TU_Com com = this.goodsDao.getGS(vo) ;
-        TG_Kind kind = new TG_Kind() ;
-        BeanUtils.copyProperties(vo,kind);
+        TG_Goods goods = new TG_Goods() ;
+        BeanUtils.copyProperties(vo,goods);
+        this.goodsDao.save(goods) ;
 
-        kind.setCom(com);
-        this.goodsDao.save(kind) ;
+        TG_Goods_Ext goodsExt = new TG_Goods_Ext() ;
+        BeanUtils.copyProperties(vo,goodsExt);
+        goodsExt.setGoods(goods);
+        this.goodsDao.save(goodsExt) ;
+
+
     }
 
     /**

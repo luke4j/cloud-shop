@@ -1,14 +1,11 @@
 package club.luke.cloud.shop.app.ribbon.action.impl;
 
 import club.luke.cloud.shop.app.ribbon.action.IRibbonAction;
-import club.luke.cloud.shop.app.web.ActionResult;
 import club.luke.cloud.shop.app.web.vo.VOInEmputy;
-import club.luke.cloud.shop.app.web.vo.login.VOInLogin;
 import io.swagger.annotations.ApiParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.Resource;
@@ -43,13 +40,5 @@ public class RibbonAction implements IRibbonAction {
         return this.loginRestTemplate.getForObject("http://SERVER-LOGIN/",String.class,vo);
     }
 
-    @Override
-    public ActionResult login(HttpServletRequest request, HttpServletResponse response,
-                              @ApiParam @Valid @RequestBody VOInLogin vo) throws Exception {
-        log.info("================================ribbon login-login") ;
 
-        return this.loginRestTemplate.postForObject("http://SERVER-LOGIN/login/login.act", vo, ActionResult.class );
-
-
-    }
 }

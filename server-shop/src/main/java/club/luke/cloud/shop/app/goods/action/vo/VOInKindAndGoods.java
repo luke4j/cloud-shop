@@ -23,9 +23,8 @@ public class VOInKindAndGoods extends VOIn {
     Boolean sw ;
 
     /**级别，1级为品类，2级为品牌，3级为型号，4级为颜色，5级为商品*/
-    @NotNull(message = "级别不能为空")
+    @NotNull(message = "类型级别不能为空")
     V.KindLvl kindLvl;
-
     V.KcJbType kcjb ;
 
     /**进货价，做为商品录入时录入的公司统一进货价，不会在页面显示，只做写入库存时进货价的标准，非直营站点可能会上浮*/

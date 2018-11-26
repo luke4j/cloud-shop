@@ -559,7 +559,7 @@ J.SelectOptions = function(type){
         return [{val:'',text:''},{val:'男',text:'男'},{val:'女',text:'男'}] ;
     }
     if(type=='库存级别'){
-        return [{val:'',text:''},{val:'0',text:'现库'},{val:'1',text:'零订'},{val:'2',text:'车房'}] ;
+        return [{val:'',text:''},{val:'现库',text:'现库'},{val:'零订',text:'零订'},{val:'车房',text:'车房'}] ;
     }
     if(type=='象限'){
         return [{val:'',text:''},{val:'++',text:'++'},{val:'--',text:'--'},{val:'+-',text:'+-'}] ;

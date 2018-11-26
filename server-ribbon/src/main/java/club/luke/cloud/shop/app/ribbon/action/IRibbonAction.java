@@ -1,12 +1,9 @@
 package club.luke.cloud.shop.app.ribbon.action;
 
-import club.luke.cloud.shop.app.web.ActionResult;
 import club.luke.cloud.shop.app.web.vo.VOInEmputy;
-import club.luke.cloud.shop.app.web.vo.login.VOInLogin;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -35,12 +32,6 @@ public interface IRibbonAction {
                    VOInEmputy vo) throws Exception ;
 
 
-    @ApiOperation("login/login.act")
-    @RequestMapping(path = "/login/login.act",method = RequestMethod.POST)
-    @ResponseBody
-    ActionResult login(HttpServletRequest request ,HttpServletResponse response,
-                   @ApiParam @Valid @RequestBody
-                       VOInLogin vo) throws Exception ;
 
 
 }

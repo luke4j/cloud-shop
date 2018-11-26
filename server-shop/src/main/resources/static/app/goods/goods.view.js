@@ -172,6 +172,7 @@ define(function(require, exports, module) {
             data.fid = treeNode?treeNode.id:0 ;
             $me.showAlert("添加"+data.kindLvl+":"+idx,data,function($f,alt){
                 var val = J.formValues($f) ;
+                val.kindLvl = val.kindLvl||"商品" ;
                 J.ajax({
                     url:'goods/addKindAndGoods.act',
                     data:val,
