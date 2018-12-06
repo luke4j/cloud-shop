@@ -39,7 +39,7 @@ public class LoginDao extends BaseDao implements ILoginDao {
 
     @Override
     public List<TU_Com> findAllCom() throws Exception {
-        return this.find("From TU_Com",TU_Com.class) ;
+        return this.find("Select new TU_Com (id,name) From TU_Com",TU_Com.class) ;
     }
 
     @Override

@@ -15,10 +15,14 @@ import javax.persistence.Enumerated;
  * 公司单位,部门
  */
 @Entity
-@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
+//@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 public class TU_Com extends Model {
 
-
+    public TU_Com(){}
+    public TU_Com(Long id,String name){
+        this.id = id ;
+        this.name = name ;
+    }
 
 
 
