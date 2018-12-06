@@ -14,6 +14,6 @@ public class AppShop {
     private static final Logger log = LoggerFactory.getLogger(AppShop.class) ;
     public static void main(String[] args) {
         SpringApplication.run(AppShop.class,args) ;
-        log.info("====================login-server-started============================");
+        log.info("====================shop-server-started============================");
     }
 }

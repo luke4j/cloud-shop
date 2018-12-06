@@ -2,8 +2,8 @@ package club.luke.cloud.shop.app.user.service;
 
 import club.luke.cloud.shop.app.model.TU_Fun;
 import club.luke.cloud.shop.app.model.TU_Role;
-import club.luke.cloud.shop.app.user.action.vo.VOInRole;
-import club.luke.cloud.shop.app.user.action.vo.VOInRoleFun;
+import club.luke.cloud.shop.app.web.vo.user.VOInRole;
+import club.luke.cloud.shop.app.web.vo.user.VOInRoleFun;
 import club.luke.cloud.shop.app.web.ActionResult;
 import club.luke.cloud.shop.app.web.vo.VOIn;
 import club.luke.cloud.shop.app.web.vo.VOInId;

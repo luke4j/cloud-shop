@@ -1,7 +1,6 @@
 package club.luke.cloud.shop.app.login.action.impl;
 
 import club.luke.cloud.shop.app.login.action.ILoginAction;
-import club.luke.cloud.shop.app.login.action.vo.*;
 import club.luke.cloud.shop.app.login.service.ILoginService;
 import club.luke.cloud.shop.app.util.tool.LK;
 import club.luke.cloud.shop.app.web.ActionResult;
@@ -9,6 +8,7 @@ import club.luke.cloud.shop.app.web.action.BaseAction;
 import club.luke.cloud.shop.app.web.vo.VOInEmputy;
 import club.luke.cloud.shop.app.web.vo.VOOut;
 import club.luke.cloud.shop.app.web.vo.VORedisUser;
+import club.luke.cloud.shop.app.web.vo.login.*;
 import io.swagger.annotations.ApiParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -59,7 +59,7 @@ public class LoginAction extends BaseAction implements ILoginAction {
     @Override
     public ActionResult login(HttpServletRequest request, HttpServletResponse response, ActionResult actionResult,
                               @RequestBody @Valid
-                              VOInLogin vo, BindingResult bindingResult) throws Exception {
+                                      VOInLogin vo, BindingResult bindingResult) throws Exception {
         VOOutUser voOutUser = this.loginService.findByLoginNameAndPassword(vo);
         return actionResult.OK("登录",voOutUser);
     }
@@ -67,7 +67,7 @@ public class LoginAction extends BaseAction implements ILoginAction {
     @Override
     public ActionResult getInfo(HttpServletRequest request, HttpServletResponse response, ActionResult actionResult,
                                 @ApiParam @RequestBody @Valid
-                                VOInLoginInfo vo, BindingResult bindingResult) throws Exception {
+                                        VOInLoginInfo vo, BindingResult bindingResult) throws Exception {
         VORedisUser voRedisUser = this.getRedisUser(vo) ;
         Map<String,Object> result = this.loginService.getInfo(voRedisUser) ;
         return actionResult.OK("登录后查询系统信息与个人信息,系统时间，当前操作人权限 ，信息，配置",result) ;
@@ -86,7 +86,7 @@ public class LoginAction extends BaseAction implements ILoginAction {
     @Override
     public ActionResult editPassword(HttpServletRequest request, HttpServletResponse response,
                                      @ApiParam(value = "用户修改密码", required = true) @Valid @RequestBody
-                                     VOInEditPassword vo, BindingResult bindingResult, ActionResult actionResult) throws Exception {
+                                             VOInEditPassword vo, BindingResult bindingResult, ActionResult actionResult) throws Exception {
         this.loginService.editPassword(vo) ;
         return actionResult.OK("用户修改密码");
     }

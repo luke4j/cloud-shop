@@ -2,14 +2,18 @@ package club.luke.cloud.shop.app.model;
 
 import club.luke.cloud.shop.app.database.Model;
 import club.luke.cloud.shop.app.util.V;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
+
 
 /**
  * Created by luke on 2018/11/13.
  * 商品品类，品牌，型号，辞色
  */
 @Entity
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class TG_Kind extends Model {
 
     /**父ID*/

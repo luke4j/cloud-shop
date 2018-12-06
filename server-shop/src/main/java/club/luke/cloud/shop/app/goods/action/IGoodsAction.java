@@ -1,7 +1,7 @@
 package club.luke.cloud.shop.app.goods.action;
 
-import club.luke.cloud.shop.app.goods.action.vo.VOInKindAndGoods;
-import club.luke.cloud.shop.app.goods.action.vo.VOInNode;
+import club.luke.cloud.shop.app.web.vo.goods.VOInKindAndGoods;
+import club.luke.cloud.shop.app.web.vo.goods.VOInNode;
 import club.luke.cloud.shop.app.web.ActionResult;
 import club.luke.cloud.shop.app.web.vo.VOInId;
 import io.swagger.annotations.Api;

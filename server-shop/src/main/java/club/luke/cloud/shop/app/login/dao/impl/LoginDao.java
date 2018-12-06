@@ -1,8 +1,8 @@
 package club.luke.cloud.shop.app.login.dao.impl;
 
 import club.luke.cloud.shop.app.database.BaseDao;
-import club.luke.cloud.shop.app.login.action.vo.VOInLogin;
-import club.luke.cloud.shop.app.login.action.vo.VOOutUser;
+import club.luke.cloud.shop.app.web.vo.login.VOInLogin;
+import club.luke.cloud.shop.app.web.vo.login.VOOutUser;
 import club.luke.cloud.shop.app.login.dao.ILoginDao;
 import club.luke.cloud.shop.app.model.TSYS_SetupCom;
 import club.luke.cloud.shop.app.model.TU_Com;

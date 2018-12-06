@@ -1,7 +1,7 @@
 package club.luke.cloud.shop.app.system.service;
 
 import club.luke.cloud.shop.app.model.TU_Fun;
-import club.luke.cloud.shop.app.system.action.vo.VOInFun;
+import club.luke.cloud.shop.app.web.vo.system.VOInFun;
 import club.luke.cloud.shop.app.web.vo.VOInEmputy;
 
 import java.util.List;

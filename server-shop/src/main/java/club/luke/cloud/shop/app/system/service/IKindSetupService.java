@@ -2,9 +2,9 @@ package club.luke.cloud.shop.app.system.service;
 
 
 import club.luke.cloud.shop.app.model.TG_Kind_Setup;
-import club.luke.cloud.shop.app.system.action.vo.VOInKindSetup;
-import club.luke.cloud.shop.app.system.action.vo.VOInNode;
-import club.luke.cloud.shop.app.system.action.vo.VOOutNode;
+import club.luke.cloud.shop.app.web.vo.system.VOInKindSetup;
+import club.luke.cloud.shop.app.web.vo.system.VOInNode;
+import club.luke.cloud.shop.app.web.vo.system.VOOutNode;
 import club.luke.cloud.shop.app.web.vo.VOInId;
 
 import java.util.List;

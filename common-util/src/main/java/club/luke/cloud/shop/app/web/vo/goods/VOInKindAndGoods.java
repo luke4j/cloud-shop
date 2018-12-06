@@ -1,4 +1,4 @@
-package club.luke.cloud.shop.app.goods.action.vo;
+package club.luke.cloud.shop.app.web.vo.goods;
 
 import club.luke.cloud.shop.app.util.V;
 import club.luke.cloud.shop.app.web.vo.VOIn;

@@ -1,6 +1,7 @@
 package club.luke.cloud.shop.app.model;
 
 import club.luke.cloud.shop.app.database.Model;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -10,6 +11,7 @@ import java.util.Date;
  */
 
 @Entity
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class TU_User extends Model{
 
     @Column(length = 80,nullable = false)

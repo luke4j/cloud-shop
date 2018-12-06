@@ -1,4 +1,4 @@
-package club.luke.cloud.shop.app.user.action.vo;
+package club.luke.cloud.shop.app.web.vo.user;
 
 import club.luke.cloud.shop.app.web.vo.VOIn;
 import io.swagger.annotations.ApiModelProperty;

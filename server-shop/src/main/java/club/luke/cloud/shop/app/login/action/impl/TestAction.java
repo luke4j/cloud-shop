@@ -1,8 +1,8 @@
 package club.luke.cloud.shop.app.login.action.impl;
 
 import club.luke.cloud.shop.app.login.action.ITestAction;
-import club.luke.cloud.shop.app.login.action.vo.VOInLogin;
-import club.luke.cloud.shop.app.login.action.vo.VOOutUser;
+import club.luke.cloud.shop.app.web.vo.login.VOInLogin;
+import club.luke.cloud.shop.app.web.vo.login.VOOutUser;
 import club.luke.cloud.shop.app.login.service.ILoginService;
 import club.luke.cloud.shop.app.web.ActionResult;
 import club.luke.cloud.shop.app.web.vo.VOInEmputy;

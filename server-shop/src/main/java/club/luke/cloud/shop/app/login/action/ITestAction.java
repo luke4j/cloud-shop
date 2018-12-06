@@ -1,6 +1,6 @@
 package club.luke.cloud.shop.app.login.action;
 
-import club.luke.cloud.shop.app.login.action.vo.VOInLogin;
+import club.luke.cloud.shop.app.web.vo.login.VOInLogin;
 import club.luke.cloud.shop.app.web.ActionResult;
 import club.luke.cloud.shop.app.web.vo.VOInEmputy;
 import io.swagger.annotations.Api;

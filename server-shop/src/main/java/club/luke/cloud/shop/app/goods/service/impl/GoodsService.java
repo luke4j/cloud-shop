@@ -1,8 +1,8 @@
 package club.luke.cloud.shop.app.goods.service.impl;
 
-import club.luke.cloud.shop.app.goods.action.vo.VOInKindAndGoods;
-import club.luke.cloud.shop.app.goods.action.vo.VOInNode;
-import club.luke.cloud.shop.app.goods.action.vo.VOOutNode;
+import club.luke.cloud.shop.app.web.vo.goods.VOInKindAndGoods;
+import club.luke.cloud.shop.app.web.vo.goods.VOInNode;
+import club.luke.cloud.shop.app.web.vo.goods.VOOutNode;
 import club.luke.cloud.shop.app.goods.dao.IGoodsDao;
 import club.luke.cloud.shop.app.goods.service.IGoodsService;
 import club.luke.cloud.shop.app.model.*;
