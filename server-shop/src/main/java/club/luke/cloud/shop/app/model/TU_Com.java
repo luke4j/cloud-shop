@@ -2,8 +2,6 @@ package club.luke.cloud.shop.app.model;
 
 import club.luke.cloud.shop.app.database.Model;
 import club.luke.cloud.shop.app.util.V;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,7 +13,6 @@ import javax.persistence.Enumerated;
  * 公司单位,部门
  */
 @Entity
-//@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 public class TU_Com extends Model {
 
     public TU_Com(){}

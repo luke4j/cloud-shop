@@ -1,11 +1,11 @@
 package club.luke.cloud.shop.app.system.service.impl;
 
 import club.luke.cloud.shop.app.model.TU_Fun;
-import club.luke.cloud.shop.app.web.vo.system.VOInFun;
 import club.luke.cloud.shop.app.system.dao.IDevDao;
 import club.luke.cloud.shop.app.system.service.IDevService;
 import club.luke.cloud.shop.app.util.tool.Assertion;
 import club.luke.cloud.shop.app.web.vo.VOInEmputy;
+import club.luke.cloud.shop.app.web.vo.system.VOInFun;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
