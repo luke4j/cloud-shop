@@ -2,8 +2,8 @@ package club.luke.cloud.shop.app.user.dao;
 
 import club.luke.cloud.shop.app.database.IBaseDao;
 import club.luke.cloud.shop.app.model.TU_Role;
-import club.luke.cloud.shop.app.web.vo.VOIn;
 import club.luke.cloud.shop.app.web.vo.user.VOInRole;
+import club.luke.cloud.shop.app.web.vo.VOIn;
 
 import java.util.List;
 

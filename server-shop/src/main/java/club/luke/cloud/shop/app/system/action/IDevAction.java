@@ -1,8 +1,8 @@
 package club.luke.cloud.shop.app.system.action;
 
+import club.luke.cloud.shop.app.web.vo.system.VOInFun;
 import club.luke.cloud.shop.app.web.ActionResult;
 import club.luke.cloud.shop.app.web.vo.VOInEmputy;
-import club.luke.cloud.shop.app.web.vo.system.VOInFun;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;

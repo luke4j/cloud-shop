@@ -2,11 +2,11 @@ package club.luke.cloud.shop.app.system.action.impl;
 
 import club.luke.cloud.shop.app.model.TU_Fun;
 import club.luke.cloud.shop.app.system.action.IDevAction;
+import club.luke.cloud.shop.app.web.vo.system.VOInFun;
 import club.luke.cloud.shop.app.system.service.IDevService;
 import club.luke.cloud.shop.app.web.ActionResult;
 import club.luke.cloud.shop.app.web.action.BaseAction;
 import club.luke.cloud.shop.app.web.vo.VOInEmputy;
-import club.luke.cloud.shop.app.web.vo.system.VOInFun;
 import io.swagger.annotations.ApiParam;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestBody;

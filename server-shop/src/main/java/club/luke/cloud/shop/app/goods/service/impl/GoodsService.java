@@ -1,5 +1,8 @@
 package club.luke.cloud.shop.app.goods.service.impl;
 
+import club.luke.cloud.shop.app.web.vo.goods.VOInKindAndGoods;
+import club.luke.cloud.shop.app.web.vo.goods.VOInNode;
+import club.luke.cloud.shop.app.web.vo.goods.VOOutNode;
 import club.luke.cloud.shop.app.goods.dao.IGoodsDao;
 import club.luke.cloud.shop.app.goods.service.IGoodsService;
 import club.luke.cloud.shop.app.model.*;
@@ -7,9 +10,6 @@ import club.luke.cloud.shop.app.util.V;
 import club.luke.cloud.shop.app.util.tool.Assertion;
 import club.luke.cloud.shop.app.util.tool.LKMap;
 import club.luke.cloud.shop.app.web.vo.VOInId;
-import club.luke.cloud.shop.app.web.vo.goods.VOInKindAndGoods;
-import club.luke.cloud.shop.app.web.vo.goods.VOInNode;
-import club.luke.cloud.shop.app.web.vo.goods.VOOutNode;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
