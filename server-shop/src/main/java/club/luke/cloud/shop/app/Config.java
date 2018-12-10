@@ -1,6 +1,12 @@
 package club.luke.cloud.shop.app;
 
 import club.luke.cloud.shop.app.web.config.WebMvcConfigurerBean;
+import org.activiti.engine.HistoryService;
+import org.activiti.engine.RepositoryService;
+import org.activiti.engine.RuntimeService;
+import org.activiti.engine.TaskService;
+import org.activiti.spring.ProcessEngineFactoryBean;
+import org.activiti.spring.SpringProcessEngineConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -69,24 +75,40 @@ public class Config extends WebMvcConfigurerBean {
         return txManager;
     }
 
-    /*
-     * ehcache 主要的管理器
-     */
-//    @Bean(name = "appEhCacheCacheManager")
-//    public EhCacheCacheManager ehCacheCacheManager(EhCacheManagerFactoryBean bean){
-//        return new EhCacheCacheManager (bean.getObject ());
-//    }
+    @Bean
+    public SpringProcessEngineConfiguration springProcessEngineConfiguration(PlatformTransactionManager transactionManager){
+        SpringProcessEngineConfiguration springProcessEngineConfiguration = new SpringProcessEngineConfiguration() ;
+        springProcessEngineConfiguration.setDatabaseSchemaUpdate("false") ;
+        springProcessEngineConfiguration.setDataSource(dataSource) ;
+        springProcessEngineConfiguration.setTransactionManager(transactionManager);
+        return springProcessEngineConfiguration ;
+    }
 
-//    /*
-//     * 据shared与否的设置,Spring分别通过CacheManager.create()或new CacheManager()方式来创建一个ehcache基地.
-//     */
-//    @Bean
-//    public EhCacheManagerFactoryBean ehCacheManagerFactoryBean(){
-//        EhCacheManagerFactoryBean cacheManagerFactoryBean = new EhCacheManagerFactoryBean ();
-//        cacheManagerFactoryBean.setConfigLocation (new ClassPathResource("ehcache.xml"));
-//        cacheManagerFactoryBean.setShared (true);
-//        return cacheManagerFactoryBean;
-//    }
+    @Bean
+    public ProcessEngineFactoryBean processEngineFactoryBean(SpringProcessEngineConfiguration springProcessEngineConfiguration){
+        ProcessEngineFactoryBean processEngineFactoryBean = new ProcessEngineFactoryBean() ;
+        processEngineFactoryBean.setProcessEngineConfiguration(springProcessEngineConfiguration);
+        return processEngineFactoryBean ;
+    }
+    @Bean
+    public RepositoryService repositoryService(ProcessEngineFactoryBean processEngineFactoryBean)throws Exception{
+        return processEngineFactoryBean.getObject().getRepositoryService() ;
+    }
+    @Bean
+    public RuntimeService runtimeService(ProcessEngineFactoryBean processEngineFactoryBean)throws Exception{
+        return processEngineFactoryBean.getObject().getRuntimeService() ;
+    }
+    @Bean
+    public TaskService taskService(ProcessEngineFactoryBean processEngineFactoryBean)throws Exception{
+        return processEngineFactoryBean.getObject().getTaskService() ;
+    }
+    @Bean
+    public HistoryService historyService(ProcessEngineFactoryBean processEngineFactoryBean)throws Exception{
+        return processEngineFactoryBean.getObject().getHistoryService() ;
+    }
+
+
+
 
 
 }
